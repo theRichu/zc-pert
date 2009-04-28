@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<mxGraphModel> 
+  <root> 
+    <mxCell id="0"/>  
+    <mxCell id="1" parent="0"/>
+    <mxCell id="n21" value="1" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="100" y="100" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n22" value="2" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="200" y="100" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n24" value="4" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="300" y="400" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n25" value="5" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="300" y="300" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n26" value="6" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="300" y="200" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n27" value="7" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="400" y="400" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n28" value="8" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="500" y="300" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n210" value="10" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="500" y="200" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n212" value="12" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="600" y="100" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="p12" value="B12:1.0" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n21" target="n22" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p13" value="B13:2.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n22" target="n212" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p14" value="B14:3.0" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n22" target="n24" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p15" value="B15:4.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n22" target="n25" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p16" value="B16:5.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n22" target="n26" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p17" value="B17:6.0" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n24" target="n27" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p18" value="B18:7.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n25" target="n28" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p19" value="B19:8.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n26" target="n210" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p20" value="B20:9.0" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n27" target="n210" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p21" value="B21:10.0" style="straight;dashed=0;strokeColor=#000000" parent="1" source="n28" target="n212" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p22" value="B22:11.0" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n210" target="n212" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+    <mxCell id="p33" value="V78:虚工序" style="straight;dashed=1;strokeColor=#000000" parent="1" source="n27" target="n28" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+  </root>
+</mxGraphModel>
