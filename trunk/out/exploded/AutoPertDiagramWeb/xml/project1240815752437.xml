@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mxGraphModel> 
+  <root> 
+    <mxCell id="0"/>  
+    <mxCell id="1" parent="0"/>
+    <mxCell id="n31" value="1" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="100" y="100" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="n32" value="2" style="ellipse;strokeColor=#CDEB8B;fillColor=#CDEB8B;shadow=1;fontStyle=1;fontSize=14" parent="1" vertex="1"> 
+      <mxGeometry x="200" y="100" width="30" height="30" as="geometry"/> 
+    </mxCell>
+    <mxCell id="p52" value="A52:d" style="straight;dashed=0;strokeColor=#FF0000" parent="1" source="n31" target="n32" edge="1"> 
+      <mxGeometry width="100" height="100" as="geometry"> 
+        <mxPoint x="100" as="sourcePoint"/>  
+        <mxPoint y="100" as="targetPoint"/> 
+      </mxGeometry> 
+    </mxCell>
+  </root>
+</mxGraphModel>
