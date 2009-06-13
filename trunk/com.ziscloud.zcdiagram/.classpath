@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.6.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-attrs.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/cglib-2.1.3.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections-2.1.1.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.4.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.0.4.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/ehcache-1.2.3.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/ejb3-persistence.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-annotations.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-commons-annotations.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-entitymanager.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-validator.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate3.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaas.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/javassist.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxen-1.1-beta-7.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/jboss-archive-browsing.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdbc2_0-stdext.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/jta.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.11.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.6-bin.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/xerces-2.6.2.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/xml-apis.jar" sourcepath="com.ziscloud.zcdiagramsrc.zip"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
