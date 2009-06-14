@@ -38,15 +38,15 @@ public class ActivityPage extends FormPage {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.activitypage";
 	private static final String TITLE = "工程工序";
 	private Table table;
-//	private static TableViewer tableViewer;
+	// private static TableViewer tableViewer;
 	private TableViewer tableViewer;
 	private String[] columnProperties = new String[] { Resource.A_NAME,
 			Resource.A_SYBOL, Resource.A_PRE, Resource.A_P_PERIOD,
 			Resource.A_P_COST, Resource.A_OUTPUT, Resource.A_P_START,
 			Resource.A_P_END, Resource.A_M_START, Resource.A_M_END,
 			Resource.A_L_START, Resource.A_L_END, Resource.A_E_START,
-			Resource.A_E_END, Resource.A_A_START, Resource.A_A_END,
-			Resource.A_A_PERIOD, Resource.A_A_COST, Resource.A_BUILDER,
+			Resource.A_E_END, Resource.A_A_START, Resource.A_A_PERIOD,
+			Resource.A_A_END, Resource.A_A_COST, Resource.A_BUILDER,
 			Resource.A_R_DAYS, Resource.A_R_COST, Resource.A_RMARKS };
 	private Shell shell;
 
@@ -57,7 +57,7 @@ public class ActivityPage extends FormPage {
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
 		this.shell = getSite().getWorkbenchWindow().getWorkbench()
-		.getActiveWorkbenchWindow().getShell();
+				.getActiveWorkbenchWindow().getShell();
 		//
 		FormToolkit toolkit = managedForm.getToolkit();
 		final ScrolledForm scrolledForm = managedForm.getForm();
@@ -76,17 +76,16 @@ public class ActivityPage extends FormPage {
 						dialog.open();
 					}
 				});
-		toolBarManager
-				.add(new Action("选择显示的列", ImageUtil.COLUMNVISIBILITY) {
-					@Override
-					public void run() {
-						TableColumn[] tableColumns = table.getColumns();
-						ColumnVisibilityDialog dialog = new ColumnVisibilityDialog(
-								shell, columnProperties, tableColumns);
-						dialog.open();
-					}
+		toolBarManager.add(new Action("选择显示的列", ImageUtil.COLUMNVISIBILITY) {
+			@Override
+			public void run() {
+				TableColumn[] tableColumns = table.getColumns();
+				ColumnVisibilityDialog dialog = new ColumnVisibilityDialog(
+						shell, columnProperties, tableColumns);
+				dialog.open();
+			}
 
-				});
+		});
 		toolBarManager.add(new Action("过滤工序", ImageUtil.FILTER) {
 			@Override
 			public void run() {
@@ -95,14 +94,14 @@ public class ActivityPage extends FormPage {
 				dialog.open();
 			}
 		});
-		toolBarManager.add(new Action("清除过滤器",ImageUtil.FILTER_NUll){
+		toolBarManager.add(new Action("清除过滤器", ImageUtil.FILTER_NUll) {
 
 			@Override
 			public void run() {
-				tableViewer.setFilters(new ViewerFilter[]{});
+				tableViewer.setFilters(new ViewerFilter[] {});
 				tableViewer.refresh();
 			}
-			
+
 		});
 		toolBarManager.update(true);
 		// create content for this page
@@ -114,7 +113,8 @@ public class ActivityPage extends FormPage {
 		createTableColumn(table);
 		tableViewer = new TableViewer(table);
 		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setLabelProvider(new ActivityTableLabelProvider());
+		tableViewer.setLabelProvider(new ActivityTableLabelProvider(
+				columnProperties));
 		tableViewer.setInput(new ActivitiyDAO()
 				.findByProject(((ProjectEditorInput) getEditorInput())
 						.getProject()));
@@ -155,7 +155,8 @@ public class ActivityPage extends FormPage {
 			if (columnProperties[i].endsWith("start")
 					|| columnProperties[i].endsWith("end")) {
 				cellEditors[i] = new DatePickDialogCellEditor(table, getSite()
-						.getShell(),!columnProperties[i].startsWith("Activity_p"));
+						.getShell(), !columnProperties[i]
+						.startsWith("Activity_p"));
 				continue;
 			}
 			if (columnProperties[i].equals(Resource.A_PRE)) {
@@ -176,9 +177,5 @@ public class ActivityPage extends FormPage {
 		}
 		tableViewer.setCellEditors(cellEditors);
 	}
-
-//	public static TableViewer getTableViewer() {
-//		return tableViewer;
-//	}
 
 }

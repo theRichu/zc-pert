@@ -28,7 +28,7 @@ public class DatePickDialogCellEditor extends DialogCellEditor {
 		String defaultValue = getValue().toString();
 		Text text = new Text(getControl().getParent(),SWT.NONE);
 		text.setText(defaultValue);
-		if (defaultValue.equals(SWTHelper.UNKNOWN)) {
+		if (defaultValue.equals(SWTHelper.BLANK)) {
 			defaultValue = DateFormatUtils.format(new Date(),
 					SWTHelper.DATE_PATERN);
 		}
