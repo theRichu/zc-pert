@@ -187,7 +187,8 @@ public class ProjectOverviewPage extends FormPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				CalendarDialog dialog = new CalendarDialog(
-						getSite().getShell(), "选择日期", "工程项目计划开工时间：", //$NON-NLS-1$ //$NON-NLS-2$
+						getSite().getShell(), planStartDate,
+						"选择日期", "工程项目计划开工时间：", //$NON-NLS-1$ //$NON-NLS-2$
 						planStartDate.getText(), false);
 				dialog.open();
 				planStartDate.setText(dialog.getDateAsString());
