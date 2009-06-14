@@ -87,7 +87,7 @@ public class ActivityPage extends FormPage {
 					}
 
 				});
-		toolBarManager.add(new Action("查找工序", ImageUtil.FILTER) {
+		toolBarManager.add(new Action("过滤工序", ImageUtil.FILTER) {
 			@Override
 			public void run() {
 				ActivityFilterDialog dialog = new ActivityFilterDialog(shell,
@@ -95,7 +95,7 @@ public class ActivityPage extends FormPage {
 				dialog.open();
 			}
 		});
-		toolBarManager.add(new Action("清楚过滤器",ImageUtil.FILTER_NUll){
+		toolBarManager.add(new Action("清除过滤器",ImageUtil.FILTER_NUll){
 
 			@Override
 			public void run() {

@@ -129,10 +129,9 @@ public class AddProjectWizardPage extends WizardPage implements ModifyListener {
 			pickButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					CalendarDialog dialog = new CalendarDialog(getShell(),
+					CalendarDialog dialog = new CalendarDialog(getShell(),planStartDate,
 							"选择日期", "工程项目计划开工时间：", planStartDate.getText(),false);
 					dialog.open();
-					planStartDate.setText(dialog.getDateAsString());
 				}
 			});
 		}

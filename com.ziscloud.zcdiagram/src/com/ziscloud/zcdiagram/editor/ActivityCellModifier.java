@@ -26,6 +26,9 @@ public class ActivityCellModifier implements ICellModifier {
 		return true;
 	}
 
+	/**
+	 * get value for every column before use edit the cell
+	 */
 	@Override
 	public Object getValue(Object element, String property) {
 		if (element instanceof Activity) {
@@ -74,6 +77,9 @@ public class ActivityCellModifier implements ICellModifier {
 		}
 	}
 
+	/**
+	 * set the value to the object displayed on the row
+	 */
 	@Override
 	public void modify(Object element, String property, Object value) {
 		Activity activity = (Activity) ((TableItem) element).getData();
@@ -152,28 +158,32 @@ public class ActivityCellModifier implements ICellModifier {
 				if (!StringUtils.isEmpty(valueStr)) {
 					activity.setActualStartDate(DateUtils.parseDate(valueStr,
 							SWTHelper.DATE_PATERNS));
+					// if the period is not null then calculate the end date,
+					// else set the end date to be null
 					if (null != activity.getActualPeriod()) {
 						activity.setActualEndDate(DateUtils.addDays(activity
 								.getActualStartDate(), activity
 								.getActualPeriod()));
 					} else {
-						activity
-								.setActualEndDate(null);
+						activity.setActualEndDate(null);
 					}
 				} else {
+					// if the actual start date is blank then set the end date
+					// to be null and set the period to be zero
 					activity.setActualStartDate(null);
 					activity.setActualEndDate(null);
-					activity.setActualPeriod(null);
+					activity.setActualPeriod(0);
 				}
 			}
 
 			if (property.equals(Resource.A_A_PERIOD)) {
+				// if the start date is not null, then calculate the end date,
 				if (null != activity.getActualStartDate()) {
 					activity.setActualPeriod(Integer.parseInt(valueStr));
 					activity.setActualEndDate(DateUtils.addDays(activity
 							.getActualStartDate(), activity.getActualPeriod()));
 				} else {
-					activity.setActualPeriod(null);
+					// activity.setActualPeriod(0);
 					activity.setActualEndDate(null);
 				}
 			}

@@ -112,12 +112,12 @@ public class WizardUtil {
 			public void widgetSelected(SelectionEvent e) {
 				CalendarDialog dialog = null;
 				if (isDefault) {
-					dialog = new CalendarDialog(shell, "选择日期", sb.toString(),
-							text.getText(), canBlank);
+					dialog = new CalendarDialog(shell, text, "选择日期", sb
+							.toString(), text.getText(), canBlank);
 				} else {
-					dialog = new CalendarDialog(shell, "选择日期", sb.toString(),
-							DateFormatUtils.format(new Date(),
-									SWTHelper.DATE_PATERN), canBlank);
+					dialog = new CalendarDialog(shell, text, "选择日期", sb
+							.toString(), DateFormatUtils.format(new Date(),
+							SWTHelper.DATE_PATERN), canBlank);
 				}
 				dialog.open();
 				text.setText(dialog.getDateAsString());

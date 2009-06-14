@@ -10,8 +10,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,42 +18,27 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class CalendarDialog extends Dialog {
-	private DateTime calendar;
+	private DateTime dateTime;
 	private String title;
 	private String massage;
 	private String date;
-	private Calendar c = Calendar.getInstance();
+	private Calendar calendar = Calendar.getInstance();
 	private boolean canBlank;
+	private Text text;
 
-	public CalendarDialog(Shell parentShell, String title, String massage,
+	public CalendarDialog(Shell parentShell, Text text, String title, String massage,
 			String initDate, boolean canBlank) {
 		super(parentShell);
+		this.text = text;
 		this.title = title;
 		this.massage = massage;
 		this.date = initDate;
 		this.canBlank = canBlank;
-	}
-
-	@Override
-	protected void cancelPressed() {
-		c.set(calendar.getYear(), calendar.getMonth(), calendar.getDay());
-		this.date = DateFormatUtils.format(c, SWTHelper.DATE_PATERN);
-		this.close();
-	}
-
-	@Override
-	protected void okPressed() {
-		System.out.println("ok");
-		this.date = "";
-		this.close();
-	}
-
-	protected void cancel() {
-		super.cancelPressed();
 	}
 
 	@Override
@@ -70,18 +53,18 @@ public class CalendarDialog extends Dialog {
 		Label label = new Label(container, SWT.NONE);
 		label.setText(massage);
 		SWTHelper.createSeparator(container, 1);
-		calendar = new DateTime(container, SWT.CALENDAR | SWT.BORDER);
-		calendar.setLayoutData(new GridData(GridData.FILL_BOTH));
+		dateTime = new DateTime(container, SWT.CALENDAR | SWT.BORDER);
+		dateTime.setLayoutData(new GridData(GridData.FILL_BOTH));
 		try {
-			Calendar c = Calendar.getInstance();
 			if (StringUtils.isBlank(date)) {
-				c.setTime(new Date());
+				calendar.setTime(new Date());
 			} else {
-				c.setTime(DateUtils.parseDate(date, SWTHelper.DATE_PATERNS));
+				calendar.setTime(DateUtils.parseDate(date,
+						SWTHelper.DATE_PATERNS));
 			}
-			calendar.setYear(c.get(Calendar.YEAR));
-			calendar.setMonth(c.get(Calendar.MONTH));
-			calendar.setDay(c.get(Calendar.DAY_OF_MONTH));
+			dateTime.setYear(calendar.get(Calendar.YEAR));
+			dateTime.setMonth(calendar.get(Calendar.MONTH));
+			dateTime.setDay(calendar.get(Calendar.DAY_OF_MONTH));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -99,34 +82,40 @@ public class CalendarDialog extends Dialog {
 	}
 
 	public Date getDate() {
-		return c.getTime();
+		return calendar.getTime();
 	}
 
 	@Override
-	protected Control createButtonBar(Composite parent) {
-		Control btnBar = super.createButtonBar(parent);
-		if (canBlank) {
-			getButton(IDialogConstants.OK_ID).setText("清空");
-		}
-		getButton(IDialogConstants.OK_ID).setVisible(canBlank);
-		getButton(IDialogConstants.CANCEL_ID).setText("完成");
-		return btnBar;
+	protected void createButtonsForButtonBar(Composite parent) {
+	}
 
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if (IDialogConstants.OK_ID == buttonId) {
+			date = "";
+			text.setText(date);
+			close();
+		}
+		if (IDialogConstants.CANCEL_ID == buttonId) {
+			calendar.set(dateTime.getYear(), dateTime.getMonth(), dateTime
+					.getDay());
+			date = DateFormatUtils.format(calendar, SWTHelper.DATE_PATERN);
+			text.setText(date);
+			close();
+		}
+		if (IDialogConstants.CLOSE_ID == buttonId) {
+			close();
+		}
 	}
 
 	@Override
 	protected void initializeBounds() {
 		Composite comp = (Composite) getButtonBar();
-		super.createButton(comp, IDialogConstants.CLOSE_ID, "取消", false)
-				.addSelectionListener(new SelectionAdapter() {
-
-					@Override
-					public void widgetSelected(SelectionEvent e) {
-						super.widgetSelected(e);
-						cancel();
-					}
-
-				});
+		if (canBlank) {
+			super.createButton(comp, IDialogConstants.OK_ID, "清空", false);
+		}
+		super.createButton(comp, IDialogConstants.CANCEL_ID, "完成", false);
+		super.createButton(comp, IDialogConstants.CLOSE_ID, "取消", false);
 		super.initializeBounds();
 	}
 
