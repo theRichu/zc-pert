@@ -91,7 +91,6 @@ public class ActivityPage extends FormPage {
 			public void run() {
 				ActivityFilterDialog dialog = new ActivityFilterDialog(shell,
 						tableViewer);
-				System.out.println(dialog);
 				dialog.open();
 			}
 		});
