@@ -1,4 +1,4 @@
-package com.ziscloud.zcdiagram.main;
+package com.ziscloud.zcdiagram.ui;
 
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;

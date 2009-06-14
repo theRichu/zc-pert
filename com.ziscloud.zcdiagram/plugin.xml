@@ -7,7 +7,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="com.ziscloud.zcdiagram.main.Application">
+               class="com.ziscloud.zcdiagram.ui.Application">
          </run>
       </application>
    </extension>
@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="工程项目管理"
-            class="com.ziscloud.zcdiagram.main.MainPerspective"
+            class="com.ziscloud.zcdiagram.ui.MainPerspective"
             id="com.ziscloud.zcdiagram.perspective.main">
       </perspective>
    </extension>
@@ -91,16 +91,16 @@
                visible="true">
          </view>
          <view
-               closeable="false"
+               closeable="true"
                id="org.eclipse.ui.views.PropertySheet"
-               minimized="false"
+               minimized="true"
                moveable="true"
                ratio="0.6"
                relationship="right"
                relative="org.eclipse.ui.editorss"
                showTitle="true"
                standalone="false"
-               visible="true">
+               visible="false">
          </view>
       </perspectiveExtension>
    </extension>
@@ -116,6 +116,13 @@
                   id="com.ziscloud.zcdiagram.toolbars.main.newProject"
                   style="push"
                   tooltip="新建工程">
+            </command>
+            <command
+                  commandId="com.ziscloud.zcdiagram.commands.deleteProject"
+                  icon="icons/del_project.png"
+                  id="com.ziscloud.zcdiagram.toolbars.main.deleteProject"
+                  style="push"
+                  tooltip="删除工程项目">
             </command>
             <command
                   commandId="com.ziscloud.zcdiagram.commands.openDiagram"
@@ -140,27 +147,33 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            description="与工程项目有关的commands"
+            description="commands related to project"
             id="com.ziscloud.zcdiagram.commandCategory.project"
-            name="与工程项目有关的commands">
+            name="commands related to project">
       </category>
       <command
             categoryId="com.ziscloud.zcdiagram.commandCategory.project"
-            description="新建工程项目"
+            description="New project"
             id="com.ziscloud.zcdiagram.commands.addProject"
-            name="新建工程项目">
+            name="New project">
       </command>
       <command
             categoryId="com.ziscloud.zcdiagram.commandCategory.project"
-            description="打开工程项目"
+            description="Open project"
             id="com.ziscloud.zcdiagram.commands.openProject"
-            name="打开工程项目">
+            name="Open project">
       </command>
       <command
             categoryId="com.ziscloud.zcdiagram.commandCategory.project"
             description="Open Diagram"
             id="com.ziscloud.zcdiagram.commands.openDiagram"
             name="Open Diagram">
+      </command>
+      <command
+            categoryId="com.ziscloud.zcdiagram.commandCategory.project"
+            description="Delete Project"
+            id="com.ziscloud.zcdiagram.commands.deleteProject"
+            name="Delete Project">
       </command>
    </extension>
    <extension
@@ -177,12 +190,40 @@
             class="com.ziscloud.zcdiagram.handler.OpenDiagramHandler"
             commandId="com.ziscloud.zcdiagram.commands.openDiagram">
          <enabledWhen>
+            <and>
                <with
                      variable="activePartId">
                   <equals
                         value="com.ziscloud.zcdiagram.ProjectView">
                   </equals>
                </with>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </and>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.ziscloud.zcdiagram.handler.DeleteProjectHandler"
+            commandId="com.ziscloud.zcdiagram.commands.deleteProject">
+         <enabledWhen>
+            <and>
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="com.ziscloud.zcdiagram.ProjectView">
+                  </equals>
+               </with>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </and>
          </enabledWhen>
       </handler>
    </extension>
@@ -205,7 +246,7 @@
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="com.ziscloud.zcdiagram.main.EarlyStartup"></startup>
+            class="com.ziscloud.zcdiagram.ui.EarlyStartup"></startup>
    </extension>
 
 </plugin>

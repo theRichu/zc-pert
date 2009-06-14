@@ -5,10 +5,8 @@ import java.util.Date;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.ziscloud.zcdiagram.pojo.Activity;
@@ -52,7 +50,7 @@ public class AddActivityWizardPage extends WizardPage {
 		container = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout(3, false);
 		container.setLayout(layout);
-		createTip("以下信息为必填内容：");
+		WizardUtil.createTip(container, "以下信息为必填内容：");
 		name = WizardUtil.createText(container, Resource.L_A_NAME);
 		planPeriod = WizardUtil.createTextWithUnit(container,
 				Resource.L_A_P_PERIOD, Resource.P_PLANPERIOD_UINT, "0");
@@ -63,7 +61,7 @@ public class AddActivityWizardPage extends WizardPage {
 				Resource.L_A_P_COST, Resource.P_PLANCOST_UNIT, "0.0");
 		output = WizardUtil.createText(container, Resource.L_A_OUTPUT, "0.0");
 		SWTHelper.createSeparator(container, 3);
-		createTip("以下信息为选填内容：");
+		WizardUtil.createTip(container, "以下信息为选填内容：");
 		mustStart = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_M_START, true);
 		mustEnd = WizardUtil.createDate(container, getShell(),
@@ -85,16 +83,6 @@ public class AddActivityWizardPage extends WizardPage {
 		configVerifyListener();
 		bindValues();
 		setControl(container);
-	}
-
-	private Label createTip(String tip) {
-		Label tipLabel = new Label(container, SWT.NONE);
-		GridData tipLabelLData = new GridData();
-		tipLabelLData.heightHint = 20;
-		tipLabelLData.horizontalSpan = 3;
-		tipLabel.setLayoutData(tipLabelLData);
-		tipLabel.setText(tip);
-		return tipLabel;
 	}
 
 	private void configVerifyListener() {

@@ -15,7 +15,7 @@ import com.ziscloud.zcdiagram.pojo.Project;
 /**
  * @author ZisCloud
  */
-public class LayNodeForNoTimeScale implements LayNode {
+public class LayNodeForNoTimeScale implements ILayNode {
 	private Project project;
 	private List<Route> routeList;
 	private HashMap<Integer, List<EndAndPeriod>> endsForStart;

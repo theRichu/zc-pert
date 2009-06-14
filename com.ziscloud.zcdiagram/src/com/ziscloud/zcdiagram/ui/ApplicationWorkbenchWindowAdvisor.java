@@ -1,4 +1,4 @@
-package com.ziscloud.zcdiagram.main;
+package com.ziscloud.zcdiagram.ui;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;

@@ -4,7 +4,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import com.ziscloud.zcdiagram.main.Activator;
+import com.ziscloud.zcdiagram.ui.Activator;
 
 public class ImageUtil {
 	public static ISharedImages SHAREDIMAGER = PlatformUI.getWorkbench()
@@ -22,7 +22,6 @@ public class ImageUtil {
 	public static ImageDescriptor UNSELECTONE;
 	public static ImageDescriptor UNSELECTALL;
 	public static ImageDescriptor COLUMNVISIBILITY;
-	public static ImageDescriptor SEARCH;
 	public static ImageDescriptor FILTER;
 	public static ImageDescriptor FILTER_NUll;
 	public static ImageDescriptor EXPORTIMG;
@@ -38,7 +37,6 @@ public class ImageUtil {
 		UNSELECTALL = Activator.getImageDescriptor("icons/unselect_all.png");
 		COLUMNVISIBILITY = Activator
 				.getImageDescriptor("icons/column_visibility.png");
-		SEARCH = Activator.getImageDescriptor("icons/binocular.png");
 		FILTER = Activator.getImageDescriptor("icons/funnel.png");
 		EXPORTIMG = Activator.getImageDescriptor("icons/export_image.png");
 		DIAGRAM = Activator.getImageDescriptor("icons/diagram.png");

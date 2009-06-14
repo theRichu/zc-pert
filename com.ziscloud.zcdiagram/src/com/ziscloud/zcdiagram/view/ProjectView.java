@@ -14,24 +14,26 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 
+import com.ziscloud.zcdiagram.core.IModelChangedEvent;
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.provider.ProjectListLabelProvider;
 
-public class ProjectView extends ViewPart {
+public class ProjectView extends ViewPart implements IModelChangedListener {
 	public static final String ID = "com.ziscloud.zcdiagram.ProjectView";
 	private static final Logger LOGGER = Logger.getLogger(ProjectView.class);
-	private static TableViewer listViewer;
+	private TableViewer projectList;
 
 	public ProjectView() {
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
-		listViewer = new TableViewer(parent, SWT.BORDER);
-		listViewer.setContentProvider(new ArrayContentProvider());
-		listViewer.setLabelProvider(new ProjectListLabelProvider());
-		listViewer.setInput(new ProjectDAO().findAll());
-		listViewer.addDoubleClickListener(new IDoubleClickListener() {
+		projectList = new TableViewer(parent, SWT.BORDER);
+		projectList.setContentProvider(new ArrayContentProvider());
+		projectList.setLabelProvider(new ProjectListLabelProvider());
+		projectList.setInput(new ProjectDAO().findByIsDeleted("false"));
+		projectList.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				IHandlerService handlerService = (IHandlerService) getSite()
@@ -52,6 +54,7 @@ public class ProjectView extends ViewPart {
 				}
 			}
 		});
+		getSite().setSelectionProvider(projectList);
 	}
 
 	@Override
@@ -59,8 +62,19 @@ public class ProjectView extends ViewPart {
 
 	}
 
-	public static TableViewer getListViewer() {
-		return listViewer;
+	@Override
+	public void modelChanged(IModelChangedEvent event) {
+		if (event.getChangeType() == IModelChangedEvent.REMOVE) {
+			projectList.remove(event.getOldValue());
+			projectList.refresh(event.getOldValue());
+		}
+		if (event.getChangeType() == IModelChangedEvent.INSERT) {
+			projectList.add(event.getNewValue());
+			projectList.refresh(event.getNewValue());
+		}
+		if (event.getChangeType() == IModelChangedEvent.CHANGE) {
+			projectList.refresh(event.getNewValue());
+		}
 	}
-	
+
 }

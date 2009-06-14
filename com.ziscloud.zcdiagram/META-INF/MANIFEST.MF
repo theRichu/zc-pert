@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Zcdiagram Plug-in
 Bundle-SymbolicName: com.ziscloud.zcdiagram; singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: com.ziscloud.zcdiagram.main.Activator
+Bundle-Activator: com.ziscloud.zcdiagram.ui.Activator
 Bundle-Vendor: ZisCloud
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
