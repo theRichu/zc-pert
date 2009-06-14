@@ -6,10 +6,17 @@ import org.eclipse.swt.graphics.Image;
 
 import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.ImageUtil;
+import com.ziscloud.zcdiagram.util.Resource;
 import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class ActivityTableLabelProvider extends LabelProvider implements
 		ITableLabelProvider {
+	private String[] columnProperties;
+
+	public ActivityTableLabelProvider(String[] columnProperties) {
+		super();
+		this.columnProperties = columnProperties;
+	}
 
 	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
@@ -23,54 +30,74 @@ public class ActivityTableLabelProvider extends LabelProvider implements
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof Activity) {
 			Activity activity = (Activity) element;
-			switch (columnIndex) {
-			case 0:
+			String columnName = columnProperties[columnIndex];
+			if (columnName.equals(Resource.A_NAME)) {
 				return SWTHelper.nullToString(activity.getName());
-			case 1:
-				return SWTHelper.nullToString(activity.getSymbol());
-			case 2:
-				return activity.getPreActivity();
-			case 3:
-				return SWTHelper.nullToString(activity.getPlanPeriod());
-			case 4:
-				return SWTHelper.nullToString(activity.getPlanCost());
-			case 5:
-				return SWTHelper.nullToString(activity.getOutput());
-			case 6:
-				return SWTHelper.dateColumnText(activity.getPlanStartDate());
-			case 7:
-				return SWTHelper.dateColumnText(activity.getPlanEndDate());
-			case 8:
-				return SWTHelper.dateColumnText(activity.getMustStartDate());
-			case 9:
-				return SWTHelper.dateColumnText(activity.getMustEndDate());
-			case 10:
-				return SWTHelper.dateColumnText(activity.getLaterStartDate());
-			case 11:
-				return SWTHelper.dateColumnText(activity.getLaterEndDate());
-			case 12:
-				return SWTHelper.dateColumnText(activity.getEarlyStartDate());
-			case 13:
-				return SWTHelper.dateColumnText(activity.getEarlyEndDate());
-			case 14:
-				return SWTHelper.dateColumnText(activity.getActualStartDate());
-			case 15:
-				return SWTHelper.dateColumnText(activity.getActualEndDate());
-			case 16:
-				return SWTHelper.nullToString(activity.getActualPeriod());
-			case 17:
-				return SWTHelper.nullToString(activity.getActualCost());
-			case 18:
-				return SWTHelper.nullToString(activity.getBuilder());
-			case 19:
-				return SWTHelper.nullToString(activity.getRarDays());
-			case 20:
-				return SWTHelper.nullToString(activity.getRarCost());
-			case 21:
-				return SWTHelper.nullToString(activity.getRemarks());
-			default:
-				return SWTHelper.UNKNOWN;
 			}
+			if (columnName.equals(Resource.A_SYBOL)) {
+				return SWTHelper.nullToString(activity.getSymbol());
+			}
+			if (columnName.equals(Resource.A_PRE)) {
+				return activity.getPreActivity();
+			}
+			if (columnName.equals(Resource.A_P_PERIOD)) {
+				return SWTHelper.nullToString(activity.getPlanPeriod());
+			}
+			if (columnName.equals(Resource.A_P_COST)) {
+				return SWTHelper.nullToString(activity.getPlanCost());
+			}
+			if (columnName.equals(Resource.A_OUTPUT)) {
+				return SWTHelper.nullToString(activity.getOutput());
+			}
+			if (columnName.equals(Resource.A_P_START)) {
+				return SWTHelper.dateColumnText(activity.getPlanStartDate());
+			}
+			if (columnName.equals(Resource.A_P_END)) {
+				return SWTHelper.dateColumnText(activity.getPlanEndDate());
+			}
+			if (columnName.equals(Resource.A_M_START)) {
+				return SWTHelper.dateColumnText(activity.getMustStartDate());
+			}
+			if (columnName.equals(Resource.A_M_END)) {
+				return SWTHelper.dateColumnText(activity.getMustEndDate());
+			}
+			if (columnName.equals(Resource.A_L_START)) {
+				return SWTHelper.dateColumnText(activity.getLaterStartDate());
+			}
+			if (columnName.equals(Resource.A_L_END)) {
+				return SWTHelper.dateColumnText(activity.getLaterEndDate());
+			}
+			if (columnName.equals(Resource.A_E_START)) {
+				return SWTHelper.dateColumnText(activity.getEarlyStartDate());
+			}
+			if (columnName.equals(Resource.A_E_END)) {
+				return SWTHelper.dateColumnText(activity.getEarlyEndDate());
+			}
+			if (columnName.equals(Resource.A_A_START)) {
+				return SWTHelper.dateColumnText(activity.getActualStartDate());
+			}
+			if (columnName.equals(Resource.A_A_END)) {
+				return SWTHelper.dateColumnText(activity.getActualEndDate());
+			}
+			if (columnName.equals(Resource.A_A_PERIOD)) {
+				return SWTHelper.nullToString(activity.getActualPeriod());
+			}
+			if (columnName.equals(Resource.A_A_COST)) {
+				return SWTHelper.nullToString(activity.getActualCost());
+			}
+			if (columnName.equals(Resource.A_BUILDER)) {
+				return SWTHelper.nullToString(activity.getBuilder());
+			}
+			if (columnName.equals(Resource.A_R_DAYS)) {
+				return SWTHelper.nullToString(activity.getRarDays());
+			}
+			if (columnName.equals(Resource.A_R_COST)) {
+				return SWTHelper.nullToString(activity.getRarCost());
+			}
+			if (columnName.equals(Resource.A_RMARKS)) {
+				return SWTHelper.nullToString(activity.getRemarks());
+			}
+			return SWTHelper.UNKNOWN;
 		} else {
 			return SWTHelper.UNKNOWN;
 		}

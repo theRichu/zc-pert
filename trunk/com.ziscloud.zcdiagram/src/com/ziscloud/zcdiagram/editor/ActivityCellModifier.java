@@ -155,7 +155,7 @@ public class ActivityCellModifier implements ICellModifier {
 				}
 			}
 			if (property.equals(Resource.A_A_START)) {
-				if (!StringUtils.isEmpty(valueStr)) {
+				if (!StringUtils.isBlank(valueStr)) {
 					activity.setActualStartDate(DateUtils.parseDate(valueStr,
 							SWTHelper.DATE_PATERNS));
 					// if the period is not null then calculate the end date,
@@ -179,11 +179,16 @@ public class ActivityCellModifier implements ICellModifier {
 			if (property.equals(Resource.A_A_PERIOD)) {
 				// if the start date is not null, then calculate the end date,
 				if (null != activity.getActualStartDate()) {
-					activity.setActualPeriod(Integer.parseInt(valueStr));
-					activity.setActualEndDate(DateUtils.addDays(activity
-							.getActualStartDate(), activity.getActualPeriod()));
+					if (StringUtils.isBlank(valueStr)) {
+						activity.setActualPeriod(0);
+						activity.setActualEndDate(activity.getActualStartDate());
+					} else {
+						activity.setActualPeriod(Integer.parseInt(valueStr));
+						activity.setActualEndDate(DateUtils.addDays(activity
+								.getActualStartDate(), activity
+								.getActualPeriod()));
+					}
 				} else {
-					// activity.setActualPeriod(0);
 					activity.setActualEndDate(null);
 				}
 			}

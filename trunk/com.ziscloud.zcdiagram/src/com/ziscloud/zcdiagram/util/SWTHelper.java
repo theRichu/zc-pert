@@ -14,7 +14,8 @@ public class SWTHelper {
 	public static final String[] DATE_PATERNS = new String[] { DATE_PATERN };
 	public static final int TEXT_MAXLEN = 65535;
 	public static final int FIELD_MAXLEN = 255;
-	public static final String UNKNOWN = "";
+	public static final String BLANK = "";
+	public static final String UNKNOWN = "未知";
 	public static final String EXPORTIMGACTION_ID = "com.ziscloud.zcdiagram.action.exportimg";
 
 	public static Label placeHolder(Composite container) {
@@ -46,7 +47,7 @@ public class SWTHelper {
 
 	public static String dateColumnText(Date date) {
 		if (null == date) {
-			return UNKNOWN;
+			return BLANK;
 		} else {
 			return DateFormatUtils.format(date, SWTHelper.DATE_PATERN);
 		}
@@ -54,7 +55,7 @@ public class SWTHelper {
 
 	public static String nullToString(Object object) {
 		if (null == object) {
-			return UNKNOWN;
+			return BLANK;
 		} else {
 			return object.toString();
 		}
