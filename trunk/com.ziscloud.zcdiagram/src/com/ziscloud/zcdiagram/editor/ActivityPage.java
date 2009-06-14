@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -93,6 +94,15 @@ public class ActivityPage extends FormPage {
 						tableViewer);
 				dialog.open();
 			}
+		});
+		toolBarManager.add(new Action("清楚过滤器",ImageUtil.FILTER_NUll){
+
+			@Override
+			public void run() {
+				tableViewer.setFilters(new ViewerFilter[]{});
+				tableViewer.refresh();
+			}
+			
 		});
 		toolBarManager.update(true);
 		// create content for this page

@@ -24,6 +24,7 @@ public class ImageUtil {
 	public static ImageDescriptor COLUMNVISIBILITY;
 	public static ImageDescriptor SEARCH;
 	public static ImageDescriptor FILTER;
+	public static ImageDescriptor FILTER_NUll;
 	public static ImageDescriptor EXPORTIMG;
 	public static ImageDescriptor DIAGRAM;
 
@@ -41,6 +42,7 @@ public class ImageUtil {
 		FILTER = Activator.getImageDescriptor("icons/funnel.png");
 		EXPORTIMG = Activator.getImageDescriptor("icons/export_image.png");
 		DIAGRAM = Activator.getImageDescriptor("icons/diagram.png");
+		FILTER_NUll = Activator.getImageDescriptor("icons/funnel_null.png");
 	}
 
 }

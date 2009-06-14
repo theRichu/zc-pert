@@ -124,7 +124,7 @@ public class ActivityFilterDialog extends Dialog {
 	@Override
 	protected Point getInitialSize() {
 		Point p = super.getInitialSize();
-		p.x = 450;
+		p.x = 550;
 		return p;
 	}
 
