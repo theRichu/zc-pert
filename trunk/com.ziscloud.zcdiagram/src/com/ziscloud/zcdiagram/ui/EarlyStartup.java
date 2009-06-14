@@ -1,4 +1,4 @@
-package com.ziscloud.zcdiagram.main;
+package com.ziscloud.zcdiagram.ui;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;

@@ -39,8 +39,8 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
-import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.dialog.CalendarDialog;
+import com.ziscloud.zcdiagram.handler.UpdateProjectAction;
 import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.strategy.DateToTextUpdateStrategy;
 import com.ziscloud.zcdiagram.strategy.NumberToTextUpdateStrategy;
@@ -51,7 +51,6 @@ import com.ziscloud.zcdiagram.util.SWTHelper;
 import com.ziscloud.zcdiagram.validator.DecimalVerifyListener;
 import com.ziscloud.zcdiagram.validator.NumberVerifyListener;
 import com.ziscloud.zcdiagram.validator.StrategyFactory;
-import com.ziscloud.zcdiagram.view.ProjectView;
 
 public class ProjectOverviewPage extends FormPage {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.projectoverviewpage";
@@ -83,14 +82,8 @@ public class ProjectOverviewPage extends FormPage {
 		toolkit.decorateFormHeading(form);
 		// create the tool bar and its item
 		IToolBarManager toolBarManager = form.getToolBarManager();
-		saveAction = new Action("Save", ImageUtil.SAVE) { //$NON-NLS-1$
-			@Override
-			public void run() {
-				DAOUtil.updateProjectToDatabase(project);
-				((ProjectEditor) getEditor()).setPartName(project.getName());
-				ProjectView.getListViewer().refresh(project);
-			}
-		};
+		saveAction = new UpdateProjectAction("Save", ImageUtil.SAVE,
+				(ProjectEditor) getEditor(), project);
 		toolBarManager.add(saveAction);
 		toolBarManager.update(true);
 		// create content for this page

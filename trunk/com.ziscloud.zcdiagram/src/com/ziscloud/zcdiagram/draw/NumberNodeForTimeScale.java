@@ -22,7 +22,7 @@ import com.ziscloud.zcdiagram.pojo.Relation;
 /**
  * User: ZisCloud Date: 2009-3-1 Time: 8:15:31
  */
-public class NumberNodeForTimeScale implements NumberNode {
+public class NumberNodeForTimeScale implements INumberNode {
 	private List<DrawMeta> drawMetaList;
 	private HashSet<DrawNode> nodeSet;
 	private Project project;

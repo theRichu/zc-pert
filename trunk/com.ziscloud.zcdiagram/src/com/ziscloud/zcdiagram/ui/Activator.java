@@ -1,4 +1,4 @@
-package com.ziscloud.zcdiagram.main;
+package com.ziscloud.zcdiagram.ui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

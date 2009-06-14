@@ -6,7 +6,7 @@ package com.ziscloud.zcdiagram.draw;
  * @author shunyunwang
  *
  */
-public interface LayNode {
+public interface ILayNode {
 	/**
 	 * 进行布点的实际方法
 	 */

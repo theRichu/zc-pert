@@ -73,10 +73,10 @@ public class DrawDiagram {
 
 	private List<Node> runDraw() {
 		// 开始编号
-		NumberNode numberNode = new NumberNodeForTimeScale(project,model);
+		INumberNode numberNode = new NumberNodeForTimeScale(project,model);
 		numberNode.number();
 		// 开始布点
-		LayNode layNode = new LayNodeForNoTimeScale(project,model);
+		ILayNode layNode = new LayNodeForNoTimeScale(project,model);
 		layNode.layNode();
 		return readDraw();
 	}
