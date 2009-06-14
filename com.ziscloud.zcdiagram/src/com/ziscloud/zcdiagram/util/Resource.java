@@ -77,6 +77,8 @@ public class Resource {
 	public static final String L_A_RMARKS = "Label_Activity_rmarks";
 	public static final String L_A_SYBOL = "Label_Activity_symbol";
 	public static final String L_A_PRE = "Label_Activity_pre";
+	
+	public static final String L_TO = "Lable_to";
 
 	private Resource() {
 	}

@@ -28,6 +28,8 @@ import com.ziscloud.zcdiagram.util.Resource;
 import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class WizardUtil {
+	public static final int DEFAULT_COL_NUM = 3;
+
 	public static Label createLabel(Composite container, String key) {
 		Label label = new Label(container, SWT.NONE);
 		label.setText(Resource.get(key));
@@ -38,6 +40,10 @@ public class WizardUtil {
 		return createTextWithUnit(container, key, null, "");
 	}
 
+	public static Text createText(Composite container, int colSpan, String key) {
+		return createTextWithUnit(container, colSpan, key, null, "");
+	}
+
 	public static Text createText(Composite container, String key,
 			String defaultValue) {
 		return createTextWithUnit(container, key, null, defaultValue);
@@ -45,9 +51,20 @@ public class WizardUtil {
 
 	public static Text createTextWithUnit(Composite container, String label,
 			String uintKey, String defaultValue) {
+		return createTextWithUnit(container, DEFAULT_COL_NUM, label, uintKey,
+				defaultValue);
+	}
+
+	public static Text createTextWithUnit(Composite container, int colSpan,
+			String label, String uintKey, String defaultValue) {
+		if (3 > colSpan) {
+			return null;
+		}
 		createLabel(container, label);
 		Text text = new Text(container, SWT.BORDER);
-		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = colSpan - 2;
+		text.setLayoutData(gd);
 		text.setText(defaultValue);
 		if (null == uintKey) {
 			SWTHelper.placeHolder(container);
@@ -68,8 +85,15 @@ public class WizardUtil {
 	}
 
 	public static Text createDate(Composite container, final Shell shell,
-			final String key, final boolean isDefault, final boolean canBlank) {
-		createLabel(container, key);
+			String key, final boolean isDefault, final boolean canBlank) {
+		final StringBuilder sb = new StringBuilder();
+		if (null != key) {
+			createLabel(container, key);
+			sb.append("工序" + Resource.get(key));
+		} else {
+			sb.append("选择日期");
+		}
+
 		final Text text = new Text(container, SWT.BORDER | SWT.READ_ONLY);
 		text.setEditable(false);
 		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -88,12 +112,12 @@ public class WizardUtil {
 			public void widgetSelected(SelectionEvent e) {
 				CalendarDialog dialog = null;
 				if (isDefault) {
-					dialog = new CalendarDialog(shell, "选择日期", "工序"
-							+ Resource.get(key), text.getText(), canBlank);
+					dialog = new CalendarDialog(shell, "选择日期", sb.toString(),
+							text.getText(), canBlank);
 				} else {
-					dialog = new CalendarDialog(shell, "选择日期", "工序"
-							+ Resource.get(key), DateFormatUtils.format(
-							new Date(), SWTHelper.DATE_PATERN), canBlank);
+					dialog = new CalendarDialog(shell, "选择日期", sb.toString(),
+							DateFormatUtils.format(new Date(),
+									SWTHelper.DATE_PATERN), canBlank);
 				}
 				dialog.open();
 				text.setText(dialog.getDateAsString());
@@ -105,6 +129,11 @@ public class WizardUtil {
 	public static Text createDate(Composite container, Shell shell, String key,
 			boolean canBlank) {
 		return createDate(container, shell, key, true, canBlank);
+	}
+
+	public static Text createDate(Composite container, Shell shell,
+			boolean canBlank) {
+		return createDate(container, shell, null, false, canBlank);
 	}
 
 	public static Text createPreText(Composite container, final Shell shell,
@@ -132,10 +161,14 @@ public class WizardUtil {
 	}
 
 	public static Label createTip(Composite container, String tip) {
+		return createTip(container, DEFAULT_COL_NUM, tip);
+	}
+
+	public static Label createTip(Composite container, int colSpan, String tip) {
 		Label tipLabel = new Label(container, SWT.NONE);
 		GridData tipLabelLData = new GridData();
 		tipLabelLData.heightHint = 20;
-		tipLabelLData.horizontalSpan = 3;
+		tipLabelLData.horizontalSpan = colSpan;
 		tipLabel.setLayoutData(tipLabelLData);
 		tipLabel.setText(tip);
 		return tipLabel;
