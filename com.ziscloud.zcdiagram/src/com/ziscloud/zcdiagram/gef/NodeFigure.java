@@ -1,8 +1,11 @@
 package com.ziscloud.zcdiagram.gef;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
 
 public class NodeFigure extends Ellipse {
 	private Label label;
@@ -11,6 +14,10 @@ public class NodeFigure extends Ellipse {
 		this.label = new Label();
 		this.label.setText(name);
 		this.add(label);
+		this.setFill(true);
+		this.setLineWidth(0);
+		this.setForegroundColor(ColorConstants.white);
+		this.setBackgroundColor(new Color(Display.getCurrent(), 51, 102, 153));
 	}
 
 	public String getText() {

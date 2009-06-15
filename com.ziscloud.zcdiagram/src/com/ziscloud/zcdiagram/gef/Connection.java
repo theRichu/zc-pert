@@ -1,5 +1,8 @@
 package com.ziscloud.zcdiagram.gef;
 
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -10,6 +13,12 @@ import com.ziscloud.zcdiagram.util.Resource;
 
 public class Connection extends Element implements IPropertySource {
 	private static final long serialVersionUID = -8246136359267738220L;
+	public static final int LINE_WIDTH = 2;
+	public static final Color COLOR_CIRTICAL = ColorConstants.red;
+	public static final Color COLOR_DEFAULT = ColorConstants.black;
+	public static final Color COLOR_SELECTED = ColorConstants.orange;
+	public static final int STYLE_DEFAULT = Graphics.LINE_SOLID;
+	public static final int STYLE_VIRTAUL = Graphics.LINE_DOT;
 	private String name;
 	private Node source;
 	private Node target;

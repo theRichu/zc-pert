@@ -100,8 +100,8 @@ public class LayNodeForNoTimeScale implements ILayNode {
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
 			for (NodeAndXY nx : nodeAndXYMap.values()) {
-				nodeDAO.updateCoordinate(nx.getNode(), nx.getX() * 150, nx
-						.getY() * 50);
+				nodeDAO.updateCoordinate(nx.getNode(), nx.getX() * X_RATIO, nx
+						.getY() * Y_RATIO);
 			}
 			nodeDAO.deleteRedundancy();
 			tx.commit();

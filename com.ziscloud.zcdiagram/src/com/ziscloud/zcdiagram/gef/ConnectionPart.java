@@ -2,15 +2,18 @@ package com.ziscloud.zcdiagram.gef;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.draw2d.AbsoluteBendpoint;
+import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 
@@ -42,16 +45,23 @@ public class ConnectionPart extends AbstractConnectionEditPart implements
 		PolylineConnection conn = new PolylineConnection();
 		conn.setTargetDecoration(new PolygonDecoration());
 		conn.setConnectionRouter(new BendpointConnectionRouter());
+		conn.setLineWidth(Connection.LINE_WIDTH);
 		if (model.isCirtical()) {
-			conn.setForegroundColor(ColorConstants.red);
+			conn.setForegroundColor(Connection.COLOR_CIRTICAL);
 		}
 		if (model.isVirtual()) {
-			conn.setLineStyle(Graphics.LINE_DOT);
+			conn.setLineStyle(Connection.STYLE_VIRTAUL);
 		}
 		// set label
 		final Label label = new Label(model.getLabel());
 		label.setOpaque(true);
 		conn.add(label, new MidpointLocator(conn, 0));
+		if (conn.getStart().x == conn.getEnd().x
+				&& conn.getStart().y == conn.getEnd().y) {
+			if (label.getSize().width > conn.getEnd().x - conn.getStart().x)
+				label.setSize(conn.getEnd().x - conn.getStart().x, label
+						.getSize().height);
+		}
 		// set router
 		conn.setConnectionRouter(new BendpointConnectionRouter());
 		return conn;
@@ -61,37 +71,43 @@ public class ConnectionPart extends AbstractConnectionEditPart implements
 	}
 
 	protected void refreshVisuals() {
-		// 绘制折线
-		// Connection model = (Connection) getModel();
-		// PolylineConnection conn = (PolylineConnection) getFigure();
-		// Point start = model.getSource().getLocation();
-		// Point end = model.getTarget().getLocation();
-		// int offset = model.getSource().getSize().width / 2;
-		// if (start.y != end.y) {
-		// // System.out.println(start.y + " : " + end.y);
-		// List<Bendpoint> bendpoints = new ArrayList<Bendpoint>();
-		// // System.out.println((start.x + offset) + " : " + (end.y +
-		// // offset));
-		// bendpoints.add(new AbsoluteBendpoint(start.x + offset, end.y
-		// + offset));
-		// conn.setRoutingConstraint(bendpoints);
-		// }
+		// draw broken line
+		Connection model = (Connection) getModel();
+		PolylineConnection conn = (PolylineConnection) getFigure();
+		Point start = model.getSource().getLocation();
+		Point end = model.getTarget().getLocation();
+		List<Bendpoint> bendpoints = new ArrayList<Bendpoint>();
+		int distanceX = Math.abs(end.x - start.x);
+		int distanceY = Math.abs(end.y - start.y);
+		if (start.y < end.y) {
+			bendpoints.add(new AbsoluteBendpoint(start.x + Node.RADIUS
+					+ (distanceX * Node.BREAK_POINT_RATIO / distanceY), end.y
+					+ Node.RADIUS));
+		}
+		if (start.y > end.y) {
+			bendpoints.add(new AbsoluteBendpoint(end.x + Node.RADIUS
+					- (distanceX * Node.BREAK_POINT_RATIO / distanceY), start.y
+					+ Node.RADIUS));
+		}
+		conn.setRoutingConstraint(bendpoints);
 	}
 
 	public void setSelected(int value) {
 		super.setSelected(value);
 		if (value != EditPart.SELECTED_NONE) {
-			((PolylineConnection) getFigure()).setLineWidth(2);
+			((PolylineConnection) getFigure())
+					.setForegroundColor(Connection.COLOR_SELECTED);
 		} else {
-			((PolylineConnection) getFigure()).setLineWidth(1);
+			((PolylineConnection) getFigure())
+					.setForegroundColor(Connection.COLOR_DEFAULT);
 		}
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(Node.PROP_LOCATION)) {
-			// 更新折线折点
-			// refreshVisuals();
+			// update the broken point
+			refreshVisuals();
 		}
 	}
 
