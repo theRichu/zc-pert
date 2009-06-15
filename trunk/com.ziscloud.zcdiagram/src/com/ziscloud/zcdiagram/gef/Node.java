@@ -14,9 +14,12 @@ import org.eclipse.draw2d.geometry.Point;
 
 public class Node extends Element {
 	private static final long serialVersionUID = -7956642150585296745L;
-	final public static String PROP_LOCATION = "LOCATION";
+	public static final String PROP_LOCATION = "LOCATION";
+	public static final int DIAMETER = 30;
+	public static final int RADIUS = DIAMETER / 2;
+	public static final int BREAK_POINT_RATIO = 30;
 	protected Point location = new Point(0, 0);
-	Dimension size = new Dimension(30, 30);
+	protected Dimension size = new Dimension(DIAMETER, DIAMETER);
 	protected String name;
 	protected boolean visible = true;
 	protected List outputs = new ArrayList();
