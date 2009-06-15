@@ -122,7 +122,7 @@ public class DrawMeta implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", unique = true, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "actId")
 	public Activity getActivitiy() {
 		return this.activitiy;
 	}

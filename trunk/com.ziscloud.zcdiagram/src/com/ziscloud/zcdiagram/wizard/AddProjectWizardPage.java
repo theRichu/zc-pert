@@ -76,7 +76,7 @@ public class AddProjectWizardPage extends WizardPage {
 				Resource.P_PLANCOST);
 		BindUtil.bindDate(context, project, planStartDate, "planStartDate",
 				Resource.P_PLANSTARTDATE);
-		BindUtil.bindString(context, false, project, builder, "builder",
+		BindUtil.bindString(context, true, project, builder, "builder",
 				Resource.P_BUILDER, SWTHelper.FIELD_MAXLEN);
 		BindUtil.bindString(context, false, project, remarks, "remarks",
 				Resource.P_REMARKS, SWTHelper.TEXT_MAXLEN);

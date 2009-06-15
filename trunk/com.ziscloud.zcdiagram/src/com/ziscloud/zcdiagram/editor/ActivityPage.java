@@ -118,11 +118,11 @@ public class ActivityPage extends FormPage {
 		tableViewer.setInput(new ActivitiyDAO()
 				.findByProject(((ProjectEditorInput) getEditorInput())
 						.getProject()));
+		//
 		createTableEditor(table, tableViewer);
 		tableViewer.setCellModifier(new ActivityCellModifier(tableViewer));
 		// double click to edit cell
-		TableViewerEditor
-				.create(tableViewer,
+		TableViewerEditor.create(tableViewer,
 						new DoubleClickColumnViewerEditorActivationStrategy(
 								tableViewer), ColumnViewerEditor.DEFAULT);
 		//

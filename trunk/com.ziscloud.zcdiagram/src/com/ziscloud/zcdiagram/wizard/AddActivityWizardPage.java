@@ -22,6 +22,7 @@ public class AddActivityWizardPage extends WizardPage {
 	private Composite container;
 	private Text name;
 	private Text planPeriod;
+	private Text preActivity;
 	private Text planCost;
 	private Text output;
 	private Text planStart;
@@ -56,7 +57,7 @@ public class AddActivityWizardPage extends WizardPage {
 				Resource.L_A_P_PERIOD, Resource.P_PLANPERIOD_UINT, "0");
 		planStart = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_P_START, false);
-		WizardUtil.createPreText(container, getShell(), activity);
+		preActivity = WizardUtil.createPreText(container, getShell(), activity);
 		planCost = WizardUtil.createTextWithUnit(container,
 				Resource.L_A_P_COST, Resource.P_PLANCOST_UNIT, "0.0");
 		output = WizardUtil.createText(container, Resource.L_A_OUTPUT, "0.0");
@@ -97,6 +98,8 @@ public class AddActivityWizardPage extends WizardPage {
 		DataBindingContext context = new DataBindingContext();
 		BindUtil.bindString(context, true, activity, name, "name",
 				Resource.A_NAME, SWTHelper.FIELD_MAXLEN);
+		BindUtil.bindString(context, false, activity, preActivity,
+				"preActivity", Resource.A_PRE, SWTHelper.FIELD_MAXLEN);
 		BindUtil.bindInteger(context, true, activity, planPeriod, "planPeriod",
 				Resource.A_P_PERIOD);
 		BindUtil.bindDouble(context, true, activity, planCost, "planCost",

@@ -39,6 +39,8 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
+import com.ziscloud.zcdiagram.dao.ProjectDAO;
+import com.ziscloud.zcdiagram.dao.SessionFactory;
 import com.ziscloud.zcdiagram.dialog.CalendarDialog;
 import com.ziscloud.zcdiagram.handler.UpdateProjectAction;
 import com.ziscloud.zcdiagram.pojo.Project;
@@ -69,8 +71,10 @@ public class ProjectOverviewPage extends FormPage {
 
 	public ProjectOverviewPage(FormEditor editor) {
 		super(editor, ID, TITLE); //$NON-NLS-1$
-		this.project = ((ProjectEditorInput) editor.getEditorInput())
-				.getProject();
+		// clear the hibernate cache
+		SessionFactory.getSession().clear();
+		this.project = new ProjectDAO().findById(((ProjectEditorInput) editor
+				.getEditorInput()).getProject().getId());
 	}
 
 	@Override

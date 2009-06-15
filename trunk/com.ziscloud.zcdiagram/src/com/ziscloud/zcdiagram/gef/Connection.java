@@ -4,12 +4,12 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
+import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.Resource;
 
 public class Connection extends Element implements IPropertySource {
 	private static final long serialVersionUID = -8246136359267738220L;
-	private Activity activitiy;
 	private String name;
 	private Node source;
 	private Node target;
@@ -41,11 +41,10 @@ public class Connection extends Element implements IPropertySource {
 	 * @param source
 	 * @param target
 	 */
-	public Connection(int id, Activity activitiy, Node source, Node target,
-			String name, boolean isCirtical, boolean isVirtual) {
+	public Connection(int id, Node source, Node target, String name,
+			boolean isCirtical, boolean isVirtual) {
 		super();
 		this.id = id;
-		this.activitiy = activitiy;
 		this.source = source;
 		this.target = target;
 		this.name = name;
@@ -93,14 +92,6 @@ public class Connection extends Element implements IPropertySource {
 
 	public void setVirtual(boolean isVirtual) {
 		this.isVirtual = isVirtual;
-	}
-
-	public Activity getActivitiy() {
-		return activitiy;
-	}
-
-	public void setActivitiy(Activity activitiy) {
-		this.activitiy = activitiy;
 	}
 
 	// implement the method for IPropertySource
@@ -158,48 +149,53 @@ public class Connection extends Element implements IPropertySource {
 
 	@Override
 	public Object getPropertyValue(Object id) {
-		if (NAME.equals(id))
-			return getActivitiy().getName();
-		if (SYBOL.equals(id))
-			return getActivitiy().getSymbol();
-		if (P_PERIOD.equals(id))
-			return getActivitiy().getPlanPeriod();
-		if (P_COST.equals(id))
-			return getActivitiy().getPlanCost();
-		if (OUTPUT.equals(id))
-			return getActivitiy().getOutput();
-		if (P_START.equals(id))
-			return getActivitiy().getPlanStartDate();
-		if (P_END.equals(id))
-			return getActivitiy().getPlanEndDate();
-		if (M_START.equals(id))
-			return getActivitiy().getMustStartDate();
-		if (M_END.equals(id))
-			return getActivitiy().getMustEndDate();
-		if (L_START.equals(id))
-			return getActivitiy().getLaterStartDate();
-		if (L_END.equals(id))
-			return getActivitiy().getLaterEndDate();
-		if (E_START.equals(id))
-			return getActivitiy().getEarlyStartDate();
-		if (E_END.equals(id))
-			return getActivitiy().getEarlyEndDate();
-		if (A_START.equals(id))
-			return getActivitiy().getActualStartDate();
-		if (A_END.equals(id))
-			return getActivitiy().getActualEndDate();
-		if (A_PERIOD.equals(id))
-			return getActivitiy().getActualPeriod();
-		if (A_COST.equals(id))
-			return getActivitiy().getActualCost();
-		if (BUILDER.equals(id))
-			return getActivitiy().getBuilder();
-		if (R_DAYS.equals(id))
-			return getActivitiy().getRarDays();
-		if (R_COST.equals(id))
-			return getActivitiy().getRarCost();
-		if (RMARKS.equals(id))
-			return getActivitiy().getRemarks();
+		if (0 == this.id)
+			return null;
+		else {
+			Activity activity = new ActivitiyDAO().findById(this.id);
+			if (NAME.equals(id))
+				return activity.getName();
+			if (SYBOL.equals(id))
+				return activity.getSymbol();
+			if (P_PERIOD.equals(id))
+				return activity.getPlanPeriod();
+			if (P_COST.equals(id))
+				return activity.getPlanCost();
+			if (OUTPUT.equals(id))
+				return activity.getOutput();
+			if (P_START.equals(id))
+				return activity.getPlanStartDate();
+			if (P_END.equals(id))
+				return activity.getPlanEndDate();
+			if (M_START.equals(id))
+				return activity.getMustStartDate();
+			if (M_END.equals(id))
+				return activity.getMustEndDate();
+			if (L_START.equals(id))
+				return activity.getLaterStartDate();
+			if (L_END.equals(id))
+				return activity.getLaterEndDate();
+			if (E_START.equals(id))
+				return activity.getEarlyStartDate();
+			if (E_END.equals(id))
+				return activity.getEarlyEndDate();
+			if (A_START.equals(id))
+				return activity.getActualStartDate();
+			if (A_END.equals(id))
+				return activity.getActualEndDate();
+			if (A_PERIOD.equals(id))
+				return activity.getActualPeriod();
+			if (A_COST.equals(id))
+				return activity.getActualCost();
+			if (BUILDER.equals(id))
+				return activity.getBuilder();
+			if (R_DAYS.equals(id))
+				return activity.getRarDays();
+			if (R_COST.equals(id))
+				return activity.getRarCost();
+			if (RMARKS.equals(id))
+				return activity.getRemarks();
+		}
 		return null;
 	}
 
@@ -215,7 +211,7 @@ public class Connection extends Element implements IPropertySource {
 
 	@Override
 	public void setPropertyValue(Object id, Object value) {
-		
+
 	}
 
 }

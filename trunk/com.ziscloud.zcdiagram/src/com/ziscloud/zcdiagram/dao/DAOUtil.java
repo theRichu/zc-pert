@@ -26,7 +26,7 @@ public class DAOUtil {
 		Transaction tx = null;
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
-			activitiyDAO.attachDirty(activity);
+			activitiyDAO.merge(activity);
 			Project project = activity.getProject();
 			project.setModifyTime(new Date().getTime());
 			projectDAO.attachDirty(project);

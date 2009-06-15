@@ -14,6 +14,7 @@ import com.ziscloud.zcdiagram.dao.DrawMetaDAO;
 import com.ziscloud.zcdiagram.dao.DrawNodeDAO;
 import com.ziscloud.zcdiagram.dao.RelationDAO;
 import com.ziscloud.zcdiagram.dao.SessionFactory;
+import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.pojo.DrawMeta;
 import com.ziscloud.zcdiagram.pojo.DrawNode;
 import com.ziscloud.zcdiagram.pojo.Project;
@@ -495,6 +496,7 @@ public class NumberNodeForTimeScale implements INumberNode {
 		DrawMeta drawMeta = new DrawMeta();
 		drawMeta.setSymbol("V" + sourceNode.getLabel() + targetNode.getLabel());
 		drawMeta.setName("虚工序");
+		drawMeta.setActivitiy(new Activity(0));
 		drawMeta.setIsVirtual("true");
 		drawMeta.setIsCriticl("false");
 		drawMeta.setPeriod(0);
