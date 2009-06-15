@@ -292,4 +292,26 @@ public class Project implements java.io.Serializable {
 		this.drawMetas = drawMetas;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Project other = (Project) obj;
+		if (this.id != other.id
+				&& (this.id == null || !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 17 * hash + (this.id != null ? this.id.hashCode() : 0);
+		return hash;
+	}
 }

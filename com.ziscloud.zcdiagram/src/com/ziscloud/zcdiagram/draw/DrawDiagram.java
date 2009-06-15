@@ -43,9 +43,9 @@ public class DrawDiagram {
 			if (0 == curPrjct.getDrawTime()
 					|| (curPrjct.getDrawTime() - curPrjct.getModifyTime()) < 0) {
 				Transaction tx = null;
-				//delete the outdate data
+				// delete the outdate data
 				DAOUtil.deleteOutdateData(project, model);
-				//copy the data from activity to drawMeta
+				// copy the data from activity to drawMeta
 				DAOUtil.copyFromActivityToDrawMeta(project, model);
 				// start draw
 				nodes = runDraw();
@@ -73,10 +73,10 @@ public class DrawDiagram {
 
 	private List<Node> runDraw() {
 		// 开始编号
-		INumberNode numberNode = new NumberNodeForTimeScale(project,model);
+		INumberNode numberNode = new NumberNodeForTimeScale(project, model);
 		numberNode.number();
 		// 开始布点
-		ILayNode layNode = new LayNodeForNoTimeScale(project,model);
+		ILayNode layNode = new LayNodeForNoTimeScale(project, model);
 		layNode.layNode();
 		return readDraw();
 	}
@@ -84,8 +84,8 @@ public class DrawDiagram {
 	private List<Node> readDraw() {
 		DrawMetaDAO drawMetaDAO = new DrawMetaDAO();
 		DrawNodeDAO nodeDAO = new DrawNodeDAO();
-		List<DrawMeta> drawMetas = drawMetaDAO.findByProject(project,model);
-		List<DrawNode> drawNodes = nodeDAO.findByProject(project,model);
+		List<DrawMeta> drawMetas = drawMetaDAO.findByProject(project, model);
+		List<DrawNode> drawNodes = nodeDAO.findByProject(project, model);
 		// start generate the diagram using GEF
 		HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
 		for (DrawNode dn : drawNodes) {
@@ -99,11 +99,12 @@ public class DrawDiagram {
 		for (DrawMeta dm : drawMetas) {
 			// generate activity
 			@SuppressWarnings("unused")
-			Connection connection = new Connection(dm.getId(), dm
-					.getActivitiy(), nodes.get(dm.getDrawNodeByStartNode()
-					.getId()), nodes.get(dm.getDrawNodeByEndNode().getId()), dm
-					.getName(), Boolean.parseBoolean(dm.getIsCriticl()),
-					Boolean.parseBoolean(dm.getIsVirtual()));
+			Connection connection = new Connection(dm.getActivitiy().getId(),
+					nodes.get(dm.getDrawNodeByStartNode().getId()), nodes
+							.get(dm.getDrawNodeByEndNode().getId()), dm
+							.getName(),
+					Boolean.parseBoolean(dm.getIsCriticl()), Boolean
+							.parseBoolean(dm.getIsVirtual()));
 			// System.out.println(dm.getName() + "-> start:"
 			// + dm.getDrawNodeByStartNode().getId() + ", end:"
 			// + dm.getDrawNodeByEndNode().getId());

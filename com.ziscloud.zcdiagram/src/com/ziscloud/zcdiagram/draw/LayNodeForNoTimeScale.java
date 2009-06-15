@@ -21,9 +21,9 @@ public class LayNodeForNoTimeScale implements ILayNode {
 	private HashMap<Integer, List<EndAndPeriod>> endsForStart;
 	private Map<Integer, NodeAndXY> nodeAndXYMap;
 
-	public LayNodeForNoTimeScale(Project project,int model) {
+	public LayNodeForNoTimeScale(Project project, int model) {
 		this.project = project;
-		FindAllRoute findAllRoute = new FindAllRoute(project,model);
+		FindAllRoute findAllRoute = new FindAllRoute(project, model);
 		routeList = findAllRoute.find();
 		endsForStart = findAllRoute.getEndsForStart();
 	}
@@ -75,17 +75,22 @@ public class LayNodeForNoTimeScale implements ILayNode {
 		int flag = 1;
 		NodeAndXY node = null;
 		int y = 0;
+
 		for (Route route : routeList) {
+			boolean isSetY = false;
 			for (EndAndPeriod tp : route.getNodeList()) {
 				node = nodeAndXYMap.get(tp.getEnd());
 				if (null != node) {
 					y = node.getY();
 					if (0 == y) {
 						node.setY(flag);
+						isSetY = true;
 					}
 				}
 			}
-			flag++;
+			if (isSetY) {
+				flag++;
+			}
 		}
 	}
 

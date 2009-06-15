@@ -196,6 +196,17 @@ public class ActivitiyDAO extends BaseHibernateDAO {
 		}
 	}
 
+	public void update(Activity instance) {
+		log.debug("updating dirty Activity instance");
+		try {
+			getSession().update(instance);
+			log.debug("updating successful");
+		} catch (RuntimeException re) {
+			log.error("updating failed", re);
+			throw re;
+		}
+	}
+
 	public void attachClean(Activity instance) {
 		log.debug("attaching clean Activity instance");
 		try {

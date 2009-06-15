@@ -191,6 +191,17 @@ public class ProjectDAO extends BaseHibernateDAO {
 		}
 	}
 
+	public void update(Project instance) {
+		log.debug("updating dirty Project instance");
+		try {
+			getSession().update(instance);
+			log.debug("updating successful");
+		} catch (RuntimeException re) {
+			log.error("updating failed", re);
+			throw re;
+		}
+	}
+	
 	public void attachClean(Project instance) {
 		log.debug("attaching clean Project instance");
 		try {
