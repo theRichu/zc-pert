@@ -26,6 +26,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
+import com.ziscloud.zcdiagram.handler.DeleteActivity;
 import com.ziscloud.zcdiagram.provider.ActivityTableLabelProvider;
 import com.ziscloud.zcdiagram.strategy.DoubleClickColumnViewerEditorActivationStrategy;
 import com.ziscloud.zcdiagram.util.ImageUtil;
@@ -40,24 +41,27 @@ public class ActivityPage extends FormPage {
 	private Table table;
 	// private static TableViewer tableViewer;
 	private TableViewer tableViewer;
-	private String[] columnProperties = new String[] { Resource.A_NAME,
-			Resource.A_SYBOL, Resource.A_PRE, Resource.A_P_PERIOD,
-			Resource.A_P_COST, Resource.A_OUTPUT, Resource.A_P_START,
-			Resource.A_P_END, Resource.A_M_START, Resource.A_M_END,
-			Resource.A_L_START, Resource.A_L_END, Resource.A_E_START,
-			Resource.A_E_END, Resource.A_A_START, Resource.A_A_PERIOD,
-			Resource.A_A_END, Resource.A_A_COST, Resource.A_BUILDER,
-			Resource.A_R_DAYS, Resource.A_R_COST, Resource.A_RMARKS };
+	private String[] columnProperties;
 	private Shell shell;
+	private DeleteActivity delActivityAction;
 
 	public ActivityPage(FormEditor projectEditor) {
 		super(projectEditor, ID, TITLE);
+		columnProperties = new String[] { Resource.A_NAME, Resource.A_SYBOL,
+				Resource.A_PRE, Resource.A_P_PERIOD, Resource.A_P_COST,
+				Resource.A_OUTPUT, Resource.A_P_START, Resource.A_P_END,
+				Resource.A_M_START, Resource.A_M_END, Resource.A_L_START,
+				Resource.A_L_END, Resource.A_E_START, Resource.A_E_END,
+				Resource.A_A_START, Resource.A_A_PERIOD, Resource.A_A_END,
+				Resource.A_A_COST, Resource.A_BUILDER, Resource.A_R_DAYS,
+				Resource.A_R_COST, Resource.A_RMARKS };
 	}
 
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
 		this.shell = getSite().getWorkbenchWindow().getWorkbench()
 				.getActiveWorkbenchWindow().getShell();
+		delActivityAction = new DeleteActivity(shell);
 		//
 		FormToolkit toolkit = managedForm.getToolkit();
 		final ScrolledForm scrolledForm = managedForm.getForm();
@@ -76,6 +80,7 @@ public class ActivityPage extends FormPage {
 						dialog.open();
 					}
 				});
+		toolBarManager.add(delActivityAction);
 		toolBarManager.add(new Action("选择显示的列", ImageUtil.COLUMNVISIBILITY) {
 			@Override
 			public void run() {
@@ -106,8 +111,8 @@ public class ActivityPage extends FormPage {
 		toolBarManager.update(true);
 		// create content for this page
 		scrolledForm.getBody().setLayout(new FillLayout());
-		table = toolkit.createTable(scrolledForm.getBody(), SWT.MULTI
-				| SWT.FULL_SELECTION | SWT.V_SCROLL | SWT.H_SCROLL);
+		table = toolkit.createTable(scrolledForm.getBody(), SWT.FULL_SELECTION
+				| SWT.V_SCROLL | SWT.H_SCROLL);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		createTableColumn(table);
@@ -122,10 +127,12 @@ public class ActivityPage extends FormPage {
 		createTableEditor(table, tableViewer);
 		tableViewer.setCellModifier(new ActivityCellModifier(tableViewer));
 		// double click to edit cell
-		TableViewerEditor.create(tableViewer,
+		TableViewerEditor
+				.create(tableViewer,
 						new DoubleClickColumnViewerEditorActivationStrategy(
 								tableViewer), ColumnViewerEditor.DEFAULT);
-		//
+		// register the delete activity action as selection changed listener
+		tableViewer.addSelectionChangedListener(delActivityAction);
 	}
 
 	private void createTableColumn(Table table) {
