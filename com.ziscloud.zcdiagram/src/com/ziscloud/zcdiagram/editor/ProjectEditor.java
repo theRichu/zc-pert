@@ -5,10 +5,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.WorkbenchPart;
 
-
 public class ProjectEditor extends FormEditor {
 	public static final String ID = "com.ziscloud.zcdiagram.editor.projectEditor";
 	private DiagramEditor diagramEditor = new DiagramEditor();
+
 	public ProjectEditor() {
 	}
 
@@ -17,9 +17,10 @@ public class ProjectEditor extends FormEditor {
 		try {
 			addPage(new ProjectOverviewPage(this));
 			addPage(new ActivityPage(this));
-//			addPage(diagramEditor, new DiagramEditorInput(
-//					((ProjectEditorInput) getEditorInput()).getProject()));
-//			setPageText(2, "双代号网络图");
+			addPage(new ProgressPage(this));
+			// addPage(diagramEditor, new DiagramEditorInput(
+			// ((ProjectEditorInput) getEditorInput()).getProject()));
+			// setPageText(2, "双代号网络图");
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

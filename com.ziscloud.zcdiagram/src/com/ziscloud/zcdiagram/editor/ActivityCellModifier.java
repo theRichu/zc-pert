@@ -14,7 +14,7 @@ import com.ziscloud.zcdiagram.util.Resource;
 import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class ActivityCellModifier implements ICellModifier {
-	TableViewer tableViewer;
+	private TableViewer tableViewer;
 
 	public ActivityCellModifier(TableViewer tableViewer) {
 		super();
