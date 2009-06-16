@@ -27,6 +27,9 @@ public class ImageUtil {
 	public static ImageDescriptor EXPORTIMG;
 	public static ImageDescriptor DIAGRAM;
 	public static ImageDescriptor DEL_ACT;
+	public static ImageDescriptor DOING_ACT;
+	public static ImageDescriptor DONE_ACT;
+	public static ImageDescriptor NOTDO_ACT;
 
 	static {
 		BLANK = Activator.getImageDescriptor("icons/blank.png");
@@ -43,6 +46,9 @@ public class ImageUtil {
 		DIAGRAM = Activator.getImageDescriptor("icons/diagram.png");
 		FILTER_NUll = Activator.getImageDescriptor("icons/funnel_null.png");
 		DEL_ACT = Activator.getImageDescriptor("icons/del_activity.png");
+		DOING_ACT = Activator.getImageDescriptor("icons/doing_activity.png");
+		DONE_ACT = Activator.getImageDescriptor("icons/done_activity.png");
+		NOTDO_ACT = Activator.getImageDescriptor("icons/notDo_activity.png");
 	}
 
 }
