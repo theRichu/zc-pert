@@ -56,6 +56,26 @@ public class ActivityFilter extends ViewerFilter {
 							}
 						}
 					}
+					if (str.equals("notDO")) {
+						m = Activity.class.getMethod("getActualStartDate");
+						return (StringUtils.isBlank(m.invoke(activity)
+								.toString()));
+					}
+					if (str.equals("doing")) {
+						m = Activity.class.getMethod("getActualStartDate");
+						if (StringUtils.isBlank(m.invoke(activity).toString())) {
+							return false;
+						} else {
+							m = Activity.class.getMethod("getActualEndDate");
+							return (StringUtils.isBlank(m.invoke(activity)
+									.toString()));
+						}
+					}
+					if (str.equals("done")) {
+						m = Activity.class.getMethod("getActualEndDate");
+						return (!StringUtils.isBlank(m.invoke(activity)
+								.toString()));
+					}
 				} catch (SecurityException e) {
 					e.printStackTrace();
 				} catch (NoSuchMethodException e) {

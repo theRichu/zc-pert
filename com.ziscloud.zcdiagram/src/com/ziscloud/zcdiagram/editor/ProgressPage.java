@@ -34,6 +34,39 @@ public class ProgressPage extends TableFormPage {
 		// create the tool bar and its item
 		IToolBarManager toolBarManager = managedForm.getForm()
 				.getToolBarManager();
+		toolBarManager.add(new Action("显示未开工的工序", ImageUtil.NOTDO_ACT) {
+
+			@Override
+			public void run() {
+				tableViewer.setFilters(new ViewerFilter[] { new ProgressFilter(
+						new String[] { "notDO" }) });
+				tableViewer.refresh();
+			}
+
+		});
+		toolBarManager.add(new Action("显示正在施工的工序", ImageUtil.DOING_ACT) {
+
+			@Override
+			public void run() {
+				tableViewer.setFilters(new ViewerFilter[] { new ProgressFilter(
+						new String[] { "doing" }) });
+				tableViewer.refresh();
+			}
+
+		});
+		toolBarManager.add(new Action("显示已完工的工序", ImageUtil.DONE_ACT) {
+
+			@Override
+			public void run() {
+				System.out.println("1");
+				tableViewer.setFilters(new ViewerFilter[] { new ProgressFilter(
+						new String[] { "done" }) });
+				System.out.println("2");
+				tableViewer.refresh();
+				System.out.println("3");
+			}
+
+		});
 		toolBarManager.add(new Action("选择显示的列", ImageUtil.COLUMNVISIBILITY) {
 			@Override
 			public void run() {
