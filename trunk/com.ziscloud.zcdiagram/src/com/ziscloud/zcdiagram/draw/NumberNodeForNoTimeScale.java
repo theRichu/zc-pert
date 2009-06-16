@@ -23,13 +23,13 @@ import com.ziscloud.zcdiagram.pojo.Relation;
 /**
  * User: ZisCloud Date: 2009-3-1 Time: 8:15:31
  */
-public class NumberNodeForTimeScale implements INumberNode {
+public class NumberNodeForNoTimeScale implements INumberNode {
 	private List<DrawMeta> drawMetaList;
 	private HashSet<DrawNode> nodeSet;
 	private Project project;
 	private int model;
 
-	public NumberNodeForTimeScale(Project project, int model) {
+	public NumberNodeForNoTimeScale(Project project, int model) {
 		DrawMetaDAO drawMetaDAO = new DrawMetaDAO();
 		this.project = project;
 		this.model = model;
