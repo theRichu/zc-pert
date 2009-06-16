@@ -30,7 +30,7 @@ public class ActivityFilterDialog extends Dialog {
 	}
 
 	public ActivityFilterDialog(Shell parentShell, TableViewer viewer) {
-		this(parentShell, "查找工序", "查找符合条件的工序");
+		this(parentShell, "筛选工序", "筛选符合条件的工序");
 		this.viewer = viewer;
 	}
 

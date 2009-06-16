@@ -56,16 +56,6 @@ public class ActivityFilter extends ViewerFilter {
 							}
 						}
 					}
-					// Method m = Activity.class.getMethod("get" + str);
-					// if (str.endsWith("Date")) {
-					// if (!(m.invoke(activity).toString().equals(v))) {
-					// return false;
-					// }
-					// } else {
-					// if (m.invoke(activity).toString().indexOf(v) == -1) {
-					// return false;
-					// }
-					// }
 				} catch (SecurityException e) {
 					e.printStackTrace();
 				} catch (NoSuchMethodException e) {

@@ -2,74 +2,45 @@ package com.ziscloud.zcdiagram.editor;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnViewerEditor;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerEditor;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
-import org.eclipse.ui.forms.widgets.Form;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
 
-import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.handler.DeleteActivity;
-import com.ziscloud.zcdiagram.provider.ActivityTableLabelProvider;
-import com.ziscloud.zcdiagram.strategy.DoubleClickColumnViewerEditorActivationStrategy;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
-import com.ziscloud.zcdiagram.validator.DecimalVerifyListener;
-import com.ziscloud.zcdiagram.validator.NumberVerifyListener;
 import com.ziscloud.zcdiagram.wizard.AddActivityWizard;
 
-public class ActivityPage extends FormPage {
+public class ActivityPage extends TableFormPage {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.activitypage";
-	private static final String TITLE = "工程工序";
-	private Table table;
-	// private static TableViewer tableViewer;
-	private TableViewer tableViewer;
-	private String[] columnProperties;
-	private Shell shell;
-	private DeleteActivity delActivityAction;
+	private static final String PAGE_TITLE = "工程工序列表";
+	private static final String FORM_TITLE = "工程项目工序信息";
+	protected DeleteActivity delActivityAction;
+	private static final TableColumns TABLE_COLUMNS = new TableColumns(
+			new String[] { Resource.A_NAME, Resource.A_SYBOL, Resource.A_PRE,
+					Resource.A_P_PERIOD, Resource.A_P_COST, Resource.A_OUTPUT,
+					Resource.A_P_START, Resource.A_P_END, Resource.A_M_START,
+					Resource.A_M_END, Resource.A_L_START, Resource.A_L_END,
+					Resource.A_E_START, Resource.A_E_END, Resource.A_BUILDER,
+					Resource.A_R_DAYS, Resource.A_R_COST, Resource.A_RMARKS },
+			new Boolean[] { true, false, true, true, true, true, true, false,
+					true, true, true, true, true, true, true, true, true, true });
 
 	public ActivityPage(FormEditor projectEditor) {
-		super(projectEditor, ID, TITLE);
-		columnProperties = new String[] { Resource.A_NAME, Resource.A_SYBOL,
-				Resource.A_PRE, Resource.A_P_PERIOD, Resource.A_P_COST,
-				Resource.A_OUTPUT, Resource.A_P_START, Resource.A_P_END,
-				Resource.A_M_START, Resource.A_M_END, Resource.A_L_START,
-				Resource.A_L_END, Resource.A_E_START, Resource.A_E_END,
-				Resource.A_A_START, Resource.A_A_PERIOD, Resource.A_A_END,
-				Resource.A_A_COST, Resource.A_BUILDER, Resource.A_R_DAYS,
-				Resource.A_R_COST, Resource.A_RMARKS };
+		super(projectEditor, ID, PAGE_TITLE, FORM_TITLE, TABLE_COLUMNS);
 	}
 
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
-		this.shell = getSite().getWorkbenchWindow().getWorkbench()
-				.getActiveWorkbenchWindow().getShell();
+		super.createFormContent(managedForm);
 		delActivityAction = new DeleteActivity(shell);
-		//
-		FormToolkit toolkit = managedForm.getToolkit();
-		final ScrolledForm scrolledForm = managedForm.getForm();
-		scrolledForm.setText("工程项目工序信息");
-		final Form form = scrolledForm.getForm();
-		toolkit.decorateFormHeading(form);
 		// create the tool bar and its item
-		IToolBarManager toolBarManager = form.getToolBarManager();
+		IToolBarManager toolBarManager = managedForm.getForm()
+				.getToolBarManager();
 		toolBarManager.add(new Action("添加工序", ImageUtil.NEW_ACT) { //$NON-NLS-1$
 					@Override
 					public void run() {
@@ -86,7 +57,7 @@ public class ActivityPage extends FormPage {
 			public void run() {
 				TableColumn[] tableColumns = table.getColumns();
 				ColumnVisibilityDialog dialog = new ColumnVisibilityDialog(
-						shell, columnProperties, tableColumns);
+						shell, columns, tableColumns);
 				dialog.open();
 			}
 
@@ -109,80 +80,8 @@ public class ActivityPage extends FormPage {
 
 		});
 		toolBarManager.update(true);
-		// create content for this page
-		scrolledForm.getBody().setLayout(new FillLayout());
-		table = toolkit.createTable(scrolledForm.getBody(), SWT.FULL_SELECTION
-				| SWT.V_SCROLL | SWT.H_SCROLL);
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		createTableColumn(table);
-		tableViewer = new TableViewer(table);
-		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setLabelProvider(new ActivityTableLabelProvider(
-				columnProperties));
-		tableViewer.setInput(new ActivitiyDAO()
-				.findByProject(((ProjectEditorInput) getEditorInput())
-						.getProject()));
-		//
-		createTableEditor(table, tableViewer);
-		tableViewer.setCellModifier(new ActivityCellModifier(tableViewer));
-		// double click to edit cell
-		TableViewerEditor
-				.create(tableViewer,
-						new DoubleClickColumnViewerEditorActivationStrategy(
-								tableViewer), ColumnViewerEditor.DEFAULT);
 		// register the delete activity action as selection changed listener
 		tableViewer.addSelectionChangedListener(delActivityAction);
-	}
-
-	private void createTableColumn(Table table) {
-		for (String cn : columnProperties) {
-			TableColumn column = new TableColumn(table, SWT.LEFT);
-			column.setText(Resource.get(cn));
-			column.setWidth(100);
-		}
-	}
-
-	private void createTableEditor(Table table, TableViewer tableViewer) {
-		tableViewer.setColumnProperties(columnProperties);
-		CellEditor[] cellEditors = new CellEditor[columnProperties.length];
-		for (int i = 0; i < columnProperties.length; i++) {
-			if (columnProperties[i].endsWith(Resource.A_SYBOL)) {
-				cellEditors[i] = null;
-				continue;
-			}
-			if (columnProperties[i].equals(Resource.A_P_END)) {
-				cellEditors[i] = null;
-				continue;
-			}
-			if (columnProperties[i].equals(Resource.A_A_END)) {
-				cellEditors[i] = null;
-				continue;
-			}
-			if (columnProperties[i].endsWith("start")
-					|| columnProperties[i].endsWith("end")) {
-				cellEditors[i] = new DatePickDialogCellEditor(table, getSite()
-						.getShell(), !columnProperties[i]
-						.startsWith("Activity_p"));
-				continue;
-			}
-			if (columnProperties[i].equals(Resource.A_PRE)) {
-				cellEditors[i] = new PrePickDialogCellEditor(table, getSite()
-						.getShell());
-				continue;
-			}
-			cellEditors[i] = new TextCellEditor(table);
-			// add verify listener
-			if (columnProperties[i].endsWith("period")) {
-				((Text) cellEditors[i].getControl())
-						.addVerifyListener(new NumberVerifyListener());
-			}
-			if (columnProperties[i].endsWith("cost")) {
-				((Text) cellEditors[i].getControl())
-						.addVerifyListener(new DecimalVerifyListener());
-			}
-		}
-		tableViewer.setCellEditors(cellEditors);
 	}
 
 }

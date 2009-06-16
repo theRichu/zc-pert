@@ -56,7 +56,7 @@ import com.ziscloud.zcdiagram.validator.StrategyFactory;
 
 public class ProjectOverviewPage extends FormPage {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.projectoverviewpage";
-	private static final String TITLE = "基本信息";
+	private static final String TITLE = "工程项目基本信息";
 	private Project project;
 	private Text remarks;
 	private Text designer;
@@ -81,7 +81,7 @@ public class ProjectOverviewPage extends FormPage {
 	protected void createFormContent(IManagedForm managedForm) {
 		FormToolkit toolkit = managedForm.getToolkit();
 		ScrolledForm scrolledForm = managedForm.getForm();
-		scrolledForm.setText("工程项目基本信息");
+		scrolledForm.setText(TITLE);
 		final Form form = scrolledForm.getForm();
 		toolkit.decorateFormHeading(form);
 		// create the tool bar and its item
