@@ -97,6 +97,18 @@ public class ActivityTableLabelProvider extends LabelProvider implements
 			if (columnName.equals(Resource.A_RMARKS)) {
 				return SWTHelper.nullToString(activity.getRemarks());
 			}
+			if (columnName.equals(Resource.A_OP_ONE_START)) {
+				return SWTHelper.dateColumnText(activity.getPopStartDate());
+			}
+			if (columnName.equals(Resource.A_OP_ONE_END)) {
+				return SWTHelper.dateColumnText(activity.getPopEndDate());
+			}
+			if (columnName.equals(Resource.A_OP_TWO_START)) {
+				return SWTHelper.dateColumnText(activity.getOptopStartDate());
+			}
+			if (columnName.equals(Resource.A_OP_TWO_END)) {
+				return SWTHelper.dateColumnText(activity.getOptopEndDate());
+			}
 			return SWTHelper.UNKNOWN;
 		} else {
 			return SWTHelper.UNKNOWN;

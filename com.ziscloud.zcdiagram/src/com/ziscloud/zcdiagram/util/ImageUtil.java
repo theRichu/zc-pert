@@ -30,6 +30,7 @@ public class ImageUtil {
 	public static ImageDescriptor DOING_ACT;
 	public static ImageDescriptor DONE_ACT;
 	public static ImageDescriptor NOTDO_ACT;
+	public static ImageDescriptor OPT;
 
 	static {
 		BLANK = Activator.getImageDescriptor("icons/blank.png");
@@ -49,6 +50,7 @@ public class ImageUtil {
 		DOING_ACT = Activator.getImageDescriptor("icons/doing_activity.png");
 		DONE_ACT = Activator.getImageDescriptor("icons/done_activity.png");
 		NOTDO_ACT = Activator.getImageDescriptor("icons/notDo_activity.png");
+		OPT = Activator.getImageDescriptor("icons/optimize.png");
 	}
 
 }

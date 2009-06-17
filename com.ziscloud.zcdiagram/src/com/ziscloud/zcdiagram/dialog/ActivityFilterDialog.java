@@ -44,14 +44,14 @@ public class ActivityFilterDialog extends Dialog {
 		name = WizardUtil.createText(container, 6, Resource.L_A_NAME);
 		symbol = WizardUtil.createText(container, 6, Resource.L_A_SYBOL);
 		period = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_P_PERIOD, Resource.P_PLANPERIOD_UINT, "");
+				Resource.L_A_P_PERIOD, Resource.PERIOD_UINT, "");
 		cost = WizardUtil.createTextWithUnit(container, 6, Resource.L_A_P_COST,
-				Resource.P_PLANCOST_UNIT, "");
+				Resource.COST_UNIT, "");
 		output = WizardUtil.createText(container, 6, Resource.L_A_OUTPUT);
 		rDays = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_R_DAYS, Resource.P_PLANPERIOD_UINT, "");
+				Resource.L_A_R_DAYS, Resource.PERIOD_UINT, "");
 		rCost = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_R_COST, Resource.P_PLANCOST_UNIT, "");
+				Resource.L_A_R_COST, Resource.COST_UNIT, "");
 		//
 		pStartFrom = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_P_START, false, false);

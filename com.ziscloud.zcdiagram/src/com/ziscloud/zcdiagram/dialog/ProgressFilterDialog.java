@@ -42,13 +42,13 @@ public class ProgressFilterDialog extends Dialog {
 		name = WizardUtil.createText(container, 6, Resource.L_A_NAME);
 		symbol = WizardUtil.createText(container, 6, Resource.L_A_SYBOL);
 		pPeriod = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_P_PERIOD, Resource.P_PLANPERIOD_UINT, "");
+				Resource.L_A_P_PERIOD, Resource.PERIOD_UINT, "");
 		pCost = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_P_COST, Resource.P_PLANCOST_UNIT, "");
+				Resource.L_A_P_COST, Resource.COST_UNIT, "");
 		aPeriod = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_A_PERIOD, Resource.P_PLANPERIOD_UINT, "");
+				Resource.L_A_A_PERIOD, Resource.PERIOD_UINT, "");
 		aCost = WizardUtil.createTextWithUnit(container, 6,
-				Resource.L_A_A_COST, Resource.P_PLANCOST_UNIT, "");
+				Resource.L_A_A_COST, Resource.COST_UNIT, "");
 		//
 		pStartFrom = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_P_START, false, false);
