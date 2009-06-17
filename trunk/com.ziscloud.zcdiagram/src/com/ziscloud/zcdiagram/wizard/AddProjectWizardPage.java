@@ -45,9 +45,9 @@ public class AddProjectWizardPage extends WizardPage {
 		WizardUtil.createTip(container, "以下信息为必填内容：");
 		name = WizardUtil.createText(container, Resource.P_L_NAME);
 		period = WizardUtil.createTextWithUnit(container,
-				Resource.P_L_PLANPERIOD, Resource.P_PLANPERIOD_UINT, "0");
+				Resource.P_L_PLANPERIOD, Resource.PERIOD_UINT, "0");
 		planCost = WizardUtil.createTextWithUnit(container,
-				Resource.P_L_PLANCOST, Resource.P_PLANCOST_UNIT, "0.0");
+				Resource.P_L_PLANCOST, Resource.COST_UNIT, "0.0");
 		planStartDate = WizardUtil.createDate(container, getShell(),
 				Resource.P_L_PLANSTARTDATE, false);
 		builder = WizardUtil.createText(container, Resource.P_L_BUILDER);

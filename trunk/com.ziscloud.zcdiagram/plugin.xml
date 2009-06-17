@@ -91,7 +91,7 @@
                visible="true">
          </view>
          <view
-               closeable="true"
+               closeable="false"
                id="org.eclipse.ui.views.PropertySheet"
                minimized="true"
                moveable="true"

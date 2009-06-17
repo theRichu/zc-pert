@@ -41,6 +41,8 @@ public class Project implements java.io.Serializable {
 	private String remarks;
 	private Long modifyTime;
 	private Long drawTime;
+	private Long optOneTime;
+	private Long optTwoTime;
 	private String isDeleted;
 	private Set<Activity> activitiies = new HashSet<Activity>(0);
 	private Set<DrawNode> drawNodes = new HashSet<DrawNode>(0);
@@ -254,6 +256,24 @@ public class Project implements java.io.Serializable {
 
 	public void setDrawTime(Long drawTime) {
 		this.drawTime = drawTime;
+	}
+
+	@Column(name = "optOneTime")
+	public Long getOptOneTime() {
+		return optOneTime;
+	}
+
+	public void setOptOneTime(Long optOneTime) {
+		this.optOneTime = optOneTime;
+	}
+
+	@Column(name = "optTwoTime")
+	public Long getOptTwoTime() {
+		return optTwoTime;
+	}
+
+	public void setOptTwoTime(Long optTwoTime) {
+		this.optTwoTime = optTwoTime;
 	}
 
 	@Column(name = "isDeleted", length = 5)

@@ -12,9 +12,7 @@ public class Resource {
 	public static final String P_DESIGNER = "FieldName_Project_Designer"; //$NON-NLS-1$
 	public static final String P_MANAGER = "FieldName_Project_Manager"; //$NON-NLS-1$
 	public static final String P_NAME = "FieldName_Project_Name"; //$NON-NLS-1$
-	public static final String P_PLANPERIOD_UINT = "FieldName_Project_Period_Unit"; //$NON-NLS-1$
 	public static final String P_PLANCOST = "FieldName_Project_PlanCost"; //$NON-NLS-1$
-	public static final String P_PLANCOST_UNIT = "FieldName_Project_PlanCost_Unit"; //$NON-NLS-1$
 	public static final String P_PLANENDDATE = "FieldName_Project_PlanEndDate"; //$NON-NLS-1$
 	public static final String P_PLANPERIOD = "FieldName_Project_PlanPeriod"; //$NON-NLS-1$
 	public static final String P_PLANSTARTDATE = "FieldName_Project_PlanStartDate"; //$NON-NLS-1$
@@ -54,6 +52,10 @@ public class Resource {
 	public static final String A_R_COST = "Activity_r_cost";
 	public static final String A_RMARKS = "Activity_rmarks";
 	public static final String A_PRE = "Activity_pre";
+	public static final String A_OP_ONE_START = "Activity_opOneStart";
+	public static final String A_OP_ONE_END = "Activity_opOneEnd";
+	public static final String A_OP_TWO_START = "Activity_opTwoStart";
+	public static final String A_OP_TWO_END = "Activity_opTwoEnd";
 	// KEY For Field Name Of Activity
 	public static final String L_A_A_COST = "Label_Activity_a_cost";
 	public static final String L_A_A_END = "Label_Activity_a_end";
@@ -77,8 +79,10 @@ public class Resource {
 	public static final String L_A_RMARKS = "Label_Activity_rmarks";
 	public static final String L_A_SYBOL = "Label_Activity_symbol";
 	public static final String L_A_PRE = "Label_Activity_pre";
-	
+	// Shared
 	public static final String L_TO = "Lable_to";
+	public static final String COST_UNIT = "FieldName_Project_PlanCost_Unit"; //$NON-NLS-1$
+	public static final String PERIOD_UINT = "FieldName_Project_Period_Unit"; //$NON-NLS-1$
 
 	private Resource() {
 	}

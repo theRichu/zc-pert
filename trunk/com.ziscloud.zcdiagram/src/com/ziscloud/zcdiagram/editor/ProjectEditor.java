@@ -18,9 +18,8 @@ public class ProjectEditor extends FormEditor {
 			addPage(new ProjectOverviewPage(this));
 			addPage(new ActivityPage(this));
 			addPage(new ProgressPage(this));
-			// addPage(diagramEditor, new DiagramEditorInput(
-			// ((ProjectEditorInput) getEditorInput()).getProject()));
-			// setPageText(2, "双代号网络图");
+			addPage(new OptimizeModelOnePage(this));
+			addPage(new OptimizeModelTwoPage(this));
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

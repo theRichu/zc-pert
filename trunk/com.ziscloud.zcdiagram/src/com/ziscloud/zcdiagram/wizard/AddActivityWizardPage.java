@@ -54,12 +54,12 @@ public class AddActivityWizardPage extends WizardPage {
 		WizardUtil.createTip(container, "以下信息为必填内容：");
 		name = WizardUtil.createText(container, Resource.L_A_NAME);
 		planPeriod = WizardUtil.createTextWithUnit(container,
-				Resource.L_A_P_PERIOD, Resource.P_PLANPERIOD_UINT, "0");
+				Resource.L_A_P_PERIOD, Resource.PERIOD_UINT, "0");
 		planStart = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_P_START, false);
 		preActivity = WizardUtil.createPreText(container, getShell(), activity);
 		planCost = WizardUtil.createTextWithUnit(container,
-				Resource.L_A_P_COST, Resource.P_PLANCOST_UNIT, "0.0");
+				Resource.L_A_P_COST, Resource.COST_UNIT, "0.0");
 		output = WizardUtil.createText(container, Resource.L_A_OUTPUT, "0.0");
 		SWTHelper.createSeparator(container, 3);
 		WizardUtil.createTip(container, "以下信息为选填内容：");
@@ -76,9 +76,9 @@ public class AddActivityWizardPage extends WizardPage {
 		earlyEnd = WizardUtil.createDate(container, getShell(),
 				Resource.L_A_E_END, true);
 		rarDays = WizardUtil.createTextWithUnit(container, Resource.L_A_R_DAYS,
-				Resource.P_PLANPERIOD_UINT, "0");
+				Resource.PERIOD_UINT, "0");
 		rarCost = WizardUtil.createTextWithUnit(container, Resource.L_A_R_COST,
-				Resource.P_PLANCOST_UNIT, "0.0");
+				Resource.COST_UNIT, "0.0");
 		builder = WizardUtil.createText(container, Resource.L_A_BUILDER);
 		remarks = WizardUtil.createTextarea(container, Resource.L_A_RMARKS);
 		configVerifyListener();

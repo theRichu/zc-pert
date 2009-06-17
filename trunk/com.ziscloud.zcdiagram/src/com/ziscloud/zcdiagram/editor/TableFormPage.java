@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
+import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.provider.ActivityTableLabelProvider;
 import com.ziscloud.zcdiagram.strategy.DoubleClickColumnViewerEditorActivationStrategy;
 import com.ziscloud.zcdiagram.util.Resource;
@@ -27,6 +28,7 @@ import com.ziscloud.zcdiagram.validator.DecimalVerifyListener;
 import com.ziscloud.zcdiagram.validator.NumberVerifyListener;
 
 public class TableFormPage extends FormPage {
+	protected Project project;
 	protected Table table;
 	protected String formTitle;
 	protected TableViewer tableViewer;
@@ -51,6 +53,7 @@ public class TableFormPage extends FormPage {
 	protected void createFormContent(IManagedForm managedForm) {
 		this.shell = getSite().getWorkbenchWindow().getWorkbench()
 				.getActiveWorkbenchWindow().getShell();
+		this.project = ((ProjectEditorInput) getEditorInput()).getProject();
 		//
 		FormToolkit toolkit = managedForm.getToolkit();
 		final ScrolledForm scrolledForm = managedForm.getForm();
@@ -67,9 +70,7 @@ public class TableFormPage extends FormPage {
 		tableViewer = new TableViewer(table);
 		tableViewer.setContentProvider(new ArrayContentProvider());
 		tableViewer.setLabelProvider(new ActivityTableLabelProvider(columns));
-		tableViewer.setInput(new ActivitiyDAO()
-				.findByProject(((ProjectEditorInput) getEditorInput())
-						.getProject()));
+		tableViewer.setInput(new ActivitiyDAO().findByProject(this.project));
 		//
 		createTableEditor(table, tableViewer);
 		tableViewer.setCellModifier(new ActivityCellModifier(tableViewer));
