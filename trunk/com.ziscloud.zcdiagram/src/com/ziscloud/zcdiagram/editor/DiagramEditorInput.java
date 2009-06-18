@@ -11,7 +11,7 @@ public class DiagramEditorInput implements IEditorInput {
 	public static final int MODELONE = 2;
 	public static final int MODELTWO = 3;
 	public static final int MODELTHREE = 4;
-	
+
 	private Project project;
 	private int model;
 
@@ -66,7 +66,8 @@ public class DiagramEditorInput implements IEditorInput {
 			return true;
 		}
 		if (obj instanceof DiagramEditorInput) {
-			return project.equals(((DiagramEditorInput) obj).getProject());
+			DiagramEditorInput dei = (DiagramEditorInput) obj;
+			return (project.equals(dei.getProject()) && model == dei.getModel());
 		}
 		return false;
 	}

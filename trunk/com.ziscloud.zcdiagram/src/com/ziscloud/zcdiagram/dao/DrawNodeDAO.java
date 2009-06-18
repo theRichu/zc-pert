@@ -192,7 +192,7 @@ public class DrawNodeDAO extends BaseHibernateDAO {
 	public void deleteByProject(Project project, int model) {
 		log.debug("deleting Node instance of the project:" + project.getId());
 		try {
-			String hqlDelete = "DELETE DrawNode n WHERE n.project = ? and n.model=?";
+			String hqlDelete = "DELETE DrawNode n WHERE n.project= ? and n.model=?";
 			getSession().createQuery(hqlDelete).setParameter(0, project)
 					.setParameter(1, model).executeUpdate();
 		} catch (RuntimeException re) {

@@ -20,10 +20,13 @@ public class LayNodeForNoTimeScale implements ILayNode {
 	private List<Route> routeList;
 	private HashMap<Integer, List<EndAndPeriod>> endsForStart;
 	private Map<Integer, NodeAndXY> nodeAndXYMap;
+	private int firstNodeId;
 
 	public LayNodeForNoTimeScale(Project project, int model) {
 		this.project = project;
-		FindAllRoute findAllRoute = new FindAllRoute(project, model);
+		firstNodeId = new Integer(project.getId() + "" + model + "1");
+		FindAllRoute findAllRoute = new FindAllRoute(project, firstNodeId,
+				model);
 		routeList = findAllRoute.find();
 		endsForStart = findAllRoute.getEndsForStart();
 	}
@@ -45,8 +48,7 @@ public class LayNodeForNoTimeScale implements ILayNode {
 	private Map<Integer, NodeAndXY> layX() {
 		Stack<NodeAndXY> nodeAndXYStack = new Stack<NodeAndXY>();
 		Map<Integer, NodeAndXY> nodeAndXYMap = new HashMap<Integer, NodeAndXY>();
-		nodeAndXYStack
-				.push(new NodeAndXY(new Integer(project.getId() + "1"), 1));
+		nodeAndXYStack.push(new NodeAndXY(firstNodeId, 1));
 		while (!nodeAndXYStack.empty()) {
 			// 出栈
 			NodeAndXY nx = nodeAndXYStack.pop();
@@ -79,6 +81,7 @@ public class LayNodeForNoTimeScale implements ILayNode {
 		for (Route route : routeList) {
 			boolean isSetY = false;
 			for (EndAndPeriod tp : route.getNodeList()) {
+				// System.out.println(tp.getEnd());
 				node = nodeAndXYMap.get(tp.getEnd());
 				if (null != node) {
 					y = node.getY();
@@ -101,7 +104,8 @@ public class LayNodeForNoTimeScale implements ILayNode {
 			tx = SessionFactory.getSession().beginTransaction();
 			for (NodeAndXY nx : nodeAndXYMap.values()) {
 				nodeDAO.updateCoordinate(nx.getNode(), nx.getX() * X_RATIO, nx
-						.getY() * Y_RATIO);
+						.getY()
+						* Y_RATIO);
 			}
 			nodeDAO.deleteRedundancy();
 			tx.commit();
@@ -113,8 +117,8 @@ public class LayNodeForNoTimeScale implements ILayNode {
 			SessionFactory.closeSession();
 		}
 		// for (NodeAndXY nx : nodeAndXYMap.values()) {
-		// System.out.println("DrawNode:" + nx.getNode() + ", X=" + nx.getX() +
-		// ", Y=" + nx.getY());
+		// System.out.println("DrawNode:" + nx.getNode() + ", X=" + nx.getX()
+		// + ", Y=" + nx.getY());
 		// }
 	}
 

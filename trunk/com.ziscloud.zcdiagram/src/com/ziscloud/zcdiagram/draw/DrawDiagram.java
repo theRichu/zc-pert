@@ -14,6 +14,7 @@ import com.ziscloud.zcdiagram.dao.DrawMetaDAO;
 import com.ziscloud.zcdiagram.dao.DrawNodeDAO;
 import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.dao.SessionFactory;
+import com.ziscloud.zcdiagram.editor.DiagramEditorInput;
 import com.ziscloud.zcdiagram.gef.Connection;
 import com.ziscloud.zcdiagram.gef.Node;
 import com.ziscloud.zcdiagram.pojo.DrawMeta;
@@ -40,17 +41,26 @@ public class DrawDiagram {
 							+ "But this project can not be found in the database.");
 		} else {
 			// 如果工程项目没有生成过网络图，或者工程项目最后一次修改之后，还没有生成最新的网络图
-			if (0 == curPrjct.getDrawTime()
-					|| (curPrjct.getDrawTime() - curPrjct.getModifyTime()) < 0) {
+			if (isDrawed(curPrjct)) {
 				Transaction tx = null;
-				// delete the outdate data
+				// delete the out date data
 				DAOUtil.deleteOutdateData(project, model);
 				// copy the data from activity to drawMeta
 				DAOUtil.copyFromActivityToDrawMeta(project, model);
 				// start draw
 				nodes = runDraw();
 				// update field
-				curPrjct.setDrawTime(new Date().getTime());
+				switch (model) {
+				case DiagramEditorInput.PLAN:
+					curPrjct.setDrawTime(new Date().getTime());
+					break;
+				case DiagramEditorInput.MODELONE:
+					curPrjct.setOptOneDrawTime(new Date().getTime());
+					break;
+				case DiagramEditorInput.MODELTWO:
+					curPrjct.setOptTwoDrawTime(new Date().getTime());
+					break;
+				}
 				try {
 					// 更新工程的相关信息
 					tx = SessionFactory.getSession().beginTransaction();
@@ -69,6 +79,21 @@ public class DrawDiagram {
 			}
 		}
 		return nodes;
+	}
+
+	private boolean isDrawed(Project curPrjct) {
+		switch (model) {
+		case DiagramEditorInput.PLAN:
+			return 0 == curPrjct.getDrawTime()
+					|| (curPrjct.getDrawTime() - curPrjct.getModifyTime()) < 0;
+		case DiagramEditorInput.MODELONE:
+			return 0 == curPrjct.getOptOneDrawTime()
+					|| (curPrjct.getOptOneDrawTime() - curPrjct.getModifyTime()) < 0;
+		case DiagramEditorInput.MODELTWO:
+			return 0 == curPrjct.getOptTwoDrawTime()
+					|| (curPrjct.getOptTwoDrawTime() - curPrjct.getModifyTime()) < 0;
+		}
+		return true;
 	}
 
 	private List<Node> runDraw() {

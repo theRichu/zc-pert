@@ -207,13 +207,14 @@ public class DrawMetaDAO extends BaseHibernateDAO {
 		}
 	}
 
-	public List<DrawMeta> findNoSuffix(Project project) {
+	public List<DrawMeta> findNoSuffix(Project project, int model) {
 		log.debug("finding DrawMeta instance which no suffix");
 		try {
-			String queryString = "from DrawMeta as model where model.rltnForPreAct.size= 0 and model.project=? and model.isVirtual=? order by model.drawNodeByStartNode.label asc , model.drawNodeByEndNode.label desc";
+			String queryString = "from DrawMeta as model where model.rltnForPreAct.size= 0 and model.project=? and model.isVirtual=? and model.model=? order by model.drawNodeByStartNode.label asc , model.drawNodeByEndNode.label desc";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, project);
 			queryObject.setString(1, "false");
+			queryObject.setParameter(2, model);
 			return queryObject.list();
 		} catch (RuntimeException re) {
 			log.error("finding DrawMeta instance which no suffix failed", re);

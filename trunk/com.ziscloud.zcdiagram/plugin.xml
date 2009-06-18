@@ -132,6 +132,20 @@
                   tooltip="打开网络图">
             </command>
             <command
+                  commandId="com.ziscloud.zcdiagram.commands.openOptOneDiagram"
+                  icon="icons/diagram.png"
+                  id="com.ziscloud.zcdiagram.toolbars.main.openOptOneDiagram"
+                  style="push"
+                  tooltip="打开模型 I 优化后的网络图">
+            </command>
+            <command
+                  commandId="com.ziscloud.zcdiagram.commands.openOptTwoDiagram"
+                  icon="icons/diagram.png"
+                  id="com.ziscloud.zcdiagram.toolbars.main.openOptTwoDiagram"
+                  style="push"
+                  tooltip="打开模型 II 优化后的网络图">
+            </command>
+            <command
                   commandId="org.eclipse.ui.help.aboutAction"
                   icon="icons/about.png"
                   style="push">
@@ -174,6 +188,18 @@
             description="Delete Project"
             id="com.ziscloud.zcdiagram.commands.deleteProject"
             name="Delete Project">
+      </command>
+      <command
+            categoryId="com.ziscloud.zcdiagram.commandCategory.project"
+            description="open Opt One Diagram"
+            id="com.ziscloud.zcdiagram.commands.openOptOneDiagram"
+            name="open Opt One Diagram">
+      </command>
+      <command
+            categoryId="com.ziscloud.zcdiagram.commandCategory.project"
+            description="open Opt Two Diagram"
+            id="com.ziscloud.zcdiagram.commands.openOptTwoDiagram"
+            name="open Opt Two Diagram">
       </command>
    </extension>
    <extension
@@ -225,6 +251,14 @@
                </with>
             </and>
          </enabledWhen>
+      </handler>
+      <handler
+            class="com.ziscloud.zcdiagram.handler.OpenOptOneDiagramHandler"
+            commandId="com.ziscloud.zcdiagram.commands.openOptOneDiagram">
+      </handler>
+      <handler
+            class="com.ziscloud.zcdiagram.handler.OpenOptTwoDiagramHandler"
+            commandId="com.ziscloud.zcdiagram.commands.openOptTwoDiagram">
       </handler>
    </extension>
    <extension
