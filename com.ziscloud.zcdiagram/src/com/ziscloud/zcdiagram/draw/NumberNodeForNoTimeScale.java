@@ -54,8 +54,7 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 	 * 根据紧前工序序列的size（升序）及包含关系（小集合在大集合之前）来排序工序，
 	 */
 	private void sortProcess() {
-		nextDrawMeta: 
-			for (int i = 0; i < drawMetaList.size() - 1; i++) {
+		nextDrawMeta: for (int i = 0; i < drawMetaList.size() - 1; i++) {
 			DrawMeta drawMetaA = drawMetaList.get(i);
 			DrawMeta drawMetaB = drawMetaList.get(i + 1);
 			List<Relation> preForA = drawMetaA.getRltnForCurAct();
@@ -287,7 +286,8 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 		// System.out.println("最大结束节点：" + maxLastNode.getLabel());
 		// 查询出没有紧后的非虚工序
 		DrawMetaDAO drawMetaDAO = new DrawMetaDAO();
-		List<DrawMeta> noSuffixDrawMetaList = drawMetaDAO.findNoSuffix(project);
+		List<DrawMeta> noSuffixDrawMetaList = drawMetaDAO.findNoSuffix(project,
+				model);
 		HashSet<DrawNode> nodeOfMergeDrawMetaSet = new HashSet<DrawNode>();
 		List<DrawMeta> virtualDrawMetaSet = new LinkedList<DrawMeta>();
 		for (DrawMeta drawMeta : noSuffixDrawMetaList) {
@@ -396,7 +396,7 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 	 * @return 生成的节点ID
 	 */
 	private int generateNodeId(int label) {
-		return new Integer("" + project.getId() + label);
+		return new Integer("" + project.getId() + model + label);
 	}
 
 	/**
@@ -413,7 +413,8 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 			for (int i = 0; i < drawMetaList.size(); i++) {
 				DrawMeta drawMeta = drawMetaList.get(i);
 				drawMeta.setOrdinal(i);
-//				System.out.println(drawMeta.getSymbol() + " -> ordinal:" + i);
+				// System.out.println(drawMeta.getSymbol() + " -> ordinal:" +
+				// i);
 				drawMetaDAO.attachDirty(drawMeta);
 			}
 			tx.commit();
@@ -433,8 +434,11 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 		Transaction tx = null;
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
+			// System.out.println("saveResultOfmergeLastNode");
 			for (DrawMeta drawMeta : drawMetaList) {
 				drawMeta.setModel(model);
+				// System.out.println(drawMeta.getId()+":"+drawMeta.getDrawNodeByStartNode().getId()+","
+				// + drawMeta.getDrawNodeByEndNode().getId());
 				drawMetaDAO.attachDirty(drawMeta);
 			}
 			tx.commit();
@@ -462,12 +466,15 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 		Transaction tx = null;
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
+			// System.out.println("saveNumberedResult");
 			for (DrawNode node : nodeSet) {
 				node.setModel(model);
 				nodeDAO.attachDirty(node);
 			}
 			for (DrawMeta drawMeta : this.drawMetaList) {
 				drawMeta.setModel(model);
+				// System.out.println(drawMeta.getId()+":"+drawMeta.getDrawNodeByStartNode().getId()+","
+				// + drawMeta.getDrawNodeByEndNode().getId());
 				drawMetaDAO.attachDirty(drawMeta);
 			}
 			tx.commit();
@@ -529,11 +536,11 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 			System.out.print(":");
 			if (null != drawMeta.getDrawNodeByStartNode())
 				System.out.print("开始节点："
-						+ drawMeta.getDrawNodeByStartNode().getLabel());
+						+ drawMeta.getDrawNodeByStartNode().getId());
 			System.out.print("      ");
 			if (null != drawMeta.getDrawNodeByEndNode())
 				System.out.print("结束节点："
-						+ drawMeta.getDrawNodeByEndNode().getLabel());
+						+ drawMeta.getDrawNodeByEndNode().getId());
 			System.out.println();
 		}
 	}
@@ -541,7 +548,8 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 	@SuppressWarnings("unused")
 	private void printMeta() {
 		for (DrawMeta drawMeta : drawMetaList) {
-			System.out.println(drawMeta.getSymbol()+"-> size:" + drawMeta.getRltnForCurAct().size());
+			System.out.println(drawMeta.getSymbol() + "-> size:"
+					+ drawMeta.getRltnForCurAct().size());
 		}
 	}
 }

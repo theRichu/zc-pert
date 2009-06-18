@@ -41,6 +41,8 @@ public class Project implements java.io.Serializable {
 	private String remarks;
 	private Long modifyTime;
 	private Long drawTime;
+	private Long optOneDrawTime;
+	private Long optTwoDrawTime;
 	private Long optOneTime;
 	private Long optTwoTime;
 	private String isDeleted;
@@ -256,6 +258,24 @@ public class Project implements java.io.Serializable {
 
 	public void setDrawTime(Long drawTime) {
 		this.drawTime = drawTime;
+	}
+	
+	@Column(name = "optOneDrawTime")
+	public Long getOptOneDrawTime() {
+		return optOneDrawTime;
+	}
+
+	public void setOptOneDrawTime(Long optOneDrawTime) {
+		this.optOneDrawTime = optOneDrawTime;
+	}
+
+	@Column(name = "optTwoDrawTime")
+	public Long getOptTwoDrawTime() {
+		return optTwoDrawTime;
+	}
+
+	public void setOptTwoDrawTime(Long optTwoDrawTime) {
+		this.optTwoDrawTime = optTwoDrawTime;
 	}
 
 	@Column(name = "optOneTime")

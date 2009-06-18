@@ -156,6 +156,8 @@ public class DAOUtil {
 			for (String actSymbol : actAndPre.keySet()) {
 				for (String preActSymbol : actAndPre.get(actSymbol)) {
 					Relation relation = new Relation();
+					System.out.println(actSymbol);
+					System.out.println(preActSymbol);
 					relation.setDrawMetaByCurAct(actAndDrawMeta.get(actSymbol));
 					relation.setDrawMetaByPreAct(actAndDrawMeta.get(preActSymbol));
 					relationDAO.save(relation);
@@ -166,7 +168,7 @@ public class DAOUtil {
 			if (null != tx) {
 				tx.rollback();
 			}
-			throw new RuntimeException("读取绘图信息信息失败！", he);
+			throw new RuntimeException("从工序表中读取绘图信息信息失败！", he);
 		} finally {
 			SessionFactory.closeSession();
 		}

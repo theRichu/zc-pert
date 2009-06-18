@@ -12,6 +12,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
+import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.optimize.Optimize;
@@ -54,11 +55,11 @@ public class OptimizeModelOnePage extends TableFormPage {
 						Activity act = activities.get(i);
 						act.setPopStartDate(result[0][i]);
 						act.setPopEndDate(result[1][i]);
-						// DAOUtil.updateActivityToDababase(act);
+						 DAOUtil.updateActivityToDababase(act);
 					}
 					// update the optimize run time for this project
 					project.setOptOneTime(new Date().getTime());
-					// DAOUtil.updateProjectToDatabase(project);
+					 DAOUtil.updateProjectToDatabase(project);
 					tableViewer.refresh();
 				} else {
 					MessageDialog

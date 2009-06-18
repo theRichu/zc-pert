@@ -107,8 +107,9 @@ public class DiagramEditor extends GraphicalEditor {
 	protected void initializeGraphicalViewer() {
 		// draw
 		DiagramEditorInput input = (DiagramEditorInput) getEditorInput();
-		//start to draw the diagram
-		DrawDiagram drawDiagram = new DrawDiagram(input.getProject(), input.getModel());
+		// start to draw the diagram
+		DrawDiagram drawDiagram = new DrawDiagram(input.getProject(), input
+				.getModel());
 		nodes = drawDiagram.draw();
 		// printNode();
 		diagram.addNode(nodes);
@@ -171,6 +172,15 @@ public class DiagramEditor extends GraphicalEditor {
 
 	@Override
 	public String getPartName() {
+		DiagramEditorInput dei = (DiagramEditorInput) getEditorInput();
+		switch (dei.getModel()) {
+		case DiagramEditorInput.PLAN:
+			return getEditorInput().getName() + " - 网络图";
+		case DiagramEditorInput.MODELONE:
+			return getEditorInput().getName() + " - 模型 I 优化网络图";
+		case DiagramEditorInput.MODELTWO:
+			return getEditorInput().getName() + " - 模型 II 优化网络图";
+		}
 		return getEditorInput().getName() + " - 网络图";
 	}
 }
