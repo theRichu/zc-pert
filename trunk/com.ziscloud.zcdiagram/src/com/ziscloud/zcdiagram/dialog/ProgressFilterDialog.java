@@ -50,24 +50,24 @@ public class ProgressFilterDialog extends Dialog {
 				Resource.L_A_A_COST, Resource.COST_UNIT, "");
 		//
 		pStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_P_START, false, false);
+				Resource.L_A_P_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		pStartTo = WizardUtil.createDate(container, getShell(), false);
+		pStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		pEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_P_END, false, false);
+				Resource.L_A_P_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		pEndTo = WizardUtil.createDate(container, getShell(), false);
+		pEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		aStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_A_START, false, false);
+				Resource.L_A_A_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		aStartTo = WizardUtil.createDate(container, getShell(), false);
+		aStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		aEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_A_END, false, false);
+				Resource.L_A_A_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		aEndTo = WizardUtil.createDate(container, getShell(), false);
+		aEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		fields.put("Symbol", symbol);
 		fields.put("Name", name);

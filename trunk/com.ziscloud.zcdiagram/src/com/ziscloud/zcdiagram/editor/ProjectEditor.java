@@ -5,9 +5,16 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.WorkbenchPart;
 
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
+
 public class ProjectEditor extends FormEditor {
 	public static final String ID = "com.ziscloud.zcdiagram.editor.projectEditor";
 	private DiagramEditor diagramEditor = new DiagramEditor();
+	private ProjectOverviewPage overviewPage;
+	private ActivityPage activityPage;
+	private ProgressPage progressPage;
+	private OptimizeModelOnePage modelOnePage;
+	private OptimizeModelTwoPage modelTwoPage;
 
 	public ProjectEditor() {
 	}
@@ -15,11 +22,19 @@ public class ProjectEditor extends FormEditor {
 	@Override
 	protected void addPages() {
 		try {
-			addPage(new ProjectOverviewPage(this));
-			addPage(new ActivityPage(this));
-			addPage(new ProgressPage(this));
-			addPage(new OptimizeModelOnePage(this));
-			addPage(new OptimizeModelTwoPage(this));
+			overviewPage = new ProjectOverviewPage(this);
+			progressPage = new ProgressPage(this);
+			modelOnePage = new OptimizeModelOnePage(this);
+			modelTwoPage = new OptimizeModelTwoPage(this);
+
+			activityPage = new ActivityPage(this, new IModelChangedListener[] {
+					progressPage, modelOnePage, modelTwoPage });
+
+			addPage(overviewPage);
+			addPage(activityPage);
+			addPage(progressPage);
+			addPage(modelOnePage);
+			addPage(modelTwoPage);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

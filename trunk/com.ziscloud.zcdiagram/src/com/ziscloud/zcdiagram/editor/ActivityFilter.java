@@ -33,7 +33,10 @@ public class ActivityFilter extends ViewerFilter {
 					if (-1 == str.indexOf("Date")) {
 						// calculate the field that not date type
 						m = Activity.class.getMethod("get" + str);
-						if (-1 == m.invoke(activity).toString().indexOf(v)) {
+						Object o = m.invoke(activity);
+						if (null == o) {
+							return false;
+						} else if (-1 == o.toString().indexOf(v)) {
 							return false;
 						}
 					} else {
@@ -46,12 +49,12 @@ public class ActivityFilter extends ViewerFilter {
 												"", "" }));
 						Date d = ((Date) m.invoke(activity));
 						if (str.endsWith("From")) {
-							if (d.before(from)) {
+							if (null == d || d.before(from)) {
 								return false;
 							}
 						}
 						if (str.endsWith("To")) {
-							if (d.after(from)) {
+							if (null == d || d.after(from)) {
 								return false;
 							}
 						}

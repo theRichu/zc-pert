@@ -21,6 +21,7 @@ import com.ziscloud.zcdiagram.core.IModelChangedEvent;
 import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.core.ModelChangedEvent;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
+import com.ziscloud.zcdiagram.editor.DiagramEditorInput;
 import com.ziscloud.zcdiagram.editor.ProjectEditorInput;
 import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.view.ProjectView;
@@ -52,6 +53,13 @@ public class DeleteProjectHandler extends AbstractHandler implements IHandler,
 					input = er.getEditorInput();
 					if (input instanceof ProjectEditorInput) {
 						Project inputProject = ((ProjectEditorInput) input)
+								.getProject();
+						if (selected.equals(inputProject)) {
+							page.closeEditor(er.getEditor(false), false);
+						}
+					}
+					if (input instanceof DiagramEditorInput) {
+						Project inputProject = ((DiagramEditorInput) input)
 								.getProject();
 						if (selected.equals(inputProject)) {
 							page.closeEditor(er.getEditor(false), false);

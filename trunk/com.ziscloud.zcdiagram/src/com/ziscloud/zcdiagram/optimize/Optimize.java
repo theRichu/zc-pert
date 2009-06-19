@@ -45,7 +45,8 @@ public class Optimize extends AOptimize {
 	public void init() {
 		if (null != activities && activities.size() > 0) {
 			this.projectBeginTime = activities.get(0).getPlanStartDate();
-			int size = activities.size();
+			System.out.println("start:" + projectBeginTime);
+			int size = activities.size() + 1;
 			obj = new int[size][size];
 			time = new int[size];
 			total1 = new int[size];
@@ -150,6 +151,18 @@ public class Optimize extends AOptimize {
 		 * }
 		 */
 
+		// 插入头结点
+		Info infox = new Info(0, "A0", "工序0", 0, 0, 0, null, 0, 0, 0, 0);
+		for (int i = 0; i < list.size(); i++) {
+			Info p = list.get(i);
+			if (p.getPriviousWorkNo() == null
+					|| p.getPriviousWorkNo().trim().equals("")) {
+				obj[0][i] = 1;
+				p.setPriviousWorkNo("A0");
+			}
+		}
+		list.add(0, infox);
+
 		for (int i = 0; i < list.size(); i++) {
 			Info p = (Info) list.get(i);
 			// int j=p.getId();
@@ -173,7 +186,19 @@ public class Optimize extends AOptimize {
 			e[i] = p.getReduceCost();
 		}
 
-		b(0, list, obj2);
+		// 递归
+		int x = 0;
+		for (x = 0; x < list.size(); x++) {
+			Info info = list.get(x);
+			String priviousWork = info.getPriviousWorkNo();
+			if (priviousWork == null || priviousWork.trim().equals("")) {
+				info.setLevel(0);
+				info.setFlag(0);
+				break;
+			}
+		}
+
+		b(x, list, obj2);
 
 		// int s=0;
 		// for(int i=0;i<list.size();i++){
@@ -210,6 +235,12 @@ public class Optimize extends AOptimize {
 			temp_list.set(g, info);
 
 		}
+
+		for (int i = 0; i < temp_list.size(); i++) {
+			System.out.println(temp_list.get(i).getWorkNo());
+		}
+		// 整理结束
+
 		for (int i = 0; i < temp_list.size(); i++) {
 			Info p = (Info) temp_list.get(i);
 			// int j=p.getId();
@@ -232,13 +263,7 @@ public class Optimize extends AOptimize {
 			aa[i] = p.getMaxReduceTime();
 			e[i] = p.getReduceCost();
 		}
-		// for (int i = 0; i < obj.length; i++)
-		// for (int j = 0; j < obj[i].length; j++) {
-		// System.out.print(obj[i][j] + ",");
-		// if (j == 17)
-		// System.out.print("\n");
-		// System.out.println(time[i]);
-		// }
+
 		// 得到total1
 		int temp1 = 0;
 		for (int j = 0; j < obj.length; j++)
@@ -255,12 +280,11 @@ public class Optimize extends AOptimize {
 					total1[j] = temp1;
 					break;
 				}
-
 			}
 
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println((i + 1) + "工序的最短开工时间:" + total1[i]);
-		// }
+		for (int i = 0; i < total1.length; i++) {
+			System.out.println((i + 1) + "工序的最短开工时间:" + total1[i]);
+		}
 
 		// 得到total2
 		total2[total2.length - 1] = total1[total1.length - 1];
@@ -282,15 +306,16 @@ public class Optimize extends AOptimize {
 				}
 			}
 
-		// for (int i = 0; i < total2.length; i++) {
-		// System.out.println((i + 1) + "工序的最迟开工时间:" + total2[i]);
-		// }
+		for (int i = 0; i < total2.length; i++) {
+			System.out.println(temp_list.get(i).getWorkNo() + "工序的最迟开工时间:"
+					+ total2[i]);
+		}
 
 		// 找关键节点
 
 		for (int i = 0; i < total1.length; i++) {
 			if (total1[i] - total2[i] == 0) {
-				// System.out.println("关键节点有：" + (i + 1));
+				System.out.println("关键节点有：" + temp_list.get(i).getWorkNo());
 				temp[i] = 1;
 			}
 		}
@@ -313,34 +338,24 @@ public class Optimize extends AOptimize {
 		for (int i = 0; i < count; i++) {
 			guanjian[i] = guanjian_temp[i];
 		}
-		// for (int i = 0; i < guanjian.length; i++) {
-		// System.out.println("网络图其中一条关键路线的节点有：" + guanjian[i]);
-		// }
-
-		// System.out.println("这条路线上关键工序个数为：" + count);
-
-		// for (int i = 0; i < obj.length; i++)
-		// for (int j = 0; j < obj[i].length; j++) {
-		// System.out.print(obj[i][j] + ",");
-		// if (j == 17)
-		// System.out.print("\n");
-		// }
-
-		// 计算model1优化后开工和完工时间
-		// for (int i = 0; i < total1.length; i++) {
-		// // sdf.format(projectOpenTime);
-		// cal.setTime(projectBeginTime);
-		// cal.add(Calendar.DAY_OF_MONTH, total1[i]);
-		// betterBeginTime_model1[i] = cal.getTime();
-		// cal1.setTime(betterBeginTime_model1[i]);
-		// cal1.add(Calendar.DAY_OF_MONTH, time[i]);
-		//
-		// betterEndTime_model1[i] = cal1.getTime();
-		// }
-
-		for (int i = 0; i < total1.length; i++) {
-			System.out.print(total1[i]);
+		for (int i = 0; i < guanjian.length; i++) {
+			System.out.println("网络图其中一条关键路线的节点有：" + guanjian[i]);
 		}
+
+		System.out.println("这条路线上关键工序个数为：" + count);
+
+		/*
+		 * for(int i=0;i<obj2.length;i++) for(int j=0;j<obj2[i].length;j++) {
+		 * System.out.print(obj2[i][j]+","); if(j==9) System.out.print("\n"); }
+		 * System.out.println("dasdfagadf"); for(int i=0;i<obj.length;i++)
+		 * for(int j=0;j<obj[i].length;j++) { System.out.print(obj[i][j]+",");
+		 * if(j==9) System.out.print("\n"); }
+		 */
+
+		// for(int i=0;i<temp_list.size();i++){
+		// System.out.println(temp_list.get(i).getWorkNo());
+		// }
+		// 计算model1优化后开工和完工时间
 		for (int i = 0; i < total1.length; i++) {
 			// sdf.format(projectOpenTime);
 			// try {
@@ -362,14 +377,19 @@ public class Optimize extends AOptimize {
 
 			betterEndTime_model1[i] = cal1.getTime();
 		}
-
-		// for (int i = 0; i < total1.length; i++)
-		// for (int j = i; j < total1.length; j++) {
-		// if (obj[i][j] == 1)
-		// cal.setTime(betterEndTime_model1[i]);
-		// cal.add(Calendar.DAY_OF_MONTH, 1);
-		// betterBeginTime_model1[j] = cal.getTime();
-		// }
+		/*
+		 * for(int i=0;i<total1.length;i++) for(int j=i;j<total1.length;j++){
+		 * if(obj[i][j]==1){ try {
+		 * cal.setTime(sdf.parse(betterEndTime_model1[i])); } catch
+		 * (ParseException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } cal.add(Calendar.DAY_OF_MONTH, 1);
+		 * betterBeginTime_model1[j]=sdf.format(cal.getTime()); try {
+		 * cal.setTime(sdf.parse(betterEndTime_model1[j])); } catch
+		 * (ParseException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } cal.add(Calendar.DAY_OF_MONTH, 1);
+		 * 
+		 * betterEndTime_model1[j]=sdf.format(cal.getTime()); } }
+		 */
 
 		for (int i = 0; i < total1.length; i++) {
 			System.out.println("工序" + (i + 1) + "优化后开工时间"

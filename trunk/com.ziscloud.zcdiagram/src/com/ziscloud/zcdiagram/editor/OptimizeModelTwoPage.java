@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 
+import com.ziscloud.zcdiagram.core.IModelChangedEvent;
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
@@ -20,7 +22,7 @@ import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
 
-public class OptimizeModelTwoPage extends TableFormPage {
+public class OptimizeModelTwoPage extends TableFormPage implements IModelChangedListener {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.optimizeModelTwoPage";
 	private static final String PAGE_TITLE = "模型 II 优化";
 	private static final String FORM_TITLE = "使用模型 II 对工程项目进行优化";
@@ -48,7 +50,7 @@ public class OptimizeModelTwoPage extends TableFormPage {
 			public void run() {
 				if (project.getModifyTime() > project.getOptTwoTime()) {
 					List<Activity> activities = new ActivitiyDAO()
-							.findByProject(project);
+							.findByProjectOrdered(project);
 					Optimize optimize = new Optimize(activities);
 					Date[][] result = optimize.modelTwoOptimize();
 					for (int i = 0; i < activities.size(); i++) {
@@ -96,6 +98,17 @@ public class OptimizeModelTwoPage extends TableFormPage {
 
 		});
 		toolBarManager.update(true);
+	}
+
+	@Override
+	public void modelChanged(IModelChangedEvent event) {
+		if (event.getChangeType() == IModelChangedEvent.CHANGE) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.refresh(act);
+			}
+		}
 	}
 
 }

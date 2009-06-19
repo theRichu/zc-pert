@@ -46,7 +46,7 @@ public class DAOUtil {
 		Transaction tx = null;
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
-			projectDAO.attachDirty(project);
+			projectDAO.merge(project);
 			tx.commit();
 		} catch (HibernateException he) {
 			if (null != tx) {

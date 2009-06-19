@@ -70,7 +70,7 @@ public class LayNodeForNoTimeScale implements ILayNode {
 
 				}
 				flagX++;
-				System.out.println(nodeAndXYMap.keySet().size());
+				// System.out.println(nodeAndXYMap.keySet().size());
 			}
 			if (isSetY) {
 				flagY++;
@@ -84,7 +84,7 @@ public class LayNodeForNoTimeScale implements ILayNode {
 		try {
 			tx = SessionFactory.getSession().beginTransaction();
 			for (NodeAndXY nx : nodeAndXYMap.values()) {
-				System.out.println(nx.getNode());
+				// System.out.println(nx.getNode());
 				nodeDAO.updateCoordinate(nx.getNode(), nx.getX() * X_RATIO, nx
 						.getY()
 						* Y_RATIO);

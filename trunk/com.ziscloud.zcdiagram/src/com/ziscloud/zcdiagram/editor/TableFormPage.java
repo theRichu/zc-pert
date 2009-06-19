@@ -35,6 +35,7 @@ public class TableFormPage extends FormPage {
 	protected String[] columns;
 	protected Shell shell;
 	protected TableColumns tableColumns;
+	protected ActivityCellModifier cellModifier;
 
 	public TableFormPage(FormEditor projectEditor, String id, String pageTitle,
 			String formTitle, TableColumns tableColumns) {
@@ -73,7 +74,8 @@ public class TableFormPage extends FormPage {
 		tableViewer.setInput(new ActivitiyDAO().findByProject(this.project));
 		//
 		createTableEditor(table, tableViewer);
-		tableViewer.setCellModifier(new ActivityCellModifier(tableViewer));
+		cellModifier = new ActivityCellModifier(tableViewer);
+		tableViewer.setCellModifier(cellModifier);
 		// double click to edit cell
 		TableViewerEditor
 				.create(tableViewer,
@@ -132,4 +134,13 @@ public class TableFormPage extends FormPage {
 		}
 		tableViewer.setCellEditors(cellEditors);
 	}
+
+	public ActivityCellModifier getCellModifier() {
+		return cellModifier;
+	}
+
+	public void setCellModifier(ActivityCellModifier cellModifier) {
+		this.cellModifier = cellModifier;
+	}
+	
 }
