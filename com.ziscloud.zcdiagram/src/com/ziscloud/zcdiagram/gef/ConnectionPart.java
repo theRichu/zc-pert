@@ -79,15 +79,23 @@ public class ConnectionPart extends AbstractConnectionEditPart implements
 		List<Bendpoint> bendpoints = new ArrayList<Bendpoint>();
 		int distanceX = Math.abs(end.x - start.x);
 		int distanceY = Math.abs(end.y - start.y);
+		int brokenX = 0;
+		int brokenY = 0;
 		if (start.y < end.y) {
-			bendpoints.add(new AbsoluteBendpoint(start.x + Node.RADIUS
-					+ (distanceX * Node.BREAK_POINT_RATIO / distanceY), end.y
-					+ Node.RADIUS));
+			brokenX = start.x + Node.RADIUS
+					+ (distanceX * Node.BREAK_POINT_RATIO / distanceY);
+			brokenY = end.y + Node.RADIUS;
+			if (brokenX < (end.x + Node.RADIUS)) {
+				bendpoints.add(new AbsoluteBendpoint(brokenX, brokenY));
+			}
 		}
 		if (start.y > end.y) {
-			bendpoints.add(new AbsoluteBendpoint(end.x + Node.RADIUS
-					- (distanceX * Node.BREAK_POINT_RATIO / distanceY), start.y
-					+ Node.RADIUS));
+			brokenX = end.x + Node.RADIUS
+					- (distanceX * Node.BREAK_POINT_RATIO / distanceY);
+			brokenY = start.y + Node.RADIUS;
+			if (brokenX > (start.x + Node.RADIUS)) {
+				bendpoints.add(new AbsoluteBendpoint(brokenX, brokenY));
+			}
 		}
 		conn.setRoutingConstraint(bendpoints);
 	}
