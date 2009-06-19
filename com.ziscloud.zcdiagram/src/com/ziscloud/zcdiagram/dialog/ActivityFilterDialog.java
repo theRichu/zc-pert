@@ -53,44 +53,44 @@ public class ActivityFilterDialog extends Dialog {
 				Resource.L_A_R_COST, Resource.COST_UNIT, "");
 		//
 		pStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_P_START, false, false);
+				Resource.L_A_P_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		pStartTo = WizardUtil.createDate(container, getShell(), false);
+		pStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		pEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_P_END, false, false);
+				Resource.L_A_P_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		pEndTo = WizardUtil.createDate(container, getShell(), false);
+		pEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		mStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_M_START, false, false);
+				Resource.L_A_M_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		mStartTo = WizardUtil.createDate(container, getShell(), false);
+		mStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		mEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_M_END, false, false);
+				Resource.L_A_M_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		mEndTo = WizardUtil.createDate(container, getShell(), false);
+		mEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		eStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_E_START, false, false);
+				Resource.L_A_E_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		eStartTo = WizardUtil.createDate(container, getShell(), false);
+		eStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		eEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_E_END, false, false);
+				Resource.L_A_E_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		eEndTo = WizardUtil.createDate(container, getShell(), false);
+		eEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		lStartFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_L_START, false, false);
+				Resource.L_A_L_START, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		lStartTo = WizardUtil.createDate(container, getShell(), false);
+		lStartTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		lEndFrom = WizardUtil.createDate(container, getShell(),
-				Resource.L_A_L_END, false, false);
+				Resource.L_A_L_END, false, true);
 		WizardUtil.createLabel(container, Resource.L_TO);
-		lEndTo = WizardUtil.createDate(container, getShell(), false);
+		lEndTo = WizardUtil.createDate(container, getShell(), true);
 		//
 		fields.put("Symbol", symbol);
 		fields.put("Name", name);

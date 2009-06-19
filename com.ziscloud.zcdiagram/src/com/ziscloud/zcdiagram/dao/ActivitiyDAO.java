@@ -221,13 +221,27 @@ public class ActivitiyDAO extends BaseHibernateDAO {
 	public List<Activity> findByProject(Project project) {
 		return findByProperty(PROJECT, project);
 	}
+	
+	public List<Activity> findByProjectOrdered(Project project) {
+		log.debug("finding Activity instance with project: " + project);
+		try {
+			String queryString = "from Activity as model where model."
+					+ PROJECT + "= ? order by model." + PLAN_START +" asc";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, project);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 
 	public List<Activity> findByProject(Project project, Date planStartDate) {
 		log.debug("finding Activity instance with project: " + project
 				+ ", and plan start date: " + planStartDate);
 		try {
 			String queryString = "from Activity as model where model."
-					+ PROJECT + "= ? and " + PLAN_END + " <= ?";
+					+ PROJECT + "= ? and model." + PLAN_END + " <= ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, project);
 			queryObject.setParameter(1, planStartDate);

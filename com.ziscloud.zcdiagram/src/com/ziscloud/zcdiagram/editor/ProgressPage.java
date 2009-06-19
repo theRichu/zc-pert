@@ -7,12 +7,16 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 
+import com.ziscloud.zcdiagram.core.IModelChangedEvent;
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.dialog.ProgressFilterDialog;
+import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
 
-public class ProgressPage extends TableFormPage {
+public class ProgressPage extends TableFormPage implements
+		IModelChangedListener {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.progressPage";
 	private static final String PAGE_TITLE = "工程项目进度控制";
 	private static final String FORM_TITLE = "工程项目进度情况";
@@ -58,12 +62,9 @@ public class ProgressPage extends TableFormPage {
 
 			@Override
 			public void run() {
-				System.out.println("1");
 				tableViewer.setFilters(new ViewerFilter[] { new ProgressFilter(
 						new String[] { "done" }) });
-				System.out.println("2");
 				tableViewer.refresh();
-				System.out.println("3");
 			}
 
 		});
@@ -95,6 +96,17 @@ public class ProgressPage extends TableFormPage {
 
 		});
 		toolBarManager.update(true);
+	}
+
+	@Override
+	public void modelChanged(IModelChangedEvent event) {
+		if (event.getChangeType() == IModelChangedEvent.CHANGE) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.refresh(act);
+			}
+		}
 	}
 
 }

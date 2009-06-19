@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.handler.DeleteActivity;
@@ -20,6 +21,7 @@ public class ActivityPage extends TableFormPage {
 	private static final String PAGE_TITLE = "工程工序列表";
 	private static final String FORM_TITLE = "工程项目工序信息";
 	protected DeleteActivity delActivityAction;
+	private IModelChangedListener[] listeners;
 	private static final TableColumns TABLE_COLUMNS = new TableColumns(
 			new String[] { Resource.A_NAME, Resource.A_SYBOL, Resource.A_PRE,
 					Resource.A_P_PERIOD, Resource.A_P_COST, Resource.A_OUTPUT,
@@ -30,8 +32,10 @@ public class ActivityPage extends TableFormPage {
 			new Boolean[] { true, false, true, true, true, true, true, false,
 					true, true, true, true, true, true, true, true, true, true });
 
-	public ActivityPage(FormEditor projectEditor) {
+	public ActivityPage(FormEditor projectEditor,
+			IModelChangedListener[] listeners) {
 		super(projectEditor, ID, PAGE_TITLE, FORM_TITLE, TABLE_COLUMNS);
+		this.listeners = listeners;
 	}
 
 	@Override
@@ -82,6 +86,9 @@ public class ActivityPage extends TableFormPage {
 		toolBarManager.update(true);
 		// register the delete activity action as selection changed listener
 		tableViewer.addSelectionChangedListener(delActivityAction);
+		for (IModelChangedListener listener : listeners) {
+			getCellModifier().addModelChangedListener(listener);
+		}
 	}
 
 }

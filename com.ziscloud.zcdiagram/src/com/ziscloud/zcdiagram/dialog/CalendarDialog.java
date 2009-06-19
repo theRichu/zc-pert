@@ -103,6 +103,7 @@ public class CalendarDialog extends Dialog {
 			close();
 		}
 		if (IDialogConstants.CLOSE_ID == buttonId) {
+			date = text.getText();
 			close();
 		}
 	}
