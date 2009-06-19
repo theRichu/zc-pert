@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.TableItem;
 
+import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.Resource;
@@ -32,7 +33,8 @@ public class ActivityCellModifier implements ICellModifier {
 	@Override
 	public Object getValue(Object element, String property) {
 		if (element instanceof Activity) {
-			Activity activity = (Activity) element;
+			Activity activity = new ActivitiyDAO()
+					.findById(((Activity) element).getId());
 			if (property.equals(Resource.A_NAME))
 				return SWTHelper.nullToString(activity.getName());
 			if (property.equals(Resource.A_PRE))
@@ -82,7 +84,8 @@ public class ActivityCellModifier implements ICellModifier {
 	 */
 	@Override
 	public void modify(Object element, String property, Object value) {
-		Activity activity = (Activity) ((TableItem) element).getData();
+		Activity activity = new ActivitiyDAO()
+				.findById(((Activity) ((TableItem) element).getData()).getId());
 		String valueStr = value.toString();
 		try {
 			if (property.equals(Resource.A_NAME))
@@ -90,14 +93,26 @@ public class ActivityCellModifier implements ICellModifier {
 			if (property.equals(Resource.A_PRE))
 				activity.setPreActivity(valueStr);
 			if (property.equals(Resource.A_P_PERIOD)) {
-				activity.setPlanPeriod(Integer.parseInt(valueStr));
+				try {
+					activity.setPlanPeriod(Integer.parseInt(valueStr));
+				} catch (Exception e) {
+					activity.setPlanPeriod(0);
+				}
 				activity.setPlanEndDate(DateUtils.addDays(activity
 						.getPlanStartDate(), activity.getPlanPeriod()));
 			}
 			if (property.equals(Resource.A_P_COST))
-				activity.setPlanCost(Double.parseDouble(valueStr));
+				try {
+					activity.setPlanCost(Double.parseDouble(valueStr));
+				} catch (Exception e) {
+					activity.setPlanCost(0.0);
+				}
 			if (property.equals(Resource.A_OUTPUT))
-				activity.setOutput(Double.parseDouble(valueStr));
+				try {
+					activity.setOutput(Double.parseDouble(valueStr));
+				} catch (Exception e) {
+					activity.setOutput(0.0);
+				}
 			if (property.equals(Resource.A_P_START)) {
 				activity.setPlanStartDate(DateUtils.parseDate(valueStr,
 						SWTHelper.DATE_PATERNS));
@@ -184,7 +199,12 @@ public class ActivityCellModifier implements ICellModifier {
 						activity.setActualPeriod(0);
 						activity.setActualEndDate(null);
 					} else {
-						activity.setActualPeriod(Integer.parseInt(valueStr));
+						try {
+							activity
+									.setActualPeriod(Integer.parseInt(valueStr));
+						} catch (Exception e) {
+							activity.setActualPeriod(0);
+						}
 						activity.setActualEndDate(DateUtils.addDays(activity
 								.getActualStartDate(), activity
 								.getActualPeriod()));
@@ -195,13 +215,25 @@ public class ActivityCellModifier implements ICellModifier {
 			}
 
 			if (property.equals(Resource.A_A_COST))
-				activity.setActualCost(Double.parseDouble(valueStr));
+				try {
+					activity.setActualCost(Double.parseDouble(valueStr));
+				} catch (Exception e) {
+					activity.setActualCost(0.0);
+				}
 			if (property.equals(Resource.A_BUILDER))
 				activity.setBuilder(valueStr);
 			if (property.equals(Resource.A_R_DAYS))
-				activity.setRarDays(Integer.parseInt(valueStr));
+				try {
+					activity.setRarDays(Integer.parseInt(valueStr));
+				} catch (Exception e) {
+					activity.setRarDays(0);
+				}
 			if (property.equals(Resource.A_R_COST))
-				activity.setRarCost(Double.parseDouble(valueStr));
+				try {
+					activity.setRarCost(Double.parseDouble(valueStr));
+				} catch (Exception e) {
+					activity.setRarCost(0.0);
+				}
 			if (property.equals(Resource.A_RMARKS))
 				activity.setRemarks(valueStr);
 		} catch (ParseException e) {
@@ -212,5 +244,4 @@ public class ActivityCellModifier implements ICellModifier {
 		//
 		tableViewer.update(activity, null);
 	}
-
 }

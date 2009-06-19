@@ -6,7 +6,6 @@ import java.util.Map;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -89,12 +88,12 @@ public class ProgressFilterDialog extends Dialog {
 		return container;
 	}
 
-	@Override
-	protected Point getInitialSize() {
-		Point p = super.getInitialSize();
-		p.x = 550;
-		return p;
-	}
+	// @Override
+	// protected Point getInitialSize() {
+	// Point p = super.getInitialSize();
+	// p.x = 550;
+	// return p;
+	// }
 
 	@Override
 	protected void cancelPressed() {
