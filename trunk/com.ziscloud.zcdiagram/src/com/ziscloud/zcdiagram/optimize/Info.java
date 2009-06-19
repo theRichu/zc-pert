@@ -1,5 +1,7 @@
 package com.ziscloud.zcdiagram.optimize;
 
+import java.util.Date;
+
 public class Info {
 
 	private int id;
@@ -13,8 +15,36 @@ public class Info {
 	private double ReduceCost;// 压缩成本
 	private int level;
 	private int flag;
+	private Date betterBeginTime_model1;
+	private Date betterEndTime_model1;
+	private Date betterBeginTime_model2;
+	private Date betterEndTime_model2;
 
 	public Info() {
+		super();
+	}
+
+	public Info(int id, String workNo, String name, int lastTime, double cost,
+			double benifit, String priviousWorkNo, int maxReduceTime,
+			double reduceCost, int level, int flag,
+			Date betterBeginTime_model1, Date betterEndTime_model1,
+			Date betterBeginTime_model2, Date betterEndTime_model2) {
+		super();
+		this.id = id;
+		this.workNo = workNo;
+		this.name = name;
+		this.lastTime = lastTime;
+		this.cost = cost;
+		this.benifit = benifit;
+		this.priviousWorkNo = priviousWorkNo;
+		this.maxReduceTime = maxReduceTime;
+		ReduceCost = reduceCost;
+		this.level = level;
+		this.flag = flag;
+		this.betterBeginTime_model1 = betterBeginTime_model1;
+		this.betterEndTime_model1 = betterEndTime_model1;
+		this.betterBeginTime_model2 = betterBeginTime_model2;
+		this.betterEndTime_model2 = betterEndTime_model2;
 	}
 
 	public Info(int id, String workNo, String name, int lastTime, double cost,
@@ -137,4 +167,35 @@ public class Info {
 		this.flag = flag;
 	}
 
+	public Date getBetterBeginTime_model1() {
+		return betterBeginTime_model1;
+	}
+
+	public void setBetterBeginTime_model1(Date betterBeginTime_model1) {
+		this.betterBeginTime_model1 = betterBeginTime_model1;
+	}
+
+	public Date getBetterEndTime_model1() {
+		return betterEndTime_model1;
+	}
+
+	public void setBetterEndTime_model1(Date betterEndTime_model1) {
+		this.betterEndTime_model1 = betterEndTime_model1;
+	}
+
+	public Date getBetterBeginTime_model2() {
+		return betterBeginTime_model2;
+	}
+
+	public void setBetterBeginTime_model2(Date betterBeginTime_model2) {
+		this.betterBeginTime_model2 = betterBeginTime_model2;
+	}
+
+	public Date getBetterEndTime_model2() {
+		return betterEndTime_model2;
+	}
+
+	public void setBetterEndTime_model2(Date betterEndTime_model2) {
+		this.betterEndTime_model2 = betterEndTime_model2;
+	}
 }

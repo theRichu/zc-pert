@@ -1,6 +1,5 @@
 package com.ziscloud.zcdiagram.editor;
 
-import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
@@ -14,14 +13,17 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import com.ziscloud.zcdiagram.core.IModelChangedEvent;
 import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
+import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
+import com.ziscloud.zcdiagram.optimize.Info;
 import com.ziscloud.zcdiagram.optimize.Optimize;
 import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
 
-public class OptimizeModelOnePage extends TableFormPage implements IModelChangedListener {
+public class OptimizeModelOnePage extends TableFormPage implements
+		IModelChangedListener {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.optimizeModelOnePage";
 	private static final String PAGE_TITLE = "模型 I 优化";
 	private static final String FORM_TITLE = "使用模型 I 对工程项目进行优化";
@@ -51,13 +53,22 @@ public class OptimizeModelOnePage extends TableFormPage implements IModelChanged
 					List<Activity> activities = new ActivitiyDAO()
 							.findByProjectOrdered(project);
 					Optimize optimize = new Optimize(activities);
-					Date[][] result = optimize.modelOneOptimize();
-					for (int i = 0; i < activities.size(); i++) {
-						Activity act = activities.get(i);
-						System.out.println(result[0][i]);
-						act.setPopStartDate(result[0][i]);
-						act.setPopEndDate(result[1][i]);
-						// DAOUtil.updateActivityToDababase(act);
+					List<Info> result = optimize.modelOneOptimize();
+					for (Info info : result) {
+						int index = activities.indexOf(new Activity(info
+								.getId()));
+						if (-1 != index) {
+							Activity act = activities.get(index);
+							if (null != act) {
+								act.setPopStartDate(info
+										.getBetterBeginTime_model1());
+								act.setPopEndDate(info
+										.getBetterEndTime_model1());
+								DAOUtil.updateActivityToDababase(act);
+								tableViewer.update(act, null);
+								tableViewer.refresh(act);
+							}
+						}
 					}
 					// update the optimize run time for this project
 					// project.setOptOneTime(new Date().getTime());

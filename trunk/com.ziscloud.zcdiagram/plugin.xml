@@ -133,14 +133,14 @@
             </command>
             <command
                   commandId="com.ziscloud.zcdiagram.commands.openOptOneDiagram"
-                  icon="icons/diagram.png"
+                  icon="icons/diagram_model_one.png"
                   id="com.ziscloud.zcdiagram.toolbars.main.openOptOneDiagram"
                   style="push"
                   tooltip="打开模型 I 优化后的网络图">
             </command>
             <command
                   commandId="com.ziscloud.zcdiagram.commands.openOptTwoDiagram"
-                  icon="icons/diagram.png"
+                  icon="icons/diagram_model_two.png"
                   id="com.ziscloud.zcdiagram.toolbars.main.openOptTwoDiagram"
                   style="push"
                   tooltip="打开模型 II 优化后的网络图">

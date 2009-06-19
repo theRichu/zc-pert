@@ -31,6 +31,8 @@ public class ImageUtil {
 	public static ImageDescriptor DONE_ACT;
 	public static ImageDescriptor NOTDO_ACT;
 	public static ImageDescriptor OPT;
+	public static ImageDescriptor DIAGRAM_MODEL_ONE;
+	public static ImageDescriptor DIAGRAM_MODEL_TWO;
 
 	static {
 		BLANK = Activator.getImageDescriptor("icons/blank.png");
@@ -51,6 +53,8 @@ public class ImageUtil {
 		DONE_ACT = Activator.getImageDescriptor("icons/done_activity.png");
 		NOTDO_ACT = Activator.getImageDescriptor("icons/notDo_activity.png");
 		OPT = Activator.getImageDescriptor("icons/optimize.png");
+		DIAGRAM_MODEL_ONE=Activator.getImageDescriptor("icons/diagram_model_one.png");;
+		DIAGRAM_MODEL_TWO=Activator.getImageDescriptor("icons/diagram_model_two.png");;
 	}
 
 }

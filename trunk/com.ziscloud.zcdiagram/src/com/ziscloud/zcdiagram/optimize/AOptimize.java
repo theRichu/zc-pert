@@ -1,6 +1,5 @@
 package com.ziscloud.zcdiagram.optimize;
 
-import java.util.Date;
 import java.util.List;
 
 import com.ziscloud.zcdiagram.pojo.Activity;
@@ -28,7 +27,7 @@ public abstract class AOptimize {
 	 *         start date, String[1] is the end date, and they are also an array
 	 *         with the same length.
 	 */
-	abstract public Date[][] modelOneOptimize();
+	abstract public List<Info> modelOneOptimize();
 
 	/**
 	 * the optimization using the model two
@@ -37,6 +36,6 @@ public abstract class AOptimize {
 	 *         start date, String[1] is the end date, and they are also an array
 	 *         with the same length.
 	 */
-	abstract public Date[][] modelTwoOptimize();
+	abstract public List<Info> modelTwoOptimize();
 
 }
