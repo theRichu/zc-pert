@@ -1,4 +1,4 @@
-﻿package com.ziscloud.zcdiagram.optimize;
+package com.ziscloud.zcdiagram.optimize;
 
 public class Info {
 
@@ -11,9 +11,27 @@ public class Info {
 	private String priviousWorkNo;// 紧前工序
 	private int maxReduceTime;// 最大可压缩天数
 	private double ReduceCost;// 压缩成本
+	private int level;
+	private int flag;
 
 	public Info() {
+	}
+
+	public Info(int id, String workNo, String name, int lastTime, double cost,
+			double benifit, String priviousWorkNo, int maxReduceTime,
+			double reduceCost, int level, int flag) {
 		super();
+		this.id = id;
+		this.workNo = workNo;
+		this.name = name;
+		this.lastTime = lastTime;
+		this.cost = cost;
+		this.benifit = benifit;
+		this.priviousWorkNo = priviousWorkNo;
+		this.maxReduceTime = maxReduceTime;
+		ReduceCost = reduceCost;
+		this.level = level;
+		this.flag = flag;
 	}
 
 	public Info(int id, String workNo, String name, int lastTime, double cost,
@@ -103,13 +121,20 @@ public class Info {
 		ReduceCost = reduceCost;
 	}
 
-	@Override
-	public String toString() {
-		return "id:" + id + "," + "workNo:" + workNo + "," + "name:" + name + ","
-				+ "lastTime:" + lastTime + "," + "cost:" + cost + "," + "benifit:"
-				+ benifit + "," + "priviousWorkNo:" + priviousWorkNo + ","
-				+ "maxReduceTime:" + maxReduceTime + ","
-				+ "ReduceCost:" + ReduceCost;
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 
 }

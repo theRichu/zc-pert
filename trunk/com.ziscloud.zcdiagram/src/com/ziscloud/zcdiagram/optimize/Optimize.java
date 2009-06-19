@@ -1,4 +1,4 @@
-﻿package com.ziscloud.zcdiagram.optimize;
+package com.ziscloud.zcdiagram.optimize;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.ziscloud.zcdiagram.pojo.Activity;
 
-//所有关键节点数组
 public class Optimize extends AOptimize {
 	private Date projectBeginTime;// 工程开工时间
 	private List<Info> list = new ArrayList<Info>();;
@@ -26,6 +25,12 @@ public class Optimize extends AOptimize {
 	private Date[] betterEndTime_model1;// MODEL1优化后完工时间
 	private Date[] betterBeginTime_model2;// MODEL2优化后开工时间
 	private Date[] betterEndTime_model2;// MODEL2优化后完工时间
+
+	private List<Info> temp_list = new ArrayList<Info>();
+
+	private static int level = 1;
+	private int[] order;
+	private int[][] obj2;
 
 	private double[] e; /* 用来存放每道工序的费用变化率 */
 	private int[] aa;/* 用来存放每道工序的最大可压缩天数 */
@@ -54,6 +59,8 @@ public class Optimize extends AOptimize {
 			betterTime = new int[size];
 			total1_model2 = new int[size];
 			total2_model2 = new int[size];
+			order = new int[size];
+			obj2 = new int[size][size];
 
 			e = new double[size];
 			aa = new int[size];
@@ -87,51 +94,76 @@ public class Optimize extends AOptimize {
 		}
 	}
 
+	public void b(int t, List<Info> list, int[][] obj2) {
+		// int i,j;
+		for (int i = 0; i < list.size(); i++)
+			// for(int j=0;j<4;j++)
+			if (obj2[t][i] == 1) {
+				Info info = (Info) list.get(i);
+				if (info.getFlag() == 0) {
+					info.setLevel(level);
+					info.setFlag(1);
+				} else if (info.getLevel() < level)
+					info.setLevel(level);
+				level++;
+				b(i, list, obj2);
+			}
+
+		level--;
+		return;
+	}
+
 	@Override
 	public Date[][] modelOneOptimize() {
 		init();
+		/*
+		 * int x=0; for(int i=0;i<list.size();i++){ Info info1=list.get(i);
+		 * String workNo=info1.getWorkNo();
+		 * if(info1.getPriviousWorkNo()==null||info1
+		 * .getPriviousWorkNo().trim().equals("")){ temp_list.add(x, info1); }
+		 * for(int j=0;j<list.size();j++){ Info info2=list.get(j); String
+		 * priviousWork=info2.getPriviousWorkNo();
+		 * if(priviousWork!=null&&!priviousWork.trim().equals("")){ String []
+		 * privious=priviousWork.split(","); for(int m=0;m<privious.length;m++){
+		 * if(privious[m].equals(workNo)){ temp_list.add(x+1,info2); } } } } } s
+		 * for(int i=0;i<temp_list.size();i++){
+		 * System.out.println(temp_list.get(i).getWorkNo()); }
+		 */
+
+		// System.out.print(list.get(0).getWorkNo());
 		Calendar cal = Calendar.getInstance();
 		Calendar cal1 = Calendar.getInstance();
 		total1[0] = 0;
-		// System.out.println(list.size());
-		// 得到time,obj
 
-		// int firstId = list.get(0).getId() - 1;
-		// for (Iterator<Info> it = list.iterator(); it.hasNext();) {
-		// Info p = it.next();
-		// int j = p.getId();
-		// String jinqiangongxu = p.getPriviousWorkNo();
-		// if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
-		// String[] jq = jinqiangongxu.split(",");
-		// for (int m = 0; m < jq.length; m++) {
-		// for (Iterator<Info> it2 = list.iterator(); it2.hasNext();) {
-		// Info p2 = it2.next();
-		// if (p2.getWorkNo().equals(jq[m])) {
-		// int i = p2.getId();
-		// if (i != 0) {
-		// obj[i - firstId - 1][j - firstId - 1] = 1;
-		// }
-		// }
-		// }
-		// }
-		// }
-		// time[j - firstId - 1] = p.getLastTime();
-		// aa[j - firstId - 1] = p.getMaxReduceTime();
-		// e[j - firstId - 1] = p.getReduceCost();
-		// System.out.println("id:" + j);
-		//
-		// }
+		// 得到time,obj
+		/*
+		 * for(Iterator<Info> it = list.iterator();it.hasNext();){ Info
+		 * p=it.next(); int j=p.getId(); String
+		 * jinqiangongxu=p.getPriviousWorkNo();
+		 * if(jinqiangongxu!=null&&!jinqiangongxu.trim().equals("")){ String[]
+		 * jq=jinqiangongxu.split(","); for(int m=0;m<jq.length;m++){
+		 * for(Iterator<Info> it2 = list.iterator();it2.hasNext();){ Info
+		 * p2=it2.next(); if( p2.getWorkNo().equals(jq[m])){ int i=p2.getId();
+		 * if(i!=0){ obj[i-1][j-1]=1; } } } } } time[j-1]=p.getLastTime();
+		 * aa[j-1]=p.getMaxReduceTime(); e[j-1]=p.getReduceCost();
+		 * 
+		 * }
+		 */
 
 		for (int i = 0; i < list.size(); i++) {
 			Info p = (Info) list.get(i);
+			// int j=p.getId();
 			String jinqiangongxu = p.getPriviousWorkNo();
 			if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
 				String[] jq = jinqiangongxu.split(",");
 				for (int m = 0; m < jq.length; m++) {
 					for (int j = 0; j < list.size(); j++) {
 						Info p2 = (Info) list.get(j);
-						if (p2.getWorkNo().equals(jq[m])) {
-							obj[j][i] = 1;
+						if (p2.getWorkNo().trim().equals(jq[m].trim())) {
+							// int i=p2.getId();
+
+							obj2[j][i] = 1;
+
 						}
 					}
 				}
@@ -139,9 +171,67 @@ public class Optimize extends AOptimize {
 			time[i] = p.getLastTime();
 			aa[i] = p.getMaxReduceTime();
 			e[i] = p.getReduceCost();
+		}
+
+		b(0, list, obj2);
+
+		// int s=0;
+		// for(int i=0;i<list.size();i++){
+		// for(int j=0;j<list.size();j++){
+		// Info info=list.get(j);
+		// if(info.getLevel()==i)
+		// order[s++]=j;
+		// }}
+		//		 
+		// for(int i=0;i<order.length;i++)
+		// System.out.println(order[i]);
+
+		// 整理list
+		// temp_list=list;
+
+		int s = 0;
+		int d = 0;
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				Info info = list.get(j);
+				if (info.getLevel() == i)
+					order[s++] = j;
+			}
+			d = i + 1;
 
 		}
 
+		for (int i = 0; i < d; i++) {
+			temp_list.add(null);
+		}
+
+		for (int g = 0; g < d; g++) {
+			Info info = list.get(order[g]);
+			temp_list.set(g, info);
+
+		}
+		for (int i = 0; i < temp_list.size(); i++) {
+			Info p = (Info) temp_list.get(i);
+			// int j=p.getId();
+			String jinqiangongxu = p.getPriviousWorkNo();
+			if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
+				String[] jq = jinqiangongxu.split(",");
+				for (int m = 0; m < jq.length; m++) {
+					for (int j = 0; j < temp_list.size(); j++) {
+						Info p2 = (Info) temp_list.get(j);
+						if (p2.getWorkNo().equals(jq[m])) {
+							// int i=p2.getId();
+
+							obj[j][i] = 1;
+
+						}
+					}
+				}
+			}
+			time[i] = p.getLastTime();
+			aa[i] = p.getMaxReduceTime();
+			e[i] = p.getReduceCost();
+		}
 		// for (int i = 0; i < obj.length; i++)
 		// for (int j = 0; j < obj[i].length; j++) {
 		// System.out.print(obj[i][j] + ",");
@@ -247,6 +337,10 @@ public class Optimize extends AOptimize {
 		//
 		// betterEndTime_model1[i] = cal1.getTime();
 		// }
+
+		for (int i = 0; i < total1.length; i++) {
+			System.out.print(total1[i]);
+		}
 		for (int i = 0; i < total1.length; i++) {
 			// sdf.format(projectOpenTime);
 			// try {
@@ -257,7 +351,7 @@ public class Optimize extends AOptimize {
 			// e.printStackTrace();
 			// }
 			cal.add(Calendar.DAY_OF_MONTH, total1[i]);
-			betterBeginTime_model1[i] = cal.getTime();// sdf.format(cal.getTime());
+			betterBeginTime_model1[i] = cal.getTime();
 			// try {
 			cal1.setTime(betterBeginTime_model1[i]);
 			// } catch (ParseException e) {
@@ -266,7 +360,7 @@ public class Optimize extends AOptimize {
 			// }
 			cal1.add(Calendar.DAY_OF_MONTH, time[i]);
 
-			betterEndTime_model1[i] = cal1.getTime();// sdf.format(cal1.getTime());
+			betterEndTime_model1[i] = cal1.getTime();
 		}
 
 		// for (int i = 0; i < total1.length; i++)
@@ -277,12 +371,12 @@ public class Optimize extends AOptimize {
 		// betterBeginTime_model1[j] = cal.getTime();
 		// }
 
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println("工序" + (i + 1) + "优化后开工时间"
-		// + betterBeginTime_model1[i]);
-		// System.out.println("工序" + (i + 1) + "优化后完工时间"
-		// + betterEndTime_model1[i]);
-		// }
+		for (int i = 0; i < total1.length; i++) {
+			System.out.println("工序" + (i + 1) + "优化后开工时间"
+					+ betterBeginTime_model1[i]);
+			System.out.println("工序" + (i + 1) + "优化后完工时间"
+					+ betterEndTime_model1[i]);
+		}
 		return new Date[][] { betterBeginTime_model1, betterEndTime_model1 };
 	}
 
@@ -432,24 +526,26 @@ public class Optimize extends AOptimize {
 		betterBeginTime_model2 = betterBeginTime_model1;
 		betterEndTime_model2 = betterEndTime_model1;
 		Calendar cal = Calendar.getInstance();
-		Calendar cal1 = Calendar.getInstance();
-		for (int i = 0; i < dd.length; i++) {
+		for (int i = 0; i < total1.length; i++) {
+			// sdf.format(projectOpenTime);
 			// try {
 			cal.setTime(projectBeginTime);
-			// } catch (ParseException e) {
-			// e.printStackTrace();
-			// }
-			cal.add(Calendar.DAY_OF_MONTH, nowOpenTime[i]);
-			betterBeginTime_model2[dd[i] - 1] = cal.getTime();// sdf.format(cal.getTime());
-			// try {
-			cal1.setTime(betterBeginTime_model2[dd[i] - 1]);
+
 			// } catch (ParseException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
 			// }
-			cal1.add(Calendar.DAY_OF_MONTH, time[dd[i] - 1]);
-			cal1.add(Calendar.DAY_OF_MONTH, -1 * mm[i]);
-			betterEndTime_model2[dd[i] - 1] = cal1.getTime();// sdf.format(cal1.getTime());
+			cal.add(Calendar.DAY_OF_MONTH, total1_model2[i]);
+			betterBeginTime_model2[i] = cal.getTime();
+			// try {
+			cal.setTime(betterBeginTime_model2[i]);
+			// } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			cal.add(Calendar.DAY_OF_MONTH, betterTime[i]);
+
+			betterEndTime_model2[i] = cal.getTime();
 		}
 		/*
 		 * for(int i=0;i<total1.length;i++) for(int j=i;j<total1.length;j++){
@@ -477,5 +573,4 @@ public class Optimize extends AOptimize {
 		// }
 		return new Date[][] { betterBeginTime_model2, betterEndTime_model2 };
 	}
-
 }

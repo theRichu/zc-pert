@@ -255,10 +255,42 @@
       <handler
             class="com.ziscloud.zcdiagram.handler.OpenOptOneDiagramHandler"
             commandId="com.ziscloud.zcdiagram.commands.openOptOneDiagram">
+         <enabledWhen>
+            <and>
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="com.ziscloud.zcdiagram.ProjectView">
+                  </equals>
+               </with>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </and>
+         </enabledWhen>
       </handler>
       <handler
             class="com.ziscloud.zcdiagram.handler.OpenOptTwoDiagramHandler"
             commandId="com.ziscloud.zcdiagram.commands.openOptTwoDiagram">
+         <enabledWhen>
+            <and>
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="com.ziscloud.zcdiagram.ProjectView">
+                  </equals>
+               </with>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </and>
+         </enabledWhen>
       </handler>
    </extension>
    <extension

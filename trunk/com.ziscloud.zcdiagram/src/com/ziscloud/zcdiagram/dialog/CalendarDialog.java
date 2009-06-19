@@ -10,7 +10,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -72,10 +71,10 @@ public class CalendarDialog extends Dialog {
 		return container;
 	}
 
-	@Override
-	protected Point getInitialSize() {
-		return new Point(310, 300);
-	}
+	// @Override
+	// protected Point getInitialSize() {
+	// return new Point(310, 300);
+	// }
 
 	public String getDateAsString() {
 		return this.date;
