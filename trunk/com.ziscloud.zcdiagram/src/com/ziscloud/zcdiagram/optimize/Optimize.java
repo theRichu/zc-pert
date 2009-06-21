@@ -21,14 +21,9 @@ public class Optimize extends AOptimize {
 	private int[] guanjian_temp;
 	private int[] guanjian;// 一条关键路线上的节点
 	private int count = 1;// 一条关键路线上节点个数
-	// private Date[] betterBeginTime_model1;// MODEL1优化后开工时间
-	// private Date[] betterEndTime_model1;// MODEL1优化后完工时间
-	// private Date[] betterBeginTime_model2;// MODEL2优化后开工时间
-	// private Date[] betterEndTime_model2;// MODEL2优化后完工时间
-
 	private List<Info> temp_list = new ArrayList<Info>();
 
-	private static int level = 1;
+	private int level = 1;
 	private int[] order;
 	private int[][] obj2;
 
@@ -45,7 +40,6 @@ public class Optimize extends AOptimize {
 	public void init() {
 		if (null != activities && activities.size() > 0) {
 			this.projectBeginTime = activities.get(0).getPlanStartDate();
-			// System.out.println("start:" + projectBeginTime);
 			int size = activities.size() + 1;
 			obj = new int[size][size];
 			time = new int[size];
@@ -53,10 +47,6 @@ public class Optimize extends AOptimize {
 			total2 = new int[size];
 			temp = new int[size];
 			guanjian_temp = new int[size];
-			// betterBeginTime_model1 = new Date[size];
-			// betterEndTime_model1 = new Date[size];
-			// betterBeginTime_model2 = new Date[size];
-			// betterEndTime_model2 = new Date[size];
 			betterTime = new int[size];
 			total1_model2 = new int[size];
 			total2_model2 = new int[size];
@@ -87,18 +77,14 @@ public class Optimize extends AOptimize {
 				}
 				list.add(info);
 			}
-			// for (Info i : list) {
-			// System.out.println(i);
-			// }
+
 		} else {
 			throw new RuntimeException("工程项目没有工序,无需优化");
 		}
 	}
 
 	public void b(int t, List<Info> list, int[][] obj2) {
-		// int i,j;
 		for (int i = 0; i < list.size(); i++)
-			// for(int j=0;j<4;j++)
 			if (obj2[t][i] == 1) {
 				Info info = (Info) list.get(i);
 				if (info.getFlag() == 0) {
@@ -117,7 +103,6 @@ public class Optimize extends AOptimize {
 	@Override
 	public List<Info> modelOneOptimize() {
 		init();
-
 		Calendar cal = Calendar.getInstance();
 		Calendar cal1 = Calendar.getInstance();
 		total1[0] = 0;
@@ -137,6 +122,7 @@ public class Optimize extends AOptimize {
 
 		for (int i = 0; i < list.size(); i++) {
 			Info p = (Info) list.get(i);
+			// int j=p.getId();
 			String jinqiangongxu = p.getPriviousWorkNo();
 			if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
 				String[] jq = jinqiangongxu.split(",");
@@ -144,7 +130,10 @@ public class Optimize extends AOptimize {
 					for (int j = 0; j < list.size(); j++) {
 						Info p2 = (Info) list.get(j);
 						if (p2.getWorkNo().trim().equals(jq[m].trim())) {
+							// int i=p2.getId();
+
 							obj2[j][i] = 1;
+
 						}
 					}
 				}
@@ -157,7 +146,7 @@ public class Optimize extends AOptimize {
 		// for (int i = 0; i < obj2.length; i++)
 		// for (int j = 0; j < obj2[i].length; j++) {
 		// System.out.print(obj2[i][j]);
-		// if (j == 10)
+		// if (j == 18)
 		// System.out.print("\n");
 		// }
 		// 递归
@@ -187,6 +176,10 @@ public class Optimize extends AOptimize {
 
 		}
 
+		// for (int i = 0; i < order.length; i++) {
+		// System.out.println("order" + i + "=" + order[i]);
+		// }
+
 		for (int i = 0; i < d; i++) {
 			temp_list.add(null);
 		}
@@ -204,6 +197,7 @@ public class Optimize extends AOptimize {
 
 		for (int i = 0; i < temp_list.size(); i++) {
 			Info p = (Info) temp_list.get(i);
+			// int j=p.getId();
 			String jinqiangongxu = p.getPriviousWorkNo();
 			if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
 				String[] jq = jinqiangongxu.split(",");
@@ -211,7 +205,10 @@ public class Optimize extends AOptimize {
 					for (int j = 0; j < temp_list.size(); j++) {
 						Info p2 = (Info) temp_list.get(j);
 						if (p2.getWorkNo().equals(jq[m])) {
+							// int i=p2.getId();
+
 							obj[j][i] = 1;
+
 						}
 					}
 				}
@@ -295,7 +292,6 @@ public class Optimize extends AOptimize {
 		for (int i = 0; i < count; i++) {
 			guanjian[i] = guanjian_temp[i];
 		}
-
 		// for (int i = 0; i < guanjian.length; i++) {
 		// System.out.println("网络图其中一条关键路线的节点有：" + guanjian[i]);
 		// }
@@ -452,6 +448,7 @@ public class Optimize extends AOptimize {
 		// }
 
 		Calendar cal = Calendar.getInstance();
+
 		for (int i = 0; i < total1.length; i++) {
 			cal.setTime(projectBeginTime);
 			Info p = temp_list.get(i);
@@ -461,6 +458,22 @@ public class Optimize extends AOptimize {
 			cal.add(Calendar.DAY_OF_MONTH, betterTime[i]);
 			p.setBetterEndTime_model2(cal.getTime());
 		}
+
+		// SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日");
+
+		// for (int i = 0; i < total1.length; i++) {
+		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化前开工时间"
+		// + f.format(temp_list.get(i).getBetterBeginTime_model1()));
+		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化前完工时间"
+		// + f.format(temp_list.get(i).getBetterEndTime_model1()));
+		// }
+		//
+		// for (int i = 0; i < total1.length; i++) {
+		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化后开工时间"
+		// + f.format(temp_list.get(i).getBetterBeginTime_model2()));
+		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化后完工时间"
+		// + f.format(temp_list.get(i).getBetterEndTime_model2()));
+		// }
 
 		return temp_list;
 	}

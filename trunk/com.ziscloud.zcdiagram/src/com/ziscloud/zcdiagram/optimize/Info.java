@@ -198,4 +198,40 @@ public class Info {
 	public void setBetterEndTime_model2(Date betterEndTime_model2) {
 		this.betterEndTime_model2 = betterEndTime_model2;
 	}
+
+	@Override
+	public String toString() {
+		System.out.print(id);
+		System.out.print(",");
+		System.out.print(workNo);
+		System.out.print(",");
+		System.out.print(name);
+		System.out.print(",");
+		System.out.print(lastTime);
+		System.out.print(",");
+		System.out.print(cost);
+		System.out.print(",");
+		System.out.print(benifit);
+		System.out.print(",");
+		System.out.print(priviousWorkNo);
+		System.out.print(",");
+		System.out.print(maxReduceTime);
+		System.out.print(",");
+		System.out.print(ReduceCost);
+		System.out.print(",");
+		System.out.print(level);
+		System.out.print(",");
+		System.out.print(flag);
+		System.out.print(",");
+		System.out.print(betterBeginTime_model1);
+		System.out.print(",");
+		System.out.print(betterEndTime_model1);
+		System.out.print(",");
+		System.out.print(betterBeginTime_model2);
+		System.out.print(",");
+		System.out.print(betterEndTime_model2);
+		System.out.println();
+		return null;
+	}
+
 }

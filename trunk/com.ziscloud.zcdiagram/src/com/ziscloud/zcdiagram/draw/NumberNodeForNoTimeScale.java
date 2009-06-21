@@ -116,7 +116,7 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 					// System.out.println("只有一个紧前，紧前的结束节点的ID:" + sNode.getId());
 				} else {
 					throw new RuntimeException(drawMeta.getSymbol()
-							+ " -> 结束节点为null.");
+							+ "的紧前工序"+pre.getDrawMetaByPreAct().getSymbol()+"结束节点为null.");
 				}
 			}
 			// 处理有多个紧前的工序

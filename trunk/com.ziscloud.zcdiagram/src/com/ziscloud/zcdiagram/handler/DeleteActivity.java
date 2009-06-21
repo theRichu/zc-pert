@@ -111,7 +111,7 @@ public class DeleteActivity extends Action implements ISelectionChangedListener 
 			}
 			activitiyDAO.delete(delAct);
 			project.setModifyTime(new Date().getTime());
-			projectDAO.attachDirty(project);
+			projectDAO.merge(project);
 			tx.commit();
 		} catch (HibernateException he) {
 			if (null != tx) {

@@ -1,5 +1,6 @@
 package com.ziscloud.zcdiagram.editor;
 
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
@@ -71,8 +72,8 @@ public class OptimizeModelOnePage extends TableFormPage implements
 						}
 					}
 					// update the optimize run time for this project
-					// project.setOptOneTime(new Date().getTime());
-					// DAOUtil.updateProjectToDatabase(project);
+					project.setOptOneTime(new Date().getTime());
+					DAOUtil.updateProjectToDatabase(project);
 					tableViewer.refresh();
 				} else {
 					MessageDialog
