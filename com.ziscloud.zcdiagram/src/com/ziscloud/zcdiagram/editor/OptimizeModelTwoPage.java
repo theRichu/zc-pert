@@ -1,5 +1,6 @@
 package com.ziscloud.zcdiagram.editor;
 
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
@@ -60,9 +61,9 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 						if (-1 != index) {
 							Activity act = activities.get(index);
 							if (null != act) {
-								act.setPopStartDate(info
+								act.setOptopStartDate(info
 										.getBetterBeginTime_model2());
-								act.setPopEndDate(info
+								act.setOptopEndDate(info
 										.getBetterEndTime_model2());
 								DAOUtil.updateActivityToDababase(act);
 								tableViewer.update(act, null);
@@ -71,8 +72,8 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 						}
 					}
 					// update the optimize run time for this project
-					// project.setOptOneTime(new Date().getTime());
-					// DAOUtil.updateProjectToDatabase(project);
+					project.setOptTwoTime(new Date().getTime());
+					DAOUtil.updateProjectToDatabase(project);
 					tableViewer.refresh();
 				} else {
 					MessageDialog.openInformation(shell, "模型 II 优化",

@@ -15,6 +15,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.RedoRetargetAction;
@@ -39,10 +40,6 @@ import com.ziscloud.zcdiagram.editor.DiagramEditor;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.SWTHelper;
 
-/**
- * @author zhanghao TODO To change the template for this generated type comment
- *         go to Window - Preferences - Java - Code Style - Code Templates
- */
 public class DiagramActionBarContributor extends ActionBarContributor {
 	ExportImageAction exportAction;
 
@@ -68,15 +65,13 @@ public class DiagramActionBarContributor extends ActionBarContributor {
 		toolBarManager.add(new Separator());
 		toolBarManager.add(getAction(GEFActionConstants.ZOOM_IN));
 		toolBarManager.add(getAction(GEFActionConstants.ZOOM_OUT));
-		toolBarManager.add(new ZoomComboContributionItem(getPage()));
+		String[] zoomStrings = new String[] { ZoomManager.FIT_ALL,
+				ZoomManager.FIT_HEIGHT, ZoomManager.FIT_WIDTH };
+		toolBarManager
+				.add(new ZoomComboContributionItem(getPage(), zoomStrings));
 	}
 
 	public void contributeToMenu(IMenuManager menuManager) {
-		// IMenuManager viewMenu = new MenuManager("&View", "view");
-		// menuManager.insertAfter(IWorkbenchActionConstants.M_EDIT,viewMenu);
-		// viewMenu.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
-		// viewMenu.add(getAction(GEFActionConstants.TOGGLE_RULER_VISIBILITY));
-		// viewMenu.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
 	}
 
 	private class ExportImageAction extends Action {
@@ -97,7 +92,8 @@ public class DiagramActionBarContributor extends ActionBarContributor {
 					SWT.SAVE);
 			dialog.setFilterNames(new String[] { "PNG(*.png)", "GIF(*.gif)",
 					"JPEG/JPG(*.jpg)" });
-			dialog.setFilterExtensions(new String[] { "*.png", "*.gif",
+			dialog
+					.setFilterExtensions(new String[] { "*.png", "*.gif",
 							"*.jpg" });
 			dialog.setFileName(editor.getPartName());
 			String fileName = dialog.open();

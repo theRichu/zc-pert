@@ -64,7 +64,7 @@ public class DrawDiagram {
 				try {
 					// 更新工程的相关信息
 					tx = SessionFactory.getSession().beginTransaction();
-					projectDAO.attachDirty(curPrjct);
+					projectDAO.merge(curPrjct);
 					tx.commit();
 				} catch (HibernateException he) {
 					if (null != tx)
