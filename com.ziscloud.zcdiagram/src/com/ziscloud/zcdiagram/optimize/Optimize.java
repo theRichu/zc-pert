@@ -130,10 +130,7 @@ public class Optimize extends AOptimize {
 					for (int j = 0; j < list.size(); j++) {
 						Info p2 = (Info) list.get(j);
 						if (p2.getWorkNo().trim().equals(jq[m].trim())) {
-							// int i=p2.getId();
-
 							obj2[j][i] = 1;
-
 						}
 					}
 				}
@@ -143,12 +140,6 @@ public class Optimize extends AOptimize {
 			e[i] = p.getReduceCost();
 		}
 
-		// for (int i = 0; i < obj2.length; i++)
-		// for (int j = 0; j < obj2[i].length; j++) {
-		// System.out.print(obj2[i][j]);
-		// if (j == 18)
-		// System.out.print("\n");
-		// }
 		// 递归
 		int x = 0;
 		for (x = 0; x < list.size(); x++) {
@@ -176,10 +167,6 @@ public class Optimize extends AOptimize {
 
 		}
 
-		// for (int i = 0; i < order.length; i++) {
-		// System.out.println("order" + i + "=" + order[i]);
-		// }
-
 		for (int i = 0; i < d; i++) {
 			temp_list.add(null);
 		}
@@ -190,14 +177,10 @@ public class Optimize extends AOptimize {
 
 		}
 
-		// for (int i = 0; i < temp_list.size(); i++) {
-		// System.out.println(temp_list.get(i).getWorkNo());
-		// }
 		// 整理结束
 
 		for (int i = 0; i < temp_list.size(); i++) {
 			Info p = (Info) temp_list.get(i);
-			// int j=p.getId();
 			String jinqiangongxu = p.getPriviousWorkNo();
 			if (jinqiangongxu != null && !jinqiangongxu.trim().equals("")) {
 				String[] jq = jinqiangongxu.split(",");
@@ -205,10 +188,7 @@ public class Optimize extends AOptimize {
 					for (int j = 0; j < temp_list.size(); j++) {
 						Info p2 = (Info) temp_list.get(j);
 						if (p2.getWorkNo().equals(jq[m])) {
-							// int i=p2.getId();
-
 							obj[j][i] = 1;
-
 						}
 					}
 				}
@@ -223,11 +203,11 @@ public class Optimize extends AOptimize {
 		for (int j = 0; j < obj.length; j++)
 			for (int i = 0; i < obj[j].length; i++) {
 				if (obj[i][j] == 1) {
-					temp1 = total1[i] + time[i];
+					temp1 = total1[i] + time[i] + 1;
 					for (int k = i + 1; k < obj[j].length; k++) {
 						if (obj[k][j] == 1) {
-							if (total1[k] + time[k] > temp1) {
-								temp1 = total1[k] + time[k];
+							if (total1[k] + time[k] + 1 > temp1) {
+								temp1 = total1[k] + time[k] + 1;
 							}
 						}
 					}
@@ -236,10 +216,6 @@ public class Optimize extends AOptimize {
 				}
 			}
 
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println((i + 1) + "工序的最短开工时间:" + total1[i]);
-		// }
-
 		// 得到total2
 		total2[total2.length - 1] = total1[total1.length - 1];
 		int temp2 = 0;
@@ -247,11 +223,11 @@ public class Optimize extends AOptimize {
 		for (int i = obj.length - 1; i >= 0; i--)
 			for (int j = obj[i].length - 1; j >= 0; j--) {
 				if (obj[i][j] == 1) {
-					temp2 = total2[j] - time[i];
+					temp2 = total2[j] - time[i] - 1;
 					for (int k = j - 1; k >= 0; k--) {
 						if (obj[i][k] == 1) {
-							if (total2[k] - time[i] < temp2) {
-								temp2 = total2[k] - time[i];
+							if (total2[k] - time[i] - 1 < temp2) {
+								temp2 = total2[k] - time[i] - 1;
 							}
 						}
 					}
@@ -260,16 +236,15 @@ public class Optimize extends AOptimize {
 				}
 			}
 
-		// for (int i = 0; i < total2.length; i++) {
-		// System.out.println(temp_list.get(i).getWorkNo() + "工序的最迟开工时间:"
-		// + total2[i]);
-		// }
+		for (int i = 1; i < total1.length; i++) {
+			total1[i] = total1[i] - 1;
+			total2[i] = total2[i] - 1;
+		}
 
 		// 找关键节点
 
 		for (int i = 0; i < total1.length; i++) {
 			if (total1[i] - total2[i] == 0) {
-				// System.out.println("关键节点有：" + temp_list.get(i).getWorkNo());
 				temp[i] = 1;
 			}
 		}
@@ -292,16 +267,10 @@ public class Optimize extends AOptimize {
 		for (int i = 0; i < count; i++) {
 			guanjian[i] = guanjian_temp[i];
 		}
-		// for (int i = 0; i < guanjian.length; i++) {
-		// System.out.println("网络图其中一条关键路线的节点有：" + guanjian[i]);
-		// }
-
-		// System.out.println("这条路线上关键工序个数为：" + count);
 
 		// 计算model1优化后开工和完工时间
 		for (int i = 0; i < total1.length; i++) {
 			cal.setTime(projectBeginTime);
-
 			cal.add(Calendar.DAY_OF_MONTH, total1[i]);
 			Info p = temp_list.get(i);
 			p.setBetterBeginTime_model1(cal.getTime());
@@ -313,12 +282,12 @@ public class Optimize extends AOptimize {
 	}
 
 	@Override
-	public List<Info> modelTwoOptimize() {
+	public List<Info> modelTwoOptimize(double bonus) {
 		modelOneOptimize();
 		int[] dd = guanjian;
 		@SuppressWarnings("unused")
 		double MAXSY = 0.0; /* MAXSY表示最后的压缩后的最大收益 */
-		double bonus = 260; /* 用来表示压缩一天 带来的收益 */
+		// double bonus = 260; /* 用来表示压缩一天 带来的收益 */
 		int temp0 = 0; /* 用来表示最后一道工序的紧前工序的初始值 */
 		double[] cc = new double[dd.length]; /* 用来存放每道关键工序的费用变化率 */
 		int[] mm = new int[dd.length]; /* 用来存放每道关键工序的最后实际压缩的天数 */
@@ -328,12 +297,11 @@ public class Optimize extends AOptimize {
 
 		for (int k = 0; k < temp.length; k++) {
 			if (obj[k][temp.length - 1] == 1 && temp[k] != 1
-					&& total1[k] + time[k] > temp0) {
-				temp0 = total1[k] + time[k];
+					&& total1[k] + time[k] + 1 > temp0) {
+				temp0 = total1[k] + time[k] + 1;
 			}
 		}
 		int MAXKYS = total1[total1.length - 1] - temp0; /* 用来表示整个项目可压缩的天数总合 */
-		// System.out.println("最大可压缩总天数" + MAXKYS);
 
 		for (int i = 0; i < dd.length; i++) {
 			cc[i] = e[dd[i] - 1];
@@ -354,7 +322,6 @@ public class Optimize extends AOptimize {
 			if (temp1 == 1e9)
 				break;
 			k = dd[s] - 1;
-			// System.out.println("可压缩的关键工序按费用变化率由小到大的节点依次为：" + (k + 1));
 			if (sum > MAXKYS)
 				break;
 			if (sum + aa[k] > MAXKYS)
@@ -370,13 +337,8 @@ public class Optimize extends AOptimize {
 		for (int i = 0; i < count; i++) {
 			cost += (mm[i] * cc[i]);
 			total += mm[i];
-			// System.out.println("关键工序" + temp_list.get(dd[i] - 1).getWorkNo()
-			// + "压缩的天数是" + mm[i]);
 		}
 
-		// for (int i = 0; i < dd.length; i++) {
-		// System.out.println("节点" + temp_list.get(dd[i] - 1).getWorkNo());
-		// }
 		nowOpenTime[0] = 0;
 
 		for (int i = 0; i < dd.length - 1; i++) {
@@ -384,13 +346,7 @@ public class Optimize extends AOptimize {
 		}
 
 		// 相对的时间
-		// for (int i = 0; i < dd.length; i++) {
-		// System.out.println("实际开工时间:" + nowOpenTime[i]);
-		// }
 		MAXSY = bonus * total - cost;
-		// System.out.println("由于压缩带来的总成本为：" + cost);
-		// System.out.println("压缩的总天数为：" + total);
-		// System.out.println("最大的压缩收益为：" + MAXSY);
 
 		// 计算model2优化后开工和完工时间
 		betterTime = time;
@@ -403,11 +359,11 @@ public class Optimize extends AOptimize {
 		for (int j = 0; j < obj.length; j++)
 			for (int i = 0; i < obj[j].length; i++) {
 				if (obj[i][j] == 1) {
-					temp1 = total1_model2[i] + betterTime[i];
+					temp1 = total1_model2[i] + betterTime[i] + 1;
 					for (int k = i + 1; k < obj[j].length; k++) {
 						if (obj[k][j] == 1) {
-							if (total1_model2[k] + betterTime[k] > temp1) {
-								temp1 = total1_model2[k] + betterTime[k];
+							if (total1_model2[k] + betterTime[k] + 1 > temp1) {
+								temp1 = total1_model2[k] + betterTime[k] + 1;
 							}
 						}
 					}
@@ -417,11 +373,6 @@ public class Optimize extends AOptimize {
 
 			}
 
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println(temp_list.get(i).getWorkNo() + "工序的最短开工时间:"
-		// + total1_model2[i]);
-		// }
-
 		// 得到total2
 		total2_model2[total2_model2.length - 1] = total1_model2[total1_model2.length - 1];
 		int temp2 = 0;
@@ -429,11 +380,11 @@ public class Optimize extends AOptimize {
 		for (int i = obj.length - 1; i >= 0; i--)
 			for (int j = obj[i].length - 1; j >= 0; j--) {
 				if (obj[i][j] == 1) {
-					temp2 = total2_model2[j] - betterTime[i];
+					temp2 = total2_model2[j] - betterTime[i] - 1;
 					for (int k = j - 1; k >= 0; k--) {
 						if (obj[i][k] == 1) {
-							if (total2_model2[k] - betterTime[i] < temp2) {
-								temp2 = total2_model2[k] - betterTime[i];
+							if (total2_model2[k] - betterTime[i] - 1 < temp2) {
+								temp2 = total2_model2[k] - betterTime[i] - 1;
 							}
 						}
 					}
@@ -442,10 +393,10 @@ public class Optimize extends AOptimize {
 				}
 			}
 
-		// for (int i = 0; i < total2.length; i++) {
-		// System.out.println(temp_list.get(i).getWorkNo() + "工序的最迟开工时间:"
-		// + total2_model2[i]);
-		// }
+		for (int i = 1; i < total1.length; i++) {
+			total1_model2[i] = total1_model2[i] - 1;
+			total2_model2[i] = total2_model2[i] - 1;
+		}
 
 		Calendar cal = Calendar.getInstance();
 
@@ -458,23 +409,6 @@ public class Optimize extends AOptimize {
 			cal.add(Calendar.DAY_OF_MONTH, betterTime[i]);
 			p.setBetterEndTime_model2(cal.getTime());
 		}
-
-		// SimpleDateFormat f = new SimpleDateFormat("yyyy年MM月dd日");
-
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化前开工时间"
-		// + f.format(temp_list.get(i).getBetterBeginTime_model1()));
-		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化前完工时间"
-		// + f.format(temp_list.get(i).getBetterEndTime_model1()));
-		// }
-		//
-		// for (int i = 0; i < total1.length; i++) {
-		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化后开工时间"
-		// + f.format(temp_list.get(i).getBetterBeginTime_model2()));
-		// System.out.println("工序" + temp_list.get(i).getWorkNo() + "优化后完工时间"
-		// + f.format(temp_list.get(i).getBetterEndTime_model2()));
-		// }
-
 		return temp_list;
 	}
 }

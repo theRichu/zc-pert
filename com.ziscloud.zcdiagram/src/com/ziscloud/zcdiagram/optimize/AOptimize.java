@@ -36,6 +36,6 @@ public abstract class AOptimize {
 	 *         start date, String[1] is the end date, and they are also an array
 	 *         with the same length.
 	 */
-	abstract public List<Info> modelTwoOptimize();
+	abstract public List<Info> modelTwoOptimize(double bonus);
 
 }

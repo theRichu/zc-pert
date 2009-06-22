@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.IManagedForm;
@@ -22,6 +24,7 @@ import com.ziscloud.zcdiagram.optimize.Optimize;
 import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
+import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class OptimizeModelTwoPage extends TableFormPage implements
 		IModelChangedListener {
@@ -53,28 +56,42 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 				if (project.getModifyTime() > project.getOptTwoTime()) {
 					List<Activity> activities = new ActivitiyDAO()
 							.findByProjectOrdered(project);
-					Optimize optimize = new Optimize(activities);
-					List<Info> result = optimize.modelTwoOptimize();
-					for (Info info : result) {
-						int index = activities.indexOf(new Activity(info
-								.getId()));
-						if (-1 != index) {
-							Activity act = activities.get(index);
-							if (null != act) {
-								act.setOptopStartDate(info
-										.getBetterBeginTime_model2());
-								act.setOptopEndDate(info
-										.getBetterEndTime_model2());
-								DAOUtil.updateActivityToDababase(act);
-								tableViewer.update(act, null);
-								tableViewer.refresh(act);
+					InputDialog dialog = new InputDialog(getSite().getShell(),
+							"模型II优化参数", "请输入压缩一天获得的收益（单位：元）", "0",
+							new IInputValidator() {
+								@Override
+								public String isValid(String newText) {
+									if (SWTHelper.isDecimal(newText))
+										return null;
+									else
+										return "错误:请输入数值";
+								}
+							});
+					if (dialog.open() == InputDialog.OK) {
+						double para = Double.parseDouble(dialog.getValue());
+						Optimize optimize = new Optimize(activities);
+						List<Info> result = optimize.modelTwoOptimize(para);
+						for (Info info : result) {
+							int index = activities.indexOf(new Activity(info
+									.getId()));
+							if (-1 != index) {
+								Activity act = activities.get(index);
+								if (null != act) {
+									act.setOptopStartDate(info
+											.getBetterBeginTime_model2());
+									act.setOptopEndDate(info
+											.getBetterEndTime_model2());
+									DAOUtil.updateActivityToDababase(act);
+									tableViewer.update(act, null);
+									tableViewer.refresh(act);
+								}
 							}
 						}
+						// update the optimize run time for this project
+						project.setOptTwoTime(new Date().getTime());
+						DAOUtil.updateProjectToDatabase(project);
+						tableViewer.refresh();
 					}
-					// update the optimize run time for this project
-					project.setOptTwoTime(new Date().getTime());
-					DAOUtil.updateProjectToDatabase(project);
-					tableViewer.refresh();
 				} else {
 					MessageDialog.openInformation(shell, "模型 II 优化",
 							"工程项目已经优化！");
