@@ -29,7 +29,7 @@ public class DAOUtil {
 			activitiyDAO.merge(activity);
 			Project project = activity.getProject();
 			project.setModifyTime(new Date().getTime());
-			projectDAO.attachDirty(project);
+			projectDAO.merge(project);
 			tx.commit();
 		} catch (HibernateException he) {
 			if (null != tx) {
@@ -67,10 +67,10 @@ public class DAOUtil {
 			activitiyDAO.save(activity);
 			Project project = activity.getProject();
 			project.setModifyTime(new Date().getTime());
-			projectDAO.attachDirty(project);
+			projectDAO.merge(project);
 			// set symbol
 			activity.setSymbol(project.getSymbol() + activity.getId());
-			activitiyDAO.attachDirty(activity);
+			activitiyDAO.merge(activity);
 			tx.commit();
 		} catch (HibernateException he) {
 			if (null != tx) {

@@ -13,6 +13,7 @@ import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.core.ModelChangedEvent;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
 import com.ziscloud.zcdiagram.editor.ProjectEditor;
+import com.ziscloud.zcdiagram.editor.ProjectEditorInput;
 import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.view.ProjectView;
 
@@ -31,7 +32,7 @@ public class UpdateProjectAction extends Action implements IModelChangeProvider 
 	@Override
 	public void run() {
 		DAOUtil.updateProjectToDatabase(project);
-		editor.setPartName(project.getName());
+		((ProjectEditorInput)editor.getEditorInput()).setProject(project);
 		ProjectView view = (ProjectView) PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage().findView(
 						ProjectView.ID);

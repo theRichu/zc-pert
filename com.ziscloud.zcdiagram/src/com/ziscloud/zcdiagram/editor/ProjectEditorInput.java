@@ -18,6 +18,10 @@ public class ProjectEditorInput implements IEditorInput {
 		return project;
 	}
 
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	@Override
 	public boolean exists() {
 		return false;

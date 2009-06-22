@@ -41,7 +41,7 @@ public class ActivityPage extends TableFormPage {
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
 		super.createFormContent(managedForm);
-		delActivityAction = new DeleteActivity(shell);
+		delActivityAction = new DeleteActivity(shell,listeners);
 		// create the tool bar and its item
 		IToolBarManager toolBarManager = managedForm.getForm()
 				.getToolBarManager();
@@ -50,7 +50,7 @@ public class ActivityPage extends TableFormPage {
 					public void run() {
 						AddActivityWizard wizard = new AddActivityWizard(
 								((ProjectEditorInput) (getEditorInput()))
-										.getProject(), tableViewer);
+										.getProject(), tableViewer,listeners);
 						WizardDialog dialog = new WizardDialog(shell, wizard);
 						dialog.open();
 					}

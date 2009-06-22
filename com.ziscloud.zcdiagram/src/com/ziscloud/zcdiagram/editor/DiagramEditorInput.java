@@ -21,6 +21,10 @@ public class DiagramEditorInput implements IEditorInput {
 		this.model = model;
 	}
 
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	public Project getProject() {
 		return project;
 	}
