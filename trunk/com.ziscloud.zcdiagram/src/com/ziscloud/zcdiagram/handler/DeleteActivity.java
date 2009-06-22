@@ -1,5 +1,6 @@
 package com.ziscloud.zcdiagram.handler;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
 
+import com.ziscloud.zcdiagram.core.IModelChangeProvider;
+import com.ziscloud.zcdiagram.core.IModelChangedEvent;
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
+import com.ziscloud.zcdiagram.core.ModelChangedEvent;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.dao.SessionFactory;
@@ -27,20 +32,27 @@ import com.ziscloud.zcdiagram.pojo.Activity;
 import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 
-public class DeleteActivity extends Action implements ISelectionChangedListener {
+public class DeleteActivity extends Action implements
+		ISelectionChangedListener, IModelChangeProvider {
 	private Project project;
 	private Activity delAct;
 	private Set<Activity> suffix;
 	private TableViewer viewer;
 	private Shell shell;
+	private List<IModelChangedListener> listeners = new ArrayList<IModelChangedListener>();
 
-	public DeleteActivity(Shell shell) {
+	public DeleteActivity(Shell shell, IModelChangedListener[] listeners) {
 		super();
 		setText("删除工序");
 		setImageDescriptor(ImageUtil.DEL_ACT);
 		suffix = new HashSet<Activity>();
 		this.shell = shell;
 		this.setEnabled(false);
+		if (null != listeners) {
+			for (IModelChangedListener listener : listeners) {
+				this.addModelChangedListener(listener);
+			}
+		}
 	}
 
 	@Override
@@ -50,6 +62,7 @@ public class DeleteActivity extends Action implements ISelectionChangedListener 
 						"工程项目工序删除后，将不可恢复，是否继续？")) {
 			suffixHandle();
 			saveToDatabase();
+			fireModelObjectChanged(null, delAct, delAct);
 		}
 	}
 
@@ -118,6 +131,8 @@ public class DeleteActivity extends Action implements ISelectionChangedListener 
 				tx.rollback();
 			}
 			throw new RuntimeException("保存删除工序后的信息失败！", he);
+		} finally {
+			SessionFactory.closeSession();
 		}
 	}
 
@@ -161,13 +176,38 @@ public class DeleteActivity extends Action implements ISelectionChangedListener 
 			Object object = ss.getFirstElement();
 			if (object instanceof Activity) {
 				this.setEnabled(true);
-				this.delAct = (Activity) object;
+				this.delAct = new ActivitiyDAO().findById(((Activity) object)
+						.getId());
 				this.project = delAct.getProject();
 				this.viewer = (TableViewer) event.getSource();
 			} else {
 				this.setEnabled(false);
 			}
 		}
+	}
+
+	@Override
+	public void addModelChangedListener(IModelChangedListener listener) {
+		listeners.add(listener);
+	}
+
+	@Override
+	public void fireModelChanged(IModelChangedEvent event) {
+
+	}
+
+	@Override
+	public void fireModelObjectChanged(Object object, Object oldValue,
+			Object newValue) {
+		for (IModelChangedListener listener : listeners) {
+			listener.modelChanged(new ModelChangedEvent(this,
+					IModelChangedEvent.REMOVE, oldValue, newValue));
+		}
+	}
+
+	@Override
+	public void removeModelChangedListener(IModelChangedListener listener) {
+		listeners.remove(listener);
 	}
 
 }

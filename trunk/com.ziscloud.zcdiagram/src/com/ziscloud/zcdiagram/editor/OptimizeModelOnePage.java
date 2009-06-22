@@ -121,6 +121,22 @@ public class OptimizeModelOnePage extends TableFormPage implements
 				tableViewer.refresh(act);
 			}
 		}
+		if (event.getChangeType() == IModelChangedEvent.INSERT) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.add(act);
+				tableViewer.refresh(act);
+			}
+		}
+		if (event.getChangeType() == IModelChangedEvent.REMOVE) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.remove(act);
+				tableViewer.refresh(act);
+			}
+		}
 	}
 
 }

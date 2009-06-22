@@ -20,6 +20,7 @@ public class ProgressPage extends TableFormPage implements
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.progressPage";
 	private static final String PAGE_TITLE = "工程项目进度控制";
 	private static final String FORM_TITLE = "工程项目进度情况";
+	private IModelChangedListener[] listeners;
 	private static final TableColumns TABLE_COLUMNS = new TableColumns(
 			new String[] { Resource.A_NAME, Resource.A_SYBOL,
 					Resource.A_P_PERIOD, Resource.A_P_COST, Resource.A_P_START,
@@ -28,8 +29,9 @@ public class ProgressPage extends TableFormPage implements
 					false, false, false, false, false, false, true, true,
 					false, true });
 
-	public ProgressPage(FormEditor projectEditor) {
+	public ProgressPage(FormEditor projectEditor, IModelChangedListener[] listeners) {
 		super(projectEditor, ID, PAGE_TITLE, FORM_TITLE, TABLE_COLUMNS);
+		this.listeners = listeners;
 	}
 
 	@Override
@@ -96,6 +98,10 @@ public class ProgressPage extends TableFormPage implements
 
 		});
 		toolBarManager.update(true);
+		//register the listners
+		for (IModelChangedListener listener : listeners) {
+			getCellModifier().addModelChangedListener(listener);
+		}
 	}
 
 	@Override
@@ -104,6 +110,22 @@ public class ProgressPage extends TableFormPage implements
 			Object o = event.getNewValue();
 			if (o instanceof Activity && null != tableViewer) {
 				Activity act = (Activity) o;
+				tableViewer.refresh(act);
+			}
+		}
+		if (event.getChangeType() == IModelChangedEvent.INSERT) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.add(act);
+				tableViewer.refresh(act);
+			}
+		}
+		if (event.getChangeType() == IModelChangedEvent.REMOVE) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.remove(act);
 				tableViewer.refresh(act);
 			}
 		}

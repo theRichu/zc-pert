@@ -38,6 +38,8 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import com.ziscloud.zcdiagram.core.IModelChangedEvent;
+import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.dao.SessionFactory;
@@ -54,10 +56,12 @@ import com.ziscloud.zcdiagram.validator.DecimalVerifyListener;
 import com.ziscloud.zcdiagram.validator.NumberVerifyListener;
 import com.ziscloud.zcdiagram.validator.StrategyFactory;
 
-public class ProjectOverviewPage extends FormPage {
+public class ProjectOverviewPage extends FormPage implements
+		IModelChangedListener {
 	private static final String ID = "com.ziscloud.zcdiagram.formpage.projectoverviewpage";
 	private static final String TITLE = "工程项目基本信息";
 	private Project project;
+	private Section staSection;
 	private Text remarks;
 	private Text designer;
 	private Text manager;
@@ -68,6 +72,7 @@ public class ProjectOverviewPage extends FormPage {
 	private Text planPeriod;
 	private Text name;
 	private Action saveAction;
+	FormToolkit toolkit;
 
 	public ProjectOverviewPage(FormEditor editor) {
 		super(editor, ID, TITLE); //$NON-NLS-1$
@@ -79,7 +84,7 @@ public class ProjectOverviewPage extends FormPage {
 
 	@Override
 	protected void createFormContent(IManagedForm managedForm) {
-		FormToolkit toolkit = managedForm.getToolkit();
+		toolkit = managedForm.getToolkit();
 		ScrolledForm scrolledForm = managedForm.getForm();
 		scrolledForm.setText(TITLE);
 		final Form form = scrolledForm.getForm();
@@ -119,8 +124,7 @@ public class ProjectOverviewPage extends FormPage {
 	 * 
 	 */
 	private void createStaSection(final ScrolledForm form, FormToolkit toolkit) {
-		Section staSection = toolkit.createSection(form.getBody(),
-				Section.TITLE_BAR);
+		staSection = toolkit.createSection(form.getBody(), Section.TITLE_BAR);
 		staSection.setText("工程项目数据统计");
 		staSection.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		createStaSectionComposite(staSection, toolkit);
@@ -418,4 +422,18 @@ public class ProjectOverviewPage extends FormPage {
 					}
 				});
 	}
+
+	@Override
+	public void modelChanged(IModelChangedEvent event) {
+		int type = event.getChangeType();
+		if (type == IModelChangedEvent.INSERT
+				|| type == IModelChangedEvent.REMOVE
+				|| type == IModelChangedEvent.CHANGE) {
+			this.getManagedForm().getForm().getBody().getChildren()[1]
+					.dispose();
+			this.createStaSection(this.getManagedForm().getForm(), this
+					.getManagedForm().getToolkit());
+		}
+	}
+
 }

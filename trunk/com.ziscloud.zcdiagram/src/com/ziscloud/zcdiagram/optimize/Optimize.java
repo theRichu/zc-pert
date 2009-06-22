@@ -30,6 +30,8 @@ public class Optimize extends AOptimize {
 	private double[] e; /* 用来存放每道工序的费用变化率 */
 	private int[] aa;/* 用来存放每道工序的最大可压缩天数 */
 
+	private double MAXSY = 0.0; /* MAXSY表示最后的压缩后的最大收益 */
+
 	public Optimize(List<Activity> activities) {
 		super(activities);
 	}
@@ -285,8 +287,8 @@ public class Optimize extends AOptimize {
 	public List<Info> modelTwoOptimize(double bonus) {
 		modelOneOptimize();
 		int[] dd = guanjian;
-		@SuppressWarnings("unused")
-		double MAXSY = 0.0; /* MAXSY表示最后的压缩后的最大收益 */
+		// @SuppressWarnings("unused")
+		// double MAXSY = 0.0; /* MAXSY表示最后的压缩后的最大收益 */
 		// double bonus = 260; /* 用来表示压缩一天 带来的收益 */
 		int temp0 = 0; /* 用来表示最后一道工序的紧前工序的初始值 */
 		double[] cc = new double[dd.length]; /* 用来存放每道关键工序的费用变化率 */
@@ -411,4 +413,9 @@ public class Optimize extends AOptimize {
 		}
 		return temp_list;
 	}
+
+	public double getMAXSY() {
+		return MAXSY;
+	}
+
 }

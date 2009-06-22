@@ -23,12 +23,13 @@ public class ProjectEditor extends FormEditor {
 	protected void addPages() {
 		try {
 			overviewPage = new ProjectOverviewPage(this);
-			progressPage = new ProgressPage(this);
+			progressPage = new ProgressPage(this,
+					new IModelChangedListener[] { overviewPage });
 			modelOnePage = new OptimizeModelOnePage(this);
 			modelTwoPage = new OptimizeModelTwoPage(this);
 
 			activityPage = new ActivityPage(this, new IModelChangedListener[] {
-					progressPage, modelOnePage, modelTwoPage });
+					overviewPage, progressPage, modelOnePage, modelTwoPage });
 
 			addPage(overviewPage);
 			addPage(activityPage);
@@ -63,12 +64,8 @@ public class ProjectEditor extends FormEditor {
 	 */
 	@Override
 	public String getPartName() {
-		return getEditorInput().getName() + " - 数据";
-	}
-
-	@Override
-	public void setPartName(String partName) {
-		super.setPartName(partName);
+		return ((ProjectEditorInput) getEditorInput()).getProject().getName()
+				+ " - 数据";
 	}
 
 }

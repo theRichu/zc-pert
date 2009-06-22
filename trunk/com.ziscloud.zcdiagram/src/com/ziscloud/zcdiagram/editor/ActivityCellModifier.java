@@ -210,7 +210,8 @@ public class ActivityCellModifier implements ICellModifier,
 							activity
 									.setActualPeriod(Integer.parseInt(valueStr));
 						} catch (Exception e) {
-							activity.setActualPeriod(activity.getActualPeriod());
+							activity
+									.setActualPeriod(activity.getActualPeriod());
 						}
 						activity.setActualEndDate(DateUtils.addDays(activity
 								.getActualStartDate(), activity
@@ -268,6 +269,7 @@ public class ActivityCellModifier implements ICellModifier,
 	public void fireModelObjectChanged(Object object, Object oldValue,
 			Object newValue) {
 		for (IModelChangedListener listener : listeners) {
+			listener.toString();
 			listener.modelChanged(new ModelChangedEvent(this,
 					IModelChangedEvent.CHANGE, oldValue, newValue));
 		}

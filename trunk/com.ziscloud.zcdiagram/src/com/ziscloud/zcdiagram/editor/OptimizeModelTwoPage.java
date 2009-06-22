@@ -71,6 +71,9 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 						double para = Double.parseDouble(dialog.getValue());
 						Optimize optimize = new Optimize(activities);
 						List<Info> result = optimize.modelTwoOptimize(para);
+						MessageDialog.openInformation(getSite().getShell(),
+								"优化后最大收益", "模型II优化后的最大收益为："
+										+ optimize.getMAXSY()+"（万元）");
 						for (Info info : result) {
 							int index = activities.indexOf(new Activity(info
 									.getId()));
@@ -135,6 +138,22 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 			Object o = event.getNewValue();
 			if (o instanceof Activity && null != tableViewer) {
 				Activity act = (Activity) o;
+				tableViewer.refresh(act);
+			}
+		}
+		if (event.getChangeType() == IModelChangedEvent.INSERT) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.add(act);
+				tableViewer.refresh(act);
+			}
+		}
+		if (event.getChangeType() == IModelChangedEvent.REMOVE) {
+			Object o = event.getNewValue();
+			if (o instanceof Activity && null != tableViewer) {
+				Activity act = (Activity) o;
+				tableViewer.remove(act);
 				tableViewer.refresh(act);
 			}
 		}
