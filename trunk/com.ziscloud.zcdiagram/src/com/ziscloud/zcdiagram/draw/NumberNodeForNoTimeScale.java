@@ -115,8 +115,9 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 					sNode = tempNode;
 					// System.out.println("只有一个紧前，紧前的结束节点的ID:" + sNode.getId());
 				} else {
-					throw new RuntimeException(drawMeta.getSymbol()
-							+ "的紧前工序"+pre.getDrawMetaByPreAct().getSymbol()+"结束节点为null.");
+					throw new RuntimeException(drawMeta.getSymbol() + "的紧前工序"
+							+ pre.getDrawMetaByPreAct().getSymbol()
+							+ "结束节点为null.");
 				}
 			}
 			// 处理有多个紧前的工序
@@ -132,13 +133,18 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 				// 合并结束节点
 				DrawNode maxNode = null;
 				if (0 < mergeDrawMetaList.size()) {
-					maxNode = findMaximumNode(mergeDrawMetaList);
+					maxNode = findMaximumNode(mergeDrawMetaList, -1);
 					noMergeDrawMetaList.addAll(mergeTargetNode(maxNode,
 							mergeDrawMetaList));
 				}
 				// 找出合并后的当前工序的紧前工序中最大的结束节点
-				maxNode = findMaximumNode(noMergeDrawMetaList);
+				maxNode = findMaximumNode(noMergeDrawMetaList, flag);
 				sNode = maxNode;
+				if (sNode.getId() >= tNode.getId()) {
+					flag += (sNode.getId() - tNode.getId());
+					tNode = new DrawNode(generateNodeId(flag + 1), ++flag,
+							project);
+				}
 				// 添加虚工序
 				List<DrawNode> targetNodes = findAllTargetNode(
 						noMergeDrawMetaList, maxNode);
@@ -146,6 +152,8 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 					for (DrawNode virtualSourceNode : targetNodes) {
 						virtualDrawMetaList.add(createVirtualProcess(
 								virtualSourceNode, maxNode));
+						// System.out.println(virtualSourceNode.getLabel() + ","
+						// + maxNode.getLabel());
 					}
 				}
 				// System.out.println("不需要进行合并的");
@@ -371,7 +379,7 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 	 *            紧前工序序列
 	 * @return 编号最大的节点
 	 */
-	private DrawNode findMaximumNode(List<Relation> preList) {
+	private DrawNode findMaximumNode(List<Relation> preList, int flag) {
 		if (null == preList) {
 			return null;
 		}
@@ -385,7 +393,12 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 				last = drawMeta;
 			}
 		}
-		return last.getDrawNodeByEndNode();
+		// 如果最大的结束节点的工序有其他的紧后，则返回当前最大节点+1后的节点
+		if (-1 != flag && last.getRltnForPreAct().size() > 1) {
+			return new DrawNode(generateNodeId(flag + 1), ++flag, project);
+		} else {
+			return last.getDrawNodeByEndNode();
+		}
 	}
 
 	/**

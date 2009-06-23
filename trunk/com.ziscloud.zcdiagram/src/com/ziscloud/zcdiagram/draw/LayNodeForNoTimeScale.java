@@ -66,6 +66,8 @@ public class LayNodeForNoTimeScale implements ILayNode {
 					x = node.getX();
 					if (x < flagX) {
 						node.setX(flagX);
+						// System.out.println("id:" + node.getNode() +
+						// ", x:"+node.getX());
 					}
 
 				}

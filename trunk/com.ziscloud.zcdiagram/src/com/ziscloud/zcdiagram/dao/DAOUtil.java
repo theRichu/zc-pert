@@ -156,8 +156,8 @@ public class DAOUtil {
 			for (String actSymbol : actAndPre.keySet()) {
 				for (String preActSymbol : actAndPre.get(actSymbol)) {
 					Relation relation = new Relation();
-					System.out.println(actSymbol);
-					System.out.println(preActSymbol);
+					// System.out.println(actSymbol);
+					// System.out.println(preActSymbol);
 					relation.setDrawMetaByCurAct(actAndDrawMeta.get(actSymbol));
 					relation.setDrawMetaByPreAct(actAndDrawMeta.get(preActSymbol));
 					relationDAO.save(relation);
