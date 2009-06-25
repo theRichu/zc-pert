@@ -12,10 +12,12 @@ import java.io.IOException;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PrintFigureOperation;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.print.PrintGraphicalViewerOperation;
 import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.RedoRetargetAction;
@@ -33,7 +35,12 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.printing.PrintDialog;
+import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
 import com.ziscloud.zcdiagram.editor.DiagramEditor;
@@ -58,6 +65,28 @@ public class DiagramActionBarContributor extends ActionBarContributor {
 	}
 
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
+		toolBarManager.add(new Action("Print",ImageUtil.PRINT) {
+			@Override
+			public void run() {
+				int style = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow().getShell().getStyle();
+				Shell shell = new Shell(
+						(style & SWT.MIRRORED) != 0 ? SWT.RIGHT_TO_LEFT
+								: SWT.NONE);
+				PrintDialog dialog = new PrintDialog(shell, SWT.NULL);
+				PrinterData data = dialog.open();
+				if (data != null) {
+					DiagramEditor editor = (DiagramEditor) getPage().getActiveEditor();
+					 PrintGraphicalViewerOperation operation = new
+					 PrintGraphicalViewerOperation(
+					 new Printer(data), editor.getGraphicalViewer());
+					 // here you can set the Print Mode
+					 operation.setPrintMode(PrintFigureOperation.TILE);
+					 operation.run(editor.getPartName());
+				}
+			}
+		}
+		);
 		toolBarManager.add(exportAction);
 		toolBarManager.add(new Separator());
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
@@ -99,7 +128,7 @@ public class DiagramActionBarContributor extends ActionBarContributor {
 			String fileName = dialog.open();
 			if (null != fileName) {
 				ScalableFreeformRootEditPart rootPart = (ScalableFreeformRootEditPart) editor
-						.getViewer().getRootEditPart();
+						.getGraphicalViewer().getRootEditPart();
 				IFigure figure = rootPart
 						.getLayer(ScalableFreeformRootEditPart.PRINTABLE_LAYERS);
 				// To ensure every graphical element is included

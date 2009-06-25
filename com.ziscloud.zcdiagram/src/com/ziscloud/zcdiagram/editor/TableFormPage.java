@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
+import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.provider.ActivityTableLabelProvider;
 import com.ziscloud.zcdiagram.strategy.DoubleClickColumnViewerEditorActivationStrategy;
@@ -54,7 +55,9 @@ public class TableFormPage extends FormPage {
 	protected void createFormContent(IManagedForm managedForm) {
 		this.shell = getSite().getWorkbenchWindow().getWorkbench()
 				.getActiveWorkbenchWindow().getShell();
-		this.project = ((ProjectEditorInput) getEditorInput()).getProject();
+		int projectId = ((ProjectEditorInput) getEditorInput()).getProject()
+				.getId();
+		this.project = new ProjectDAO().findById(projectId);
 		//
 		FormToolkit toolkit = managedForm.getToolkit();
 		final ScrolledForm scrolledForm = managedForm.getForm();
@@ -142,5 +145,5 @@ public class TableFormPage extends FormPage {
 	public void setCellModifier(ActivityCellModifier cellModifier) {
 		this.cellModifier = cellModifier;
 	}
-	
+
 }

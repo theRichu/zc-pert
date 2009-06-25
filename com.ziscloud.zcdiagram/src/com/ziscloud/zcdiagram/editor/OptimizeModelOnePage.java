@@ -15,11 +15,13 @@ import com.ziscloud.zcdiagram.core.IModelChangedEvent;
 import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
+import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.optimize.Info;
 import com.ziscloud.zcdiagram.optimize.Optimize;
 import com.ziscloud.zcdiagram.pojo.Activity;
+import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
 
@@ -50,9 +52,10 @@ public class OptimizeModelOnePage extends TableFormPage implements
 		toolBarManager.add(new Action("开始优化", ImageUtil.OPT) {
 			@Override
 			public void run() {
-				if (project.getModifyTime() > project.getOptOneTime()) {
+				Project prjct = new ProjectDAO().findById(project.getId());
+				if (prjct.getModifyTime() > prjct.getOptOneTime()) {
 					List<Activity> activities = new ActivitiyDAO()
-							.findByProjectOrdered(project);
+							.findByProjectOrdered(prjct);
 					Optimize optimize = new Optimize(activities);
 					List<Info> result = optimize.modelOneOptimize();
 					for (Info info : result) {
@@ -72,8 +75,8 @@ public class OptimizeModelOnePage extends TableFormPage implements
 						}
 					}
 					// update the optimize run time for this project
-					project.setOptOneTime(new Date().getTime());
-					DAOUtil.updateProjectToDatabase(project);
+					prjct.setOptOneTime(new Date().getTime());
+					DAOUtil.updateProjectToDatabase(prjct);
 					tableViewer.refresh();
 				} else {
 					MessageDialog

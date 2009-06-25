@@ -31,6 +31,8 @@ public class Optimize extends AOptimize {
 	private int[] aa;/* 用来存放每道工序的最大可压缩天数 */
 
 	private double MAXSY = 0.0; /* MAXSY表示最后的压缩后的最大收益 */
+	
+	private int totalDays = 0;
 
 	public Optimize(List<Activity> activities) {
 		super(activities);
@@ -399,6 +401,8 @@ public class Optimize extends AOptimize {
 			total1_model2[i] = total1_model2[i] - 1;
 			total2_model2[i] = total2_model2[i] - 1;
 		}
+		
+		totalDays=total1[total1.length-1]+time[time.length-1]+total;//压缩后总工期
 
 		Calendar cal = Calendar.getInstance();
 
@@ -416,6 +420,10 @@ public class Optimize extends AOptimize {
 
 	public double getMAXSY() {
 		return MAXSY;
+	}
+
+	public int getTotalDays() {
+		return totalDays;
 	}
 
 }
