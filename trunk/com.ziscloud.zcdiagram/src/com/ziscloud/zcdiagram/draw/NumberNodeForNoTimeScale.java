@@ -141,7 +141,8 @@ public class NumberNodeForNoTimeScale implements INumberNode {
 				maxNode = findMaximumNode(noMergeDrawMetaList, flag);
 				sNode = maxNode;
 				if (sNode.getId() >= tNode.getId()) {
-					flag += (sNode.getId() - tNode.getId());
+					flag += (Integer.parseInt(sNode.getLabel()) - Integer
+							.parseInt(tNode.getLabel()));
 					tNode = new DrawNode(generateNodeId(flag + 1), ++flag,
 							project);
 				}

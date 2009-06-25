@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.PrintFigureOperation;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
@@ -13,22 +12,15 @@ import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.print.PrintGraphicalViewerOperation;
 import org.eclipse.gef.ui.actions.ToggleGridAction;
 import org.eclipse.gef.ui.actions.ToggleRulerVisibilityAction;
 import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.printing.PrintDialog;
-import org.eclipse.swt.printing.Printer;
-import org.eclipse.swt.printing.PrinterData;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.PlatformUI;
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
 
@@ -38,8 +30,6 @@ import com.ziscloud.zcdiagram.draw.DrawDiagram;
 import com.ziscloud.zcdiagram.gef.Diagram;
 import com.ziscloud.zcdiagram.gef.Node;
 import com.ziscloud.zcdiagram.gef.PartFactory;
-import com.ziscloud.zcdiagram.util.ImageUtil;
-import com.ziscloud.zcdiagram.util.SWTHelper;
 
 public class DiagramEditor extends GraphicalEditor {
 	public static final String ID = "com.ziscloud.zcdiagram.editor.diagramEditor";
@@ -77,31 +67,6 @@ public class DiagramEditor extends GraphicalEditor {
 		getActionRegistry().registerAction(action);
 		action = new ZoomOutAction(root.getZoomManager());
 		getActionRegistry().registerAction(action);
-		// print action
-		action = new Action() {
-			@Override
-			public void run() {
-				int style = PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getShell().getStyle();
-				Shell shell = new Shell(
-						(style & SWT.MIRRORED) != 0 ? SWT.RIGHT_TO_LEFT
-								: SWT.NONE);
-				PrintDialog dialog = new PrintDialog(shell, SWT.NULL);
-				PrinterData data = dialog.open();
-				if (data != null) {
-					PrintGraphicalViewerOperation operation = new PrintGraphicalViewerOperation(
-							new Printer(data), getGraphicalViewer());
-					// here you can set the Print Mode
-					operation.setPrintMode(PrintFigureOperation.TILE);
-					operation.run(getPartName());
-				}
-			}
-
-		};
-		action.setText("Print");
-		action.setImageDescriptor(ImageUtil.PRINT);
-		getEditorSite().getActionBars().getToolBarManager().insertBefore(
-				SWTHelper.EXPORTIMGACTION_ID, action);
 	}
 
 	protected void initializeGraphicalViewer() {
@@ -151,6 +116,7 @@ public class DiagramEditor extends GraphicalEditor {
 		diagram = new Diagram();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Class type) {
 		if (type == ZoomManager.class)
 			return getGraphicalViewer().getProperty(
@@ -166,8 +132,9 @@ public class DiagramEditor extends GraphicalEditor {
 		}
 	}
 
-	public GraphicalViewer getViewer() {
-		return getGraphicalViewer();
+	@Override
+	public GraphicalViewer getGraphicalViewer() {
+		return super.getGraphicalViewer();
 	}
 
 	@Override

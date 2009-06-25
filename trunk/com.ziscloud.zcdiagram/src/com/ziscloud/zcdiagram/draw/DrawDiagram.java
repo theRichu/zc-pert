@@ -123,11 +123,16 @@ public class DrawDiagram {
 		}
 		for (DrawMeta dm : drawMetas) {
 			// generate activity
+			String label;
+			if (dm.getName().length() > 4) {
+				label = dm.getName().substring(0, 4) + "...";
+			} else {
+				label = dm.getName();
+			}
 			@SuppressWarnings("unused")
 			Connection connection = new Connection(dm.getActivitiy().getId(),
 					nodes.get(dm.getDrawNodeByStartNode().getId()), nodes
-							.get(dm.getDrawNodeByEndNode().getId()), dm
-							.getName(),
+							.get(dm.getDrawNodeByEndNode().getId()), label,
 					Boolean.parseBoolean(dm.getIsCriticl()), Boolean
 							.parseBoolean(dm.getIsVirtual()));
 			// System.out.println(dm.getName() + "-> start:"

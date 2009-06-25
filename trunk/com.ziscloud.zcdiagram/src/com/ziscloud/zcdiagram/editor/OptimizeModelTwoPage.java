@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.IManagedForm;
@@ -17,11 +17,13 @@ import com.ziscloud.zcdiagram.core.IModelChangedEvent;
 import com.ziscloud.zcdiagram.core.IModelChangedListener;
 import com.ziscloud.zcdiagram.dao.ActivitiyDAO;
 import com.ziscloud.zcdiagram.dao.DAOUtil;
+import com.ziscloud.zcdiagram.dao.ProjectDAO;
 import com.ziscloud.zcdiagram.dialog.ActivityFilterDialog;
 import com.ziscloud.zcdiagram.dialog.ColumnVisibilityDialog;
 import com.ziscloud.zcdiagram.optimize.Info;
 import com.ziscloud.zcdiagram.optimize.Optimize;
 import com.ziscloud.zcdiagram.pojo.Activity;
+import com.ziscloud.zcdiagram.pojo.Project;
 import com.ziscloud.zcdiagram.util.ImageUtil;
 import com.ziscloud.zcdiagram.util.Resource;
 import com.ziscloud.zcdiagram.util.SWTHelper;
@@ -53,9 +55,10 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 		toolBarManager.add(new Action("开始优化", ImageUtil.OPT) {
 			@Override
 			public void run() {
-				if (project.getModifyTime() > project.getOptTwoTime()) {
+				Project prjct = new ProjectDAO().findById(project.getId());
+				if (prjct.getModifyTime() > prjct.getOptTwoTime()) {
 					List<Activity> activities = new ActivitiyDAO()
-							.findByProjectOrdered(project);
+							.findByProjectOrdered(prjct);
 					InputDialog dialog = new InputDialog(getSite().getShell(),
 							"模型II优化参数", "请输入压缩一天获得的收益（单位：元）", "0",
 							new IInputValidator() {
@@ -72,8 +75,10 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 						Optimize optimize = new Optimize(activities);
 						List<Info> result = optimize.modelTwoOptimize(para);
 						MessageDialog.openInformation(getSite().getShell(),
-								"优化后最大收益", "模型II优化后的最大收益为："
-										+ optimize.getMAXSY()+"（万元）");
+								"优化后结果", "模型II优化后的节约的成本为："
+										+ optimize.getMAXSY() + "（万元）\n"
+										+ "模型II优化后的总工期为："
+										+ optimize.getTotalDays() + "天");
 						for (Info info : result) {
 							int index = activities.indexOf(new Activity(info
 									.getId()));
@@ -91,8 +96,8 @@ public class OptimizeModelTwoPage extends TableFormPage implements
 							}
 						}
 						// update the optimize run time for this project
-						project.setOptTwoTime(new Date().getTime());
-						DAOUtil.updateProjectToDatabase(project);
+						prjct.setOptTwoTime(new Date().getTime());
+						DAOUtil.updateProjectToDatabase(prjct);
 						tableViewer.refresh();
 					}
 				} else {
