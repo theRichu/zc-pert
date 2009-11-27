@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<loadpath>
+	<pathentry path="" type="src"/>
+	<pathentry path="org.rubypeople.rdt.launching.RUBY_CONTAINER" type="con"/>
+	<pathentry path="GEM_LIB/nokogiri-1.4.0-x86-mswin32/lib" type="var"/>
+</loadpath>
