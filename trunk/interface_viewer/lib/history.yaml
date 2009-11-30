@@ -1,0 +1,22 @@
+--- 
+- !ruby/object:SearchViewHistory 
+  file_path: ""
+  hi_type: Search
+  intfc_id: cp1033i01
+  look_in: E:/workspace/hostresponse/
+  rate: 6
+  rs_rq: Resp.xml
+- !ruby/object:SearchViewHistory 
+  file_path: E:/workspace/hostresponse/EAIWS/CP1033I01/TCP1033I01-10000101-Resp.xml
+  hi_type: File
+  intfc_id: ""
+  look_in: ""
+  rate: 3
+  rs_rq: ""
+- !ruby/object:SearchViewHistory 
+  file_path: E:/workspace/hostresponse/CIS1020I01-492_CIS1020I01-Resp.xml
+  hi_type: File
+  intfc_id: ""
+  look_in: ""
+  rate: 0
+  rs_rq: ""
