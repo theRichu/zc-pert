@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
-	<object class="wxFrame" name="main_frame" subclass="MainFrame">
+	<object class="wxFrame" name="main_frame" subclass="BaseMainFrame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>1000,700</size>
+		<size>800,667</size>
 		<title>Interface Viewer</title>
 		<centered>1</centered>
 		<object class="wxSplitterWindow">
@@ -31,12 +31,6 @@
 							<style>wxLI_HORIZONTAL</style>
 						</object>
 					</object>
-					<object class="spacer">
-						<option>0</option>
-						<flag>wxEXPAND</flag>
-						<border>5</border>
-						<size>0,20</size>
-					</object>
 					<object class="sizeritem">
 						<option>0</option>
 						<flag>wxALL</flag>
@@ -61,12 +55,6 @@
 								</object>
 							</object>
 						</object>
-					</object>
-					<object class="spacer">
-						<option>0</option>
-						<flag>wxEXPAND</flag>
-						<border>5</border>
-						<size>0,8</size>
 					</object>
 					<object class="sizeritem">
 						<option>0</option>
@@ -102,12 +90,6 @@
 							</object>
 						</object>
 					</object>
-					<object class="spacer">
-						<option>0</option>
-						<flag>wxEXPAND</flag>
-						<border>5</border>
-						<size>0,8</size>
-					</object>
 					<object class="sizeritem">
 						<option>0</option>
 						<flag>wxALL</flag>
@@ -126,7 +108,7 @@
 								<option>1</option>
 								<flag>wxALL</flag>
 								<border>5</border>
-								<object class="wxTextCtrl" name="text_dir">
+								<object class="wxTextCtrl" name="text_look_in">
 									<value></value>
 									<maxlength>0</maxlength>
 								</object>
@@ -136,7 +118,7 @@
 								<flag>wxALL</flag>
 								<border>5</border>
 								<object class="wxButton" name="btn_select_dir">
-									<label>Select Dir.</label>
+									<label>Browse</label>
 									<default>0</default>
 								</object>
 							</object>
@@ -159,6 +141,101 @@
 							<default>0</default>
 						</object>
 					</object>
+					<object class="spacer">
+						<option>0</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<size>0,20</size>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText">
+							<label>Select the interface file</label>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticLine">
+							<style>wxLI_HORIZONTAL</style>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<orient>wxHORIZONTAL</orient>
+							<object class="sizeritem">
+								<option>1</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxTextCtrl" name="text_file_path">
+									<value></value>
+									<maxlength>0</maxlength>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxButton" name="btn_select_file">
+									<label>Browse</label>
+									<default>0</default>
+								</object>
+							</object>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticLine">
+							<style>wxLI_HORIZONTAL</style>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALIGN_RIGHT|wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btn_view_file">
+							<label>View File</label>
+							<default>0</default>
+						</object>
+					</object>
+					<object class="spacer">
+						<option>0</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<size>0,20</size>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText">
+							<label>History</label>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticLine">
+							<style>wxLI_HORIZONTAL</style>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxListBox" name="listBox_history">
+							<content />
+						</object>
+					</object>
 				</object>
 			</object>
 			<object class="wxPanel">
@@ -177,15 +254,15 @@
 									<option>1</option>
 									<flag>wxALL|wxEXPAND</flag>
 									<border>5</border>
-									<object class="wxTreeCtrl" name="tree_file">
-										<style>wxTR_DEFAULT_STYLE</style>
+									<object class="wxTreeCtrl" name="tree_fields">
+										<style>wxTR_DEFAULT_STYLE|wxTR_MULTIPLE</style>
 									</object>
 								</object>
 							</object>
 						</object>
 					</object>
 					<object class="sizeritem">
-						<option>1</option>
+						<option>0</option>
 						<flag>wxALL|wxEXPAND</flag>
 						<border>5</border>
 						<object class="wxPanel">
@@ -208,65 +285,18 @@
 										<style>wxLI_HORIZONTAL</style>
 									</object>
 								</object>
-								<object class="spacer">
-									<option>0</option>
-									<flag>wxEXPAND</flag>
-									<border>5</border>
-									<size>0,8</size>
-								</object>
 								<object class="sizeritem">
-									<option>0</option>
-									<flag>wxALL</flag>
+									<option>1</option>
+									<flag>wxALL|wxEXPAND</flag>
 									<border>5</border>
-									<object class="wxStaticText">
-										<label>Filed name:</label>
-									</object>
-								</object>
-								<object class="sizeritem">
-									<option>0</option>
-									<flag>wxALL</flag>
-									<border>5</border>
-									<object class="wxStaticText" name="static_text_field_name">
-										<label></label>
-									</object>
-								</object>
-								<object class="spacer">
-									<option>0</option>
-									<flag>wxEXPAND</flag>
-									<border>5</border>
-									<size>0,8</size>
-								</object>
-								<object class="sizeritem">
-									<option>0</option>
-									<flag>wxALL</flag>
-									<border>5</border>
-									<object class="wxStaticText">
-										<label>Field Value:</label>
-									</object>
-								</object>
-								<object class="sizeritem">
-									<option>0</option>
-									<flag>wxEXPAND</flag>
-									<border>5</border>
-									<object class="wxBoxSizer">
-										<orient>wxHORIZONTAL</orient>
-										<object class="sizeritem">
-											<option>1</option>
-											<flag>wxALL</flag>
-											<border>5</border>
-											<object class="wxTextCtrl" name="text_field_value">
-												<value></value>
-												<maxlength>0</maxlength>
-											</object>
-										</object>
-									</object>
+									<object class="wxGrid" name="grid_fields" />
 								</object>
 								<object class="sizeritem">
 									<option>0</option>
 									<flag>wxALIGN_RIGHT|wxALL</flag>
 									<border>5</border>
 									<object class="wxButton" name="btn_save">
-										<label>Save Change</label>
+										<label>  Save Change  </label>
 										<default>0</default>
 									</object>
 								</object>

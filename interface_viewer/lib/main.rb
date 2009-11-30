@@ -1,5 +1,5 @@
 require "wx"
-require File.dirname(__FILE__) + '/InterfaceViewerFrame'
+require File.dirname(__FILE__) + '/interface_viewer_frame'
 
 class MyApp < Wx::App
   def on_init()
