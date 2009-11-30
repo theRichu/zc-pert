@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/field_text_editor'
+require 'field_text_editor'
 
 class GridHelper
   

@@ -24,7 +24,7 @@ SolidCompression=yes
 Name: english; MessagesFile: compiler:Default.isl
 
 [Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: exclusive
 Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Files]
@@ -36,7 +36,7 @@ Source: E:\workspace_ruby\interface_viewer\lib\history.yaml; DestDir: {app}; Fla
 [Icons]
 Name: {group}\Interface Viewer; Filename: {app}\main.exe
 Name: {group}\{cm:UninstallProgram,Interface Viewer}; Filename: {uninstallexe}
-Name: {commondesktop}\Interface Viewer; Filename: {app}\main.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
+Name: {commondesktop}\Interface Viewer; Filename: {app}\main.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0; Languages: 
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Interface Viewer; Filename: {app}\main.exe; Tasks: quicklaunchicon; WorkingDir: {app}; IconIndex: 0
 
 [Run]
