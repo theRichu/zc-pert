@@ -1,17 +1,17 @@
 require "wx"
 require "yaml"
-require File.dirname(__FILE__) + '/base_main_frame'
-require File.dirname(__FILE__) + '/interface_file_finder'
-require File.dirname(__FILE__) + '/xml_parser'
-require File.dirname(__FILE__) + '/search_view_history'
+require 'base_main_frame'
+require 'interface_file_finder'
+require 'xml_parser'
+require 'search_view_history'
 include Wx 
 
 class InterfaceViewerFrame < BaseMainFrame
   def initialize
     super
     
-    @text_inter_id.set_value("cp1033i01")
-    @text_look_in.set_value("E:/workspace/hostresponse")
+    #@text_inter_id.set_value("cp1033i01")
+    #@text_look_in.set_value("E:/workspace/hostresponse")
     @item_data = nil
     @xml_parser = nil
     # initialize the number of the column of the grid
@@ -100,7 +100,7 @@ class InterfaceViewerFrame < BaseMainFrame
   
   def load_history
     all_history = YAML.load_file(SearchViewHistory::PATH)
-    @listbox_history.set(all_history.sort.collect {|x| x.to_s })
+    @listbox_history.set(all_history.sort.collect {|x| x.to_s }) if all_history
   end
 
   def check_text_value(text_ctrl)

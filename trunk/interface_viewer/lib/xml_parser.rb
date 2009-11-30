@@ -1,5 +1,5 @@
 require 'nokogiri'
-require File.dirname(__FILE__) + '/grid_helper'
+require 'grid_helper'
 
 class XMLParser
   

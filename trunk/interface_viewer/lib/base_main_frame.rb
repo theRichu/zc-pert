@@ -1,4 +1,4 @@
-
+require 'wx'
 # This class was automatically generated from XRC source. It is not
 # recommended that this file is edited directly; instead, inherit from
 # this class and extend its behaviour there.  
@@ -18,8 +18,7 @@ class BaseMainFrame < Wx::Frame
 		xml = Wx::XmlResource.get
 		xml.flags = 2 # Wx::XRC_NO_SUBCLASSING
 		xml.init_all_handlers
-		#xml.load(File.dirname(__FILE__) + "/interface_viewer.xrc")
-                xml.load("interface_viewer.xrc")
+    xml.load("interface_viewer.xrc")
 		xml.load_frame_subclass(self, parent, "main_frame")
 
 		finder = lambda do | x | 

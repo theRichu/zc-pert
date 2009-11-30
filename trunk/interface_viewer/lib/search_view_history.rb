@@ -3,8 +3,6 @@ include Comparable
 class SearchViewHistory
   SEARCH = "Search"
   VIEW_FILE = "File"
-  #PATH = File.dirname(__FILE__) + '/history.yaml'
-
   PATH = 'history.yaml'
     
   attr_accessor :file_path, :intfc_id, :look_in, :rate, :rs_rq, :hi_type
