@@ -18,7 +18,8 @@ class BaseMainFrame < Wx::Frame
 		xml = Wx::XmlResource.get
 		xml.flags = 2 # Wx::XRC_NO_SUBCLASSING
 		xml.init_all_handlers
-		xml.load("interface_viewer.xrc")
+		#xml.load(File.dirname(__FILE__) + "/interface_viewer.xrc")
+                xml.load("interface_viewer.xrc")
 		xml.load_frame_subclass(self, parent, "main_frame")
 
 		finder = lambda do | x | 
