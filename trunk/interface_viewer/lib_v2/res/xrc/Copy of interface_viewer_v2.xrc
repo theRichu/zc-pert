@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>1000, 600</size>
+		<title>Interface Viewer v2</title>
+		<centered>1</centered>
+		<object class="wxMenuBar">
+			<label/>
+			<object class="wxMenu">
+				<label>File</label>
+				<object class="wxMenuItem" name="mi_newproj">
+					<label>New Project\tCtrl+N</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_openproj">
+					<label>Open Project\tCtrl+O</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_save">
+					<label>Save\tCtrl+S</label>
+					<help/>
+				</object>
+				<object class="separator"/>
+				<object class="wxMenuItem" name="mi_exit">
+					<label>Exit\tAlt+F4</label>
+					<help/>
+				</object>
+			</object>
+			<object class="wxMenu">
+				<label>Edit</label>
+				<object class="wxMenuItem" name="mi_undo">
+					<label>Undo\tCtrl+Z</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_redo">
+					<label>Redo\tCtrl+Y</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_copy">
+					<label>Copy\tCtrl+C</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_cut">
+					<label>Cut\tCtrl+X</label>
+					<help/>
+				</object>
+				<object class="wxMenuItem" name="mi_paste">
+					<label>Paste\tCtrl+V</label>
+					<help/>
+				</object>
+				<object class="separator"/>
+				<object class="wxMenuItem" name="mi_find">
+					<label>Find\tCtrl+F</label>
+					<help/>
+				</object>
+			</object>
+			<object class="wxMenu">
+				<label>Help</label>
+				<object class="wxMenuItem" name="mi_about">
+					<label>About\tF1</label>
+					<help/>
+				</object>
+			</object>
+		</object>
+		<object class="wxToolBar">
+			<style>wxTB_HORIZONTAL|wxTB_HORZ_TEXT</style>
+			<bitmapsize/>
+			<margins/>
+			<packing>1</packing>
+			<separation>5</separation>
+			<object class="tool" name="t_newproj">
+				<label>New</label>
+				<tooltip>New Project\t(Ctrl+N)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/new.png</bitmap>
+			</object>
+			<object class="tool" name="t_open">
+				<label>Open</label>
+				<tooltip>Open Project\t(Ctrl+O)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/open.png</bitmap>
+			</object>
+			<object class="tool" name="t_save">
+				<label>Save</label>
+				<tooltip>Save File\t(Ctrl+S)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/save.png</bitmap>
+			</object>
+			<object class="separator"/>
+			<object class="tool" name="t_undo">
+				<label>Undo</label>
+				<tooltip>Undo\t(Ctrl+Z)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/undo.png</bitmap>
+			</object>
+			<object class="tool" name="t_redo">
+				<label>Redo</label>
+				<tooltip>Redo\t(Ctrl+Y)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/redo.png</bitmap>
+			</object>
+			<object class="separator"/>
+			<object class="tool" name="t_cut">
+				<label>Cut</label>
+				<tooltip>Cut\t(Ctrl+X)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/cut.png</bitmap>
+			</object>
+			<object class="tool" name="t_copy">
+				<label>Copy</label>
+				<tooltip>Copy\t(Ctrl+C)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/copy.png</bitmap>
+			</object>
+			<object class="tool" name="t_paste">
+				<label>Paste</label>
+				<tooltip>Paste\t(Ctrl+V)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/paste.png</bitmap>
+			</object>
+		</object>
+		<object class="wxSplitterWindow" name="sw_dir">
+			<style>wxSP_3D|wxSP_NOBORDER</style>
+			<sashpos>0</sashpos>
+			<gravity>0</gravity>
+			<minsize>0</minsize>
+			<orientation>vertical</orientation>
+			<object class="wxPanel">
+				<style>wxNO_BORDER</style>
+				<object class="wxBoxSizer">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>0</border>
+						<object class="wxTreeCtrl" name="dc_proj">
+							<defaultfolder/>
+							<filter/>
+							<defaultfilter>0</defaultfilter>
+							<style>wxTR_DEFAULT_STYLE|wxNO_BORDER</style>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<orient>wxHORIZONTAL</orient>
+							<object class="sizeritem">
+								<option>1</option>
+								<flag>wxALL</flag>
+								<border>1</border>
+								<object class="wxTextCtrl" name="tc_key">
+									<value/>
+									<maxlength>0</maxlength>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>1</border>
+								<object class="wxButton" name="b_search">
+									<label>Search</label>
+									<default>0</default>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="wxPanel">
+				<style>wxNO_BORDER</style>
+				<object class="wxBoxSizer">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND</flag>
+						<border>0</border>
+						<object class="wxSplitterWindow" name="sw_editor">
+							<style>wxSP_3D|wxSP_NOBORDER</style>
+							<sashpos>0</sashpos>
+							<gravity>0</gravity>
+							<minsize>0</minsize>
+							<orientation>vertical</orientation>
+							<object class="wxPanel" name="p_editor">
+								<style>wxNO_BORDER</style>
+							</object>
+							<object class="wxPanel">
+								<style>wxNO_BORDER</style>
+								<object class="wxBoxSizer">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<option>1</option>
+										<flag>wxALL|wxEXPAND</flag>
+										<border>0</border>
+										<object class="wxTreeCtrl" name="tc_outline">
+											<style>wxTR_DEFAULT_STYLE|wxNO_BORDER</style>
+										</object>
+									</object>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+		<object class="wxStatusBar" name="statusBar">
+			<style>wxST_SIZEGRIP</style>
+			<fields>1</fields>
+		</object>
+	</object>
+</resource>

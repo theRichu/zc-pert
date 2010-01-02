@@ -1,0 +1,13 @@
+--- !ruby/object:StartUpBean 
+files: 
+  E:/workspace_ruby/interface_viewer/lib_v2/res/xrc/Copy of interface_viewer_v2.xrc: Copy of interface_viewer_v2.xrc
+  E:/workspace_ruby/interface_viewer/lib_v2/res/xrc/interface_viewer_v2.xrc: interface_viewer_v2.xrc
+proj_def: ./res/yaml/test.yaml
+rect: 
+- -4
+- -4
+- 1288
+- 778
+sashes: 
+- 292
+- 873
