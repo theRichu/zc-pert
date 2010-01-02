@@ -1,0 +1,11 @@
+用户打开程序
+1. 程序读取上次程序窗口的位置、大小、及两个sliptor的位置
+2. 程序读取上次打开的文件及项目
+
+程序退出的时候
+1. 保存程序窗口的位置、大小、及两个sliptor的位置
+2. 程序所打开的文件及项目
+
+一个project对应一个project定义文件，文件名为project的名字。一个project定义文件中应该包括：
+1. project name
+2. project path
