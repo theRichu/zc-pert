@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
-	<object class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
-		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>1000, 600</size>
-		<title>Interface Viewer v2</title>
-		<centered>1</centered>
-		<object class="wxMenuBar">
+<resource2 xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object1 class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
+		<style1>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style1>
+		<size1>1000, 604</size1>
+		<title1>Interface Viewer v2</title1>
+		<centered1>1</centered1>
+		<object2 class="wxMenuBar">
 			<label/>
 			<object class="wxMenu">
 				<label>File</label>
@@ -13,10 +13,10 @@
 					<label>New Project\tCtrl+N</label>
 					<help/>
 				</object>
-				<object class="wxMenuItem" name="mi_openproj">
+				<object99 class="wxMenuItem" name="mi_openproj">
 					<label>Open Project\tCtrl+O</label>
 					<help/>
-				</object>
+				</object99>
 				<object class="wxMenuItem" name="mi_save">
 					<label>Save\tCtrl+S</label>
 					<help/>
@@ -62,7 +62,7 @@
 					<help/>
 				</object>
 			</object>
-		</object>
+		</object2>
 		<object class="wxToolBar">
 			<style>wxTB_HORIZONTAL|wxTB_HORZ_TEXT</style>
 			<bitmapsize/>
@@ -209,5 +209,5 @@
 			<style>wxST_SIZEGRIP</style>
 			<fields>1</fields>
 		</object>
-	</object>
-</resource>
+	</object1>
+</resource2>

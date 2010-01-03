@@ -138,7 +138,7 @@
 							<defaultfolder/>
 							<filter/>
 							<defaultfilter>0</defaultfilter>
-							<style>wxTR_DEFAULT_STYLE|wxNO_BORDER</style>
+							<style>wxTR_DEFAULT_STYLE|wxNO_BORDER|wxTR_MULTIPLE</style>
 						</object>
 					</object>
 					<object class="sizeritem">
