@@ -173,7 +173,7 @@
 				<style>wxNO_BORDER</style>
 				<object class="wxBoxSizer">
 					<orient>wxVERTICAL</orient>
-					<object class="sizeritem">
+					<object class="sizeritem"> 
 						<option>1</option>
 						<flag>wxEXPAND</flag>
 						<border>0</border>

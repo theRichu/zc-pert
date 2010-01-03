@@ -3,7 +3,7 @@
 	<object class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>1000, 600</size>
-		<title>Interface Viewer v2</title>
+		<title>Interface Viewer 1.0.2</title>
 		<centered>1</centered>
 		<object class="wxMenuBar">
 			<label/>
@@ -118,6 +118,13 @@
 				<tooltip>Paste\t(Ctrl+V)</tooltip>
 				<longhelp/>
 				<bitmap>./res/icon/paste.png</bitmap>
+			</object>
+			<object class="separator"/>
+			<object class="tool" name="t_find">
+				<label>Find</label>
+				<tooltip>Find\t(Ctrl+F)</tooltip>
+				<longhelp/>
+				<bitmap>./res/icon/find.png</bitmap>
 			</object>
 		</object>
 		<object class="wxSplitterWindow" name="sw_dir">

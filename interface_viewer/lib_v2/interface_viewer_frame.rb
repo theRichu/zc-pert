@@ -4,6 +4,7 @@ require 'base_main_frame'
 require 'bean/start_up_bean'
 require 'bean/project_bean'
 require 'xml_parser'
+require 'new_proj_dialog'
 include Wx
 
 class InterfaceViewerFrame < BasicMainFrame
@@ -13,10 +14,11 @@ class InterfaceViewerFrame < BasicMainFrame
     @opened, @item_position, @item_and_file = Hash.new, Hash.new, Hash.new # the path of the opened file
     # add the auinotebook ctrl manually to the frame, 
     init_auinotebook
+    init_project_tree_style
     # initialize the window position and size and load the recent files
     init_frame_contents
     # initialize the style of the outline
-    init_outline
+    init_outline_style
     # handlers for the events 
     frame_close_event_handler # the close event of the main window
     project_tree_dbclick_event_handler # the event on the project tree item to open the file
@@ -52,14 +54,19 @@ class InterfaceViewerFrame < BasicMainFrame
     end
   end
   
-  def init_project_tree(proj_def)
-    project = YAML.load_file(proj_def)
+  def init_project_tree_style
     image_list = ImageList.new(16, 16)
     image_list.add(Bitmap.from_image(Image.new("./res/icon/iv.png"))) # for root
     image_list.add(Bitmap.from_image(Image.new("./res/icon/folder.png"))) # for folder closed
     image_list.add(Bitmap.from_image(Image.new("./res/icon/folder_open.png"))) # for folder opened
     image_list.add(Bitmap.from_image(Image.new("./res/icon/file.png"))) # for file
     @dc_proj.set_image_list(image_list)
+  end
+  
+  def init_project_tree(proj_def)
+    @proj_path = proj_def
+    project = YAML.load_file(proj_def)
+    @dc_proj.delete_all_items
     @dc_proj.add_root(project.name, 0, 0, project.path)
     fill_project_tree(project.path, @dc_proj.get_root_item)
   end
@@ -137,7 +144,7 @@ class InterfaceViewerFrame < BasicMainFrame
     end
   end
   
-  def init_outline
+  def init_outline_style
     image_list = ImageList.new(16, 16)
     image_list.add(Bitmap.from_image(Image.new("./res/icon/xml_r.png"))) # for root
     image_list.add(Bitmap.from_image(Image.new("./res/icon/xml_n.png"))) # for folder closed
@@ -151,7 +158,7 @@ class InterfaceViewerFrame < BasicMainFrame
       parser = XMLParser.new(@notebook.get_page(page_index).get_name, @tc_outline)
       @tc_outline.delete_all_items
       @item_position = parser.parse
-      # @tc_outline.expand_all
+      @tc_outline.expand(@tc_outline.get_root_item)
     end
   end
   
@@ -201,7 +208,7 @@ class InterfaceViewerFrame < BasicMainFrame
     evt_close do
       rect = [get_screen_rect.x,get_screen_rect.y,get_screen_rect.width,get_screen_rect.height]
       sashes = [@sw_dir.get_sash_position, @sw_editor.get_sash_position]
-      start_up = StartUpBean.new(rect, sashes, @opened, "./res/yaml/test.yaml")
+      start_up = StartUpBean.new(rect, sashes, @opened, @proj_path)
       File.open(StartUpBean::FILE_PATH, "w") do |io|
         YAML.dump(start_up,io)
       end
@@ -214,6 +221,7 @@ class InterfaceViewerFrame < BasicMainFrame
       file_name = @dc_proj.get_item_text(evt.get_item)
       path = @dc_proj.get_item_data(evt.get_item)
       open_file(file_name, path)
+      @statusbar.set_status_text("#{file_name} is opened!")
     end
   end
   
@@ -222,6 +230,7 @@ class InterfaceViewerFrame < BasicMainFrame
       pos = @item_position[evt.get_item]
       editor = @notebook.get_page(@notebook.get_selection)
       editor.set_selection(pos[0], pos[1])
+      @statusbar.set_status_text(@tc_outline.get_item_text(evt.get_item))
     end
   end
   
@@ -242,23 +251,26 @@ class InterfaceViewerFrame < BasicMainFrame
     evt_button(@b_search) do |evt|
       unless @tc_key.is_empty then
         s_key = @tc_key.get_value
+        count = 0
         @item_and_file.values.each do |value|
           if value.include?(s_key) then
             item = @item_and_file.key(value)
             @dc_proj.select_item(item)
             @dc_proj.ensure_visible(item)
+            count += 1
           end
         end
+        @statusbar.set_status_text("#{count} file(s) found!")
       end
     end
   end
   
   def menu_event_handler
     evt_menu(@mi_newproj) do |evt|
-      p evt.methods
+      on_new_proj
     end
     evt_menu(@mi_openproj) do |evt|
-      p evt.methods
+      on_open_proj
     end
     evt_menu(@mi_save) do |evt|
       on_save_file
@@ -282,19 +294,19 @@ class InterfaceViewerFrame < BasicMainFrame
       on_paste
     end
     evt_menu(@mi_find) do |evt|
-      p evt.methods
+      on_search_in_file
     end 
     evt_menu(@mi_about) do |evt|
-      p evt.methods
+      Wx::about_box( :name => 'Interface Viewer', :version => '1.0.2', :developers => ['Tony Wang'] )
     end
   end
   
   def tool_event_handler
     evt_tool(@t_newproj) do |evt|
-      p evt.methods
+      on_new_proj
     end
     evt_tool(@t_open) do |evt|
-      p evt.methods
+      on_open_proj
     end
     evt_tool(@t_save) do |evt|
       on_save_file
@@ -314,6 +326,9 @@ class InterfaceViewerFrame < BasicMainFrame
     evt_tool(@t_paste) do |evt|
       on_paste
     end
+    evt_tool(@t_find) do |evt|
+      on_search_in_file
+    end
   end
   
   def on_save_file
@@ -326,6 +341,7 @@ class InterfaceViewerFrame < BasicMainFrame
       if page_label.include?("*") then
         @notebook.set_page_text(selected, page_label.delete("*"))
       end
+      @statusbar.set_status_text("File have been saved to #{file_path}!")
     end
   end
   
@@ -366,5 +382,74 @@ class InterfaceViewerFrame < BasicMainFrame
     end
   end
   
+  def on_open_proj
+    file_dialog = FileDialog.new(self, "Choose a project", "./res/project/", "", "*.proj")
+    if (ID_OK == file_dialog.show_modal) then
+      init_project_tree(file_dialog.get_path)
+    end    
+  end
+  
+  def on_new_proj
+    new_dialog = NewPorjDialog.new(self)
+    if (NewPorjDialog::ID_OK == new_dialog.show_modal) then
+      proj_name = new_dialog.get_proj_name
+      project = ProjectBean.new(proj_name, new_dialog.get_proj_dir)
+      project_def = "./res/project/#{proj_name}.proj"
+      File.open(project_def, "w") do |io|
+        YAML.dump(project,io)
+      end
+      init_project_tree(project_def)
+    end 
+  end
+  
+  def on_search_in_file
+    @find_dialog = nil
+    @find_dialog = FindReplaceDialog.new(self,FindReplaceData.new, "Find")
+    @find_dialog.show(true)
+    editor = @notebook.get_page(@notebook.get_selection)
+    evt_find(@find_dialog) do |evt| 
+      on_find(editor, evt.get_flags, evt.get_find_string)
+    end 
+    evt_find_next(@find_dialog) do |evt| 
+      on_find(editor, evt.get_flags, evt.get_find_string)
+    end  
+  end
+  
+  def on_find(editor, flag, find_string)
+    content = editor.get_text
+    max_pos = content.length
+    current_pos = editor.get_current_pos
+    match_string = find_string
+    if 0 == flag & FR_DOWN then
+      match_string.reverse!
+    end
+    # remained to deal
+    #    if 0 == flag & FR_WHOLEWORD then
+    #      match_string = "#{match_string}"
+    #    end
+    if 0 == flag & FR_MATCHCASE then
+      match_string = Regexp.new(match_string, Regexp::IGNORECASE)
+    else
+      match_string = Regexp.new(match_string)
+    end
+    if 1 == flag & FR_DOWN && current_pos < max_pos then
+      start = content[current_pos..max_pos].index(match_string)
+      if start then
+        editor.set_selection(current_pos + start, current_pos + find_string.length + start)
+        @statusbar.set_status_text(find_string)
+      else
+        @statusbar.set_status_text("'#{find_string}' Can not be found!")
+      end
+    end
+    if 0 == flag & FR_DOWN && current_pos > 0 then
+      start = content[0..current_pos].reverse.index(match_string)
+      if start then
+        editor.set_selection(current_pos - start + 1, current_pos - find_string.length - start + 1)
+        @statusbar.set_status_text(find_string)
+      else
+        @statusbar.set_status_text("'#{find_string}' Can not be found!")
+      end
+    end
+  end
+  
 end
-
