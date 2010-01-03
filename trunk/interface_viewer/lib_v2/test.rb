@@ -1,14 +1,6 @@
-array = ["0", "1","2"]
-
-puts array.index("2")
-
-array.delete("1")
-
-puts array.index("2")
-
-#puts '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'.length # e:132 a:128
+puts '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'.length # 55
       
-#puts '<object class="wxSplitterWindow" name="sw_dir">'.length
+puts '<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">'.length #67
 #puts '<style>wxSP_3D|wxSP_NOBORDER</style>'.length
 #puts '<sashpos>0</sashpos>'.length
     
@@ -18,4 +10,5 @@ puts array.index("2")
     #126
     
 puts '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resource2 xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">'. index('<resource2 xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">')
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+  <'. length #126 122+4 126

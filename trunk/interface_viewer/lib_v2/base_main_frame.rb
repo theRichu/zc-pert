@@ -10,7 +10,7 @@ class BasicMainFrame < Wx::Frame
 	attr_reader :mi_newproj, :mi_openproj, :mi_save, :mi_exit, :mi_undo,
               :mi_redo, :mi_copy, :mi_cut, :mi_paste, :mi_find,
               :mi_about, :t_newproj, :t_open, :t_save, :t_undo,
-              :t_redo, :t_cut, :t_copy, :t_paste, :sw_dir, :dc_proj,
+              :t_redo, :t_cut, :t_copy, :t_paste, :t_find, :sw_dir, :dc_proj,
               :tc_key, :b_search, :sw_editor, :p_editor,
               :tc_outline, :statusbar
 	
@@ -52,6 +52,7 @@ class BasicMainFrame < Wx::Frame
 		@t_cut = finder.call("t_cut")
 		@t_copy = finder.call("t_copy")
 		@t_paste = finder.call("t_paste")
+    @t_find = finder.call("t_find")
 		@sw_dir = finder.call("sw_dir")
 		@dc_proj = finder.call("dc_proj")
 		@tc_key = finder.call("tc_key")
