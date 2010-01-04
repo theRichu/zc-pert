@@ -100,7 +100,7 @@ class InterfaceViewerFrame < BasicMainFrame
           parent_list.push(item)
           next
         end
-        if FileTest.file?(child_path) && child_path.include?("\.xrc") then
+        if FileTest.file?(child_path) && child_path.include?("\.xml") then
           # put file name into the project tree
           file_item = @dc_proj.append_item(parent, child, 3, 3, child_path)
           @item_and_file[file_item] = child
@@ -252,11 +252,10 @@ class InterfaceViewerFrame < BasicMainFrame
       unless @tc_key.is_empty then
         s_key = @tc_key.get_value
         count = 0
-        @item_and_file.values.each do |value|
-          if value.include?(s_key) then
-            item = @item_and_file.key(value)
-            @dc_proj.select_item(item)
-            @dc_proj.ensure_visible(item)
+        @item_and_file.each do |key, value|
+          if value.downcase.include?(s_key.downcase) then
+            @dc_proj.select_item(key)
+            @dc_proj.ensure_visible(key)
             count += 1
           end
         end
