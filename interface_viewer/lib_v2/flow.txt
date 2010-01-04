@@ -9,3 +9,9 @@
 一个project对应一个project定义文件，文件名为project的名字。一个project定义文件中应该包括：
 1. project name
 2. project path
+
+issue
+1. 打开文件时，切换到新打开的文件
+2. 切换打开的文件时，保存其outline的选项
+3. project的加载
+4. recent files的功能
