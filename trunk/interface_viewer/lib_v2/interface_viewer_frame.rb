@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'base_main_frame'
 require 'bean/start_up_bean'
 require 'bean/project_bean'
+require 'bean/item_position'
 require 'xml_parser'
 require 'new_proj_dialog'
 include Wx
@@ -10,7 +11,7 @@ include Wx
 class InterfaceViewerFrame < BasicMainFrame
   def initialize
     super
-    @opened, @item_position, @item_and_file = Hash.new, Hash.new, Hash.new # the path of the opened file
+    @opened, @item_position, @item_and_file = Hash.new, ItemPosition.new, Hash.new # the path of the opened file
     # initialize the size, position, sashes position of the frame
     init_frame_style
     # add the auinotebook ctrl manually to the frame, 
@@ -79,7 +80,7 @@ class InterfaceViewerFrame < BasicMainFrame
   
   def load_recent_files(files)
     files.each do |key, value|
-      open_file(value, key)
+      on_open_file(value, key)
     end
   end
   
@@ -106,7 +107,7 @@ class InterfaceViewerFrame < BasicMainFrame
           parent_list.push(item)
           next
         end
-        if FileTest.file?(child_path) && child_path.include?("\.xml") then
+        if FileTest.file?(child_path) && child_path.include?("\.xrc") then
           # put file name into the project tree
           file_item = @dc_proj.append_item(parent, child, 3, 3, child_path)
           @item_and_file[file_item] = child
@@ -126,7 +127,7 @@ class InterfaceViewerFrame < BasicMainFrame
     end
   end
   
-  def open_file(file_name, path)
+  def on_open_file(file_name, path)
     return nil unless FileTest.file?(path)
     return nil if @opened.has_key?(path)  
     # add one page for the auinotebook
@@ -137,6 +138,8 @@ class InterfaceViewerFrame < BasicMainFrame
     # load file content to the editor
     format_xml_file(path)
     editor.load_file(path)
+    # set the new open file in focus
+    @notebook.set_selection(@notebook.get_page_count - 1)
     # add the modification listener
     evt_stc_modified(editor) do |evt|
       selected = @notebook.get_selection
@@ -161,10 +164,22 @@ class InterfaceViewerFrame < BasicMainFrame
     # initialize the outline view for file
     page_index = @notebook.get_selection
     if page_index >= 0 then
-      parser = XMLParser.new(@notebook.get_page(page_index).get_name, @tc_outline)
+      editor = @notebook.get_page(page_index)
+      path_xpath = editor.get_name
+      px = path_xpath.split("|")
+      xml_path = px[0]
+      xpath = px[1]
+      parser = XMLParser.new(xml_path, @tc_outline, @item_position)
       @tc_outline.delete_all_items
-      @item_position = parser.parse
-      @tc_outline.expand(@tc_outline.get_root_item)
+      parser.parse()
+      if xpath && xpath.length > 0 then
+        item = @item_position.get_item(path_xpath)
+      else
+        item = @tc_outline.get_root_item
+        @tc_outline.expand(item)
+      end
+      @tc_outline.select_item(item)
+      @tc_outline.ensure_visible(item)
     end
   end
   
@@ -226,16 +241,20 @@ class InterfaceViewerFrame < BasicMainFrame
     evt_tree_item_activated(@dc_proj) do |evt|
       file_name = @dc_proj.get_item_text(evt.get_item)
       path = @dc_proj.get_item_data(evt.get_item)
-      open_file(file_name, path)
+      on_open_file(file_name, path)
       @statusbar.set_status_text("#{file_name} is opened!")
     end
   end
   
   def outline_click_event_handler
     evt_tree_sel_changed(@tc_outline) do |evt|
-      pos = @item_position[evt.get_item]
       editor = @notebook.get_page(@notebook.get_selection)
+      path = editor.get_name.split("|")[0]
+      xpath = @tc_outline.get_item_data(evt.get_item).path
+      key = path + "|" + xpath
+      pos = @item_position.get_pos(key)
       editor.set_selection(pos[0], pos[1])
+      editor.set_name(key) # to store the current selection
       @statusbar.set_status_text(@tc_outline.get_item_text(evt.get_item))
     end
   end
@@ -256,8 +275,10 @@ class InterfaceViewerFrame < BasicMainFrame
   def search_click_event_handler
     evt_button(@b_search) do |evt|
       unless @tc_key.is_empty then
-        s_key = @tc_key.get_value
         count = 0
+        # collapse to clear the previous view
+        @dc_proj.collapse_all
+        s_key = @tc_key.get_value
         @item_and_file.each do |key, value|
           if value.downcase.include?(s_key.downcase) then
             @dc_proj.select_item(key)
@@ -340,7 +361,7 @@ class InterfaceViewerFrame < BasicMainFrame
     selected = @notebook.get_selection
     editor = @notebook.get_page(selected)
     if editor.get_modify then
-      file_path = editor.get_name
+      file_path = editor.get_name.split("|")[0]
       editor.save_file(file_path)
       page_label = @notebook.get_page_text(selected)
       if page_label.include?("*") then
