@@ -10,27 +10,29 @@ include Wx
 class InterfaceViewerFrame < BasicMainFrame
   def initialize
     super
-    set_icon(Icon.new("./res/icon/iv.png"))  # set the icon for the interface viewer
     @opened, @item_position, @item_and_file = Hash.new, Hash.new, Hash.new # the path of the opened file
+    # initialize the size, position, sashes position of the frame
+    init_frame_style
     # add the auinotebook ctrl manually to the frame, 
-    init_auinotebook
+    init_auinotebook_style
+    # initialize the style of the project tree
     init_project_tree_style
-    # initialize the window position and size and load the recent files
-    init_frame_contents
     # initialize the style of the outline
     init_outline_style
+    # initialize the window position and size and load the recent files
+    init_frame_contents
     # handlers for the events 
     frame_close_event_handler # the close event of the main window
     project_tree_dbclick_event_handler # the event on the project tree item to open the file
     file_close_event_handler # the event handler for auinotebook page closing
-    auipage_changed_event_handler
-    outline_click_event_handler
-    search_click_event_handler
-    menu_event_handler
-    tool_event_handler
+    auipage_changed_event_handler # the event handler for user choosing another file, to rebuild the outline
+    outline_click_event_handler # user cilck on the outline, to locate the element
+    search_click_event_handler # user search file(s) in the project
+    menu_event_handler # user click on the menu item
+    tool_event_handler # user click on the tool item
   end
   
-  def init_auinotebook
+  def init_auinotebook_style
     #for the wxruby does not support the xrc handler for auinotebook control
     sizer = BoxSizer.new(VERTICAL)
     @notebook = AuiNotebook.new(@p_editor)
@@ -39,15 +41,19 @@ class InterfaceViewerFrame < BasicMainFrame
     @p_editor.layout
   end
   
+  def init_frame_style
+    set_icon(Icon.new("./res/icon/iv.png"))  # set the icon for the interface viewer
+    @start_up = YAML.load_file(StartUpBean::FILE_PATH)
+    self.set_size(Rect.new(@start_up.rect[0],@start_up.rect[1],@start_up.rect[2],@start_up.rect[3]))
+    @sw_dir.set_sash_position(@start_up.sashes[0])
+    @sw_editor.set_sash_position(@start_up.sashes[1])
+  end
+  
   def init_frame_contents
-    start_up = YAML.load_file(StartUpBean::FILE_PATH)
-    self.set_size(Rect.new(start_up.rect[0],start_up.rect[1],start_up.rect[2],start_up.rect[3]))
-    @sw_dir.set_sash_position(start_up.sashes[0])
-    @sw_editor.set_sash_position(start_up.sashes[1])
-    if proj_def = start_up.proj_def then
+    if proj_def = @start_up.proj_def then
       init_project_tree(proj_def)
     end
-    if files = start_up.files then
+    if files = @start_up.files then
       load_recent_files(files)
       # init the outline
       rebuild_outline
@@ -86,7 +92,7 @@ class InterfaceViewerFrame < BasicMainFrame
       current_dir = dir_list.shift
       parent = parent_list.shift
       current_dir << "/" unless current_dir[-1].chr == "/"
-      
+      @statusbar.set_status_text("Scanning files in the project: #{current_dir}")
       # begin to traversa this dir, if find, reuslt will be the path, otherwise nil
       Dir.foreach(current_dir) do |child|
         # exclude the ., .., svn, web-inf
