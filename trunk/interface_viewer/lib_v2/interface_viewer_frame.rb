@@ -5,7 +5,7 @@ require 'bean/start_up_bean'
 require 'bean/project_bean'
 require 'bean/item_position'
 require 'xml_parser'
-require 'new_proj_dialog'
+require 'ctrl/new_proj_dialog'
 include Wx
 
 class InterfaceViewerFrame < BasicMainFrame
@@ -85,45 +85,48 @@ class InterfaceViewerFrame < BasicMainFrame
   end
   
   def fill_project_tree(base_dir, root_item)
-    # scan the response file in the directory
-    dir_list = [base_dir]
-    parent_list = [root_item]
-    until dir_list.empty?
-      # get the dir from the list
-      current_dir = dir_list.shift
-      parent = parent_list.shift
-      current_dir << "/" unless current_dir[-1].chr == "/"
-      @statusbar.set_status_text("Scanning files in the project: #{current_dir}")
-      # begin to traversa this dir, if find, reuslt will be the path, otherwise nil
-      Dir.foreach(current_dir) do |child|
-        # exclude the ., .., svn, web-inf
-        next if child == "." || child == ".." || child.include?("\.svn") || child.include?("WEB-INF")
-        # form the path
-        child_path = current_dir + child
-        if FileTest.directory?(child_path) then
-          dir_list.push(child_path)
-          # put directory into the project tree
-          item = @dc_proj.append_item(parent, child, 1, 2, child_path)
-          parent_list.push(item)
-          next
+    Thread.new do
+      # scan the response file in the directory
+      dir_list = [base_dir]
+      parent_list = [root_item]
+      until dir_list.empty?
+        # get the dir from the list
+        current_dir = dir_list.shift
+        parent = parent_list.shift
+        current_dir << "/" unless current_dir[-1].chr == "/"
+        @statusbar.set_status_text("Scanning files in the project: #{current_dir}")
+        # begin to traversa this dir, if find, reuslt will be the path, otherwise nil
+        Dir.foreach(current_dir) do |child|
+          # exclude the ., .., svn, web-inf
+          next if child == "." || child == ".." || child.include?("\.svn") || child.include?("WEB-INF")
+          # form the path
+          child_path = current_dir + child
+          if FileTest.directory?(child_path) then
+            dir_list.push(child_path)
+            # put directory into the project tree
+            item = @dc_proj.append_item(parent, child, 1, 2, child_path)
+            parent_list.push(item)
+            next
+          end
+          if FileTest.file?(child_path) && child_path.include?("\.xml") then
+            # put file name into the project tree
+            file_item = @dc_proj.append_item(parent, child, 3, 3, child_path)
+            @item_and_file[file_item] = child
+          else
+            next
+          end
         end
-        if FileTest.file?(child_path) && child_path.include?("\.xrc") then
-          # put file name into the project tree
-          file_item = @dc_proj.append_item(parent, child, 3, 3, child_path)
-          @item_and_file[file_item] = child
-        else
-          next
+        
+        # if it does not have children, do not display it
+        unless @dc_proj.item_has_children(parent) then
+          parent_parent = @dc_proj.get_item_parent(parent)
+          @dc_proj.delete(parent)
+          if parent_parent && !@dc_proj.item_has_children(parent_parent) then
+            @dc_proj.delete(parent_parent)
+          end
         end
       end
-      
-      # if it does not have children, do not display it
-      unless @dc_proj.item_has_children(parent) then
-        parent_parent = @dc_proj.get_item_parent(parent)
-        @dc_proj.delete(parent)
-        if parent_parent && !@dc_proj.item_has_children(parent_parent) then
-          @dc_proj.delete(parent_parent)
-        end
-      end
+      @statusbar.set_status_text("Scanning files finished!")
     end
   end
   
@@ -183,8 +186,8 @@ class InterfaceViewerFrame < BasicMainFrame
         item = @item_position.get_item(path_xpath)
       else
         item = @tc_outline.get_root_item
-        @tc_outline.expand(item)
       end
+      @tc_outline.expand(item)
       @tc_outline.select_item(item)
       @tc_outline.ensure_visible(item)
     end
@@ -234,14 +237,43 @@ class InterfaceViewerFrame < BasicMainFrame
   
   def frame_close_event_handler
     evt_close do
-      rect = [get_screen_rect.x,get_screen_rect.y,get_screen_rect.width,get_screen_rect.height]
-      sashes = [@sw_dir.get_sash_position, @sw_editor.get_sash_position]
-      start_up = StartUpBean.new(rect, sashes, @opened, @proj_path)
-      File.open(StartUpBean::FILE_PATH, "w") do |io|
-        YAML.dump(start_up,io)
+      # if there are files that can be save to disk, alert user to save or not
+      unless @opened.empty? then
+        modified = Array.new
+        @notebook.each_page do |editor|
+          if editor.get_modify then
+            modified.push(editor)
+          end
+        end
+        # if have modified
+        is_save = ID_NO
+        unless modified.empty? then
+          is_save_dialog = MessageDialog.new(self,  "Save the modified fil(s)?", "Save", YES_NO|CANCEL|YES_DEFAULT|ICON_QUESTION)
+          is_save = is_save_dialog.show_modal
+        end
+        if is_save == ID_YES then
+          modified.each do |editor|
+            editor.save_file(editor.get_name.split("|")[0])
+          end
+          on_exit
+        end
+        if is_save == ID_NO then
+          on_exit
+        end
+      else
+        on_exit
       end
-      destroy
     end
+  end
+  
+  def on_exit
+    rect = [get_screen_rect.x,get_screen_rect.y,get_screen_rect.width,get_screen_rect.height]
+    sashes = [@sw_dir.get_sash_position, @sw_editor.get_sash_position]
+    start_up = StartUpBean.new(rect, sashes, @opened, @proj_path)
+    File.open(StartUpBean::FILE_PATH, "w") do |io|
+      YAML.dump(start_up,io)
+    end
+    destroy
   end
   
   def project_tree_dbclick_event_handler
@@ -268,8 +300,32 @@ class InterfaceViewerFrame < BasicMainFrame
   
   def file_close_event_handler
     evt_auinotebook_page_close(@notebook) do |evt| 
-      # now we just can get the caption of the tab, and we should use it to query the path
-      @opened.delete(@notebook.get_page(evt.get_old_selection).get_name.split("|")[0])
+      editor = @notebook.get_page(evt.get_old_selection)
+      path = editor.get_name.split("|")[0]
+      is_save = ID_NO
+      # if have modified
+      if editor.get_modify then
+        is_save_dialog = MessageDialog.new(self,  "Save the modification?", "Save", YES_NO|CANCEL|YES_DEFAULT|ICON_QUESTION)
+        is_save = is_save_dialog.show_modal
+      end
+      if is_save == ID_YES then
+        editor.save_file(path)
+        # now we just can get the caption of the tab, and we should use it to query the path
+        @opened.delete(path)
+        if @opened.empty? then
+          @tc_outline.delete_all_items
+        end
+      end
+      if is_save == ID_NO then
+        # now we just can get the caption of the tab, and we should use it to query the path
+        @opened.delete(path)
+        if @opened.empty? then
+          @tc_outline.delete_all_items
+        end
+      end
+      if is_save == ID_CANCEL then
+        evt.veto
+      end
     end
   end
   
@@ -364,7 +420,7 @@ class InterfaceViewerFrame < BasicMainFrame
     end
   end
   
-  def on_save_file
+  def on_save_file()
     selected = @notebook.get_selection
     editor = @notebook.get_page(selected)
     if editor.get_modify then
@@ -452,7 +508,7 @@ class InterfaceViewerFrame < BasicMainFrame
     content = editor.get_text
     max_pos = content.length
     current_pos = editor.get_current_pos
-    match_string = find_string
+    match_string = find_string.dup
     if 0 == flag & FR_DOWN then
       match_string.reverse!
     end

@@ -1,12 +1,13 @@
 --- !ruby/object:StartUpBean 
 files: 
-  E:/workspace_ruby/interface_viewer/lib_v2/res/xrc/Copy of interface_viewer_v2.xrc: Copy of interface_viewer_v2.xrc
-proj_def: E:\workspace_ruby\interface_viewer\lib_v2\res\project\test.proj
+  \\172.16.124.99\tomcatdev\webapps/EAIWS/resources/hostresponse/ATM1102I01/TATM1102I01-10000101-Resp.xml: TATM1102I01-10000101-Resp.xml
+  \\172.16.124.99\tomcatdev\webapps/EAIWS/resources/hostresponse/ATM1103I01/TATM1103I01-10000101-Resp.xml: TATM1103I01-10000101-Resp.xml
+proj_def: E:\workspace_ruby\interface_viewer\lib_v2\res\project\tomcatdev.proj
 rect: 
 - -4
 - -4
 - 1288
-- 778
+- 979
 sashes: 
-- 199
-- 619
+- 243
+- 766

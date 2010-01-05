@@ -1,14 +1,49 @@
-puts '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'.length # 55
-      
-puts '<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">'.length #67
-#puts '<style>wxSP_3D|wxSP_NOBORDER</style>'.length
-#puts '<sashpos>0</sashpos>'.length
+require 'wx'
+
+class MyFrame < Wx::Frame
+  def initialize
+    super(nil, :title => "Thread example")
     
-    #size1, 5,263, 128 133+128=261+2 =263
+    set_menu_bar menubar
     
-    #70 + 58 = 128
-    #126
+    #    timer = Wx::Timer.new(self, Wx::ID_ANY)
+    #    evt_timer(timer.id) {Thread.pass}
+    #    timer.start(10)
+    Wx::Timer.every(1) { Thread.pass } 
     
-puts '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
-  <'. length #126 122+4 126
+    @text = Wx::TextCtrl.new(self, :style => Wx::TE_MULTILINE)
+    @tasks = 0
+  end
+  
+  def menubar
+    menubar = Wx::MenuBar.new
+    file_menu = Wx::Menu.new
+    about_item = Wx::MenuItem.new(file_menu, Wx::ID_ANY, "About")
+    evt_menu(about_item) { @text.append_text "About\n" }
+    file_menu.append_item about_item
+    start_item = Wx::MenuItem.new(file_menu, Wx::ID_ANY, "Start")
+    evt_menu(start_item) { busy_task} 
+    
+    file_menu.append_item start_item
+    
+    menubar.append(file_menu, "File")
+    menubar
+  end
+  
+  def busy_task
+    # start task in a separate thread
+    Thread.new do 
+      @tasks += 1
+      tasks = @tasks
+      10.times do 
+        @text.append_text "running #{tasks} ... #{Time.new}\n"
+        @text.append_text("^_^\n")
+      end
+      @text.append_text "Thread #{tasks} done\n"
+    end
+  end
+end
+
+Wx::App.run do 
+  MyFrame.new.show
+end

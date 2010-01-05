@@ -1,20 +1,21 @@
-�û��򿪳���
-1. �����ȡ�ϴγ��򴰿ڵ�λ�á���С��������sliptor��λ��
-2. �����ȡ�ϴδ򿪵��ļ�����Ŀ
+﻿用户打开程序
+1. 程序读取上次程序窗口的位置、大小、及两个sliptor的位置
+2. 程序读取上次打开的文件及项目
 
-�����˳���ʱ��
-1. ������򴰿ڵ�λ�á���С��������sliptor��λ��
-2. �������򿪵��ļ�����Ŀ
+程序退出的时候
+1. 保存程序窗口的位置、大小、及两个sliptor的位置
+2. 程序所打开的文件及项目
 
-һ��project��Ӧһ��project�����ļ����ļ���Ϊproject�����֡�һ��project�����ļ���Ӧ�ð�����
+一个project对应一个project定义文件，文件名为project的名字。一个project定义文件中应该包括：
 1. project name
 2. project path
 
 issue
-1. ���ļ�ʱ���л����´򿪵��ļ� ok
-2. �л��򿪵��ļ�ʱ��������outline��ѡ�� ok
-3. project�ļ���
-4. recent files�Ĺ���
-5. �رմ���ʱ��������ļ��޸���ʾ����
+1. 打开文件时，切换到新打开的文件 ok
+2. 切换打开的文件时，保存其outline的选项 ok
+3. project的加载 ok
+4. recent files的功能
+5. 关闭窗口时，如果有文件修改提示保存 ok
+6. 关闭单个文件时，如果有文件修改提示保存 ok
 
 ocra --windows --icon "E:\workspace_ruby\interface_viewer\lib_v2\res\icon\iv.ico" in
