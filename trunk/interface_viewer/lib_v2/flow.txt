@@ -16,3 +16,5 @@ issue
 3. project的加载
 4. recent files的功能
 5. 关闭窗口时，如果有文件修改提示保存
+
+ocra --windows --icon "E:\workspace_ruby\interface_viewer\lib_v2\res\icon\iv.ico" in
