@@ -129,7 +129,14 @@ class InterfaceViewerFrame < BasicMainFrame
   
   def on_open_file(file_name, path)
     return nil unless FileTest.file?(path)
-    return nil if @opened.has_key?(path)  
+    if @opened.has_key?(path) then
+      @notebook.each_page do |editor|
+        if editor.get_name.include?(path) then
+          @notebook.set_selection(@notebook.get_page_index(editor))
+        end
+      end
+      return nil
+    end
     # add one page for the auinotebook
     @opened[path] = file_name
     editor = create_editor
@@ -262,7 +269,7 @@ class InterfaceViewerFrame < BasicMainFrame
   def file_close_event_handler
     evt_auinotebook_page_close(@notebook) do |evt| 
       # now we just can get the caption of the tab, and we should use it to query the path
-      @opened.delete(@notebook.get_page(evt.get_old_selection).get_name)
+      @opened.delete(@notebook.get_page(evt.get_old_selection).get_name.split("|")[0])
     end
   end
   
