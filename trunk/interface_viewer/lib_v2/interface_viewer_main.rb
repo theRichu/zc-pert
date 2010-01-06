@@ -5,6 +5,7 @@ class MyApp < Wx::App
   def on_init()
     Wx::Timer.every(10) { Thread.pass }
     frame = InterfaceViewerFrame.new()
+    frame.init_frame_contents
     frame.show()
   end
 end
