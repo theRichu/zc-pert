@@ -21,7 +21,7 @@ class InterfaceViewerFrame < BasicMainFrame
     # initialize the style of the outline
     init_outline_style
     # initialize the window position and size and load the recent files
-    init_frame_contents
+#    init_frame_contents
     # handlers for the events 
     frame_close_event_handler # the close event of the main window
     project_tree_dbclick_event_handler # the event on the project tree item to open the file

@@ -1,8 +1,7 @@
 --- !ruby/object:StartUpBean 
-files: 
-  \\172.16.124.99\tomcatdev\webapps/EAIWS/resources/hostresponse/ATM1102I01/TATM1102I01-10000101-Resp.xml: TATM1102I01-10000101-Resp.xml
-  \\172.16.124.99\tomcatdev\webapps/EAIWS/resources/hostresponse/ATM1103I01/TATM1103I01-10000101-Resp.xml: TATM1103I01-10000101-Resp.xml
-proj_def: E:\workspace_ruby\interface_viewer\lib_v2\res\project\tomcatdev.proj
+files: {}
+
+proj_def: 
 rect: 
 - -4
 - -4
