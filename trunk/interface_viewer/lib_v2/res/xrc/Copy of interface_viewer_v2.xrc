@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resource2 xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
-	<object1 class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
+<resource2 xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1"><object1 class="wxFrame" name="MainFrame" subclass="BasicMainFrame">
 		<style1>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style1>
-		<size1>1000, 604</size1>
+		<size1>1000, 605</size1>
 		<title1>Interface Viewer v2</title1>
 		<centered1>1</centered1>
 		<object2 class="wxMenuBar">

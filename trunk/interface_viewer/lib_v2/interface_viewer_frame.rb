@@ -11,6 +11,7 @@ include Wx
 class InterfaceViewerFrame < BasicMainFrame
   def initialize
     super
+    @log = Logger.new("./log/log.txt")
     @opened, @item_position, @item_and_file = Hash.new, ItemPosition.new, Hash.new # the path of the opened file
     # initialize the size, position, sashes position of the frame
     init_frame_style
@@ -21,7 +22,7 @@ class InterfaceViewerFrame < BasicMainFrame
     # initialize the style of the outline
     init_outline_style
     # initialize the window position and size and load the recent files
-#    init_frame_contents
+    #    init_frame_contents
     # handlers for the events 
     frame_close_event_handler # the close event of the main window
     project_tree_dbclick_event_handler # the event on the project tree item to open the file
@@ -71,11 +72,16 @@ class InterfaceViewerFrame < BasicMainFrame
   end
   
   def init_project_tree(proj_def)
-    @proj_path = proj_def
-    project = YAML.load_file(proj_def)
-    @dc_proj.delete_all_items
-    @dc_proj.add_root(project.name, 0, 0, project.path)
-    fill_project_tree(project.path, @dc_proj.get_root_item)
+    begin
+      @proj_path = proj_def
+      project = YAML.load_file(proj_def)
+      @dc_proj.delete_all_items
+      @dc_proj.add_root(project.name, 0, 0, project.path)
+      fill_project_tree(project.path, @dc_proj.get_root_item)
+    rescue Exception => ex
+      @log.error(ex.to_s)
+    ensure
+    end
   end
   
   def load_recent_files(files)
@@ -108,7 +114,7 @@ class InterfaceViewerFrame < BasicMainFrame
             parent_list.push(item)
             next
           end
-          if FileTest.file?(child_path) && child_path.include?("\.xml") then
+          if FileTest.file?(child_path) && child_path.include?("\.xrc") then
             # put file name into the project tree
             file_item = @dc_proj.append_item(parent, child, 3, 3, child_path)
             @item_and_file[file_item] = child
@@ -131,35 +137,40 @@ class InterfaceViewerFrame < BasicMainFrame
   end
   
   def on_open_file(file_name, path)
-    return nil unless FileTest.file?(path)
-    if @opened.has_key?(path) then
-      @notebook.each_page do |editor|
-        if editor.get_name.include?(path) then
-          @notebook.set_selection(@notebook.get_page_index(editor))
+    begin
+      return nil unless FileTest.file?(path)
+      if @opened.has_key?(path) then
+        @notebook.each_page do |editor|
+          if editor.get_name.include?(path) then
+            @notebook.set_selection(@notebook.get_page_index(editor))
+          end
+        end
+        return nil
+      end
+      # add one page for the auinotebook
+      @opened[path] = file_name
+      editor = create_editor
+      editor.set_name(path)
+      @notebook.add_page(editor, file_name)
+      # load file content to the editor
+      format_xml_file(path)
+      editor.load_file(path)
+      # set the new open file in focus
+      @notebook.set_selection(@notebook.get_page_count - 1)
+      # add the modification listener
+      evt_stc_modified(editor) do |evt|
+        selected = @notebook.get_selection
+        editor = @notebook.get_page(selected)
+        if editor.get_modify then
+          page_label = @notebook.get_page_text(selected)
+          unless page_label.include?("*") then
+            @notebook.set_page_text(selected, page_label + "*")
+          end
         end
       end
-      return nil
-    end
-    # add one page for the auinotebook
-    @opened[path] = file_name
-    editor = create_editor
-    editor.set_name(path)
-    @notebook.add_page(editor, file_name)
-    # load file content to the editor
-    format_xml_file(path)
-    editor.load_file(path)
-    # set the new open file in focus
-    @notebook.set_selection(@notebook.get_page_count - 1)
-    # add the modification listener
-    evt_stc_modified(editor) do |evt|
-      selected = @notebook.get_selection
-      editor = @notebook.get_page(selected)
-      if editor.get_modify then
-        page_label = @notebook.get_page_text(selected)
-        unless page_label.include?("*") then
-          @notebook.set_page_text(selected, page_label + "*")
-        end
-      end
+    rescue Exception => ex
+      @log.error(ex.to_s)
+    ensure
     end
   end
   
