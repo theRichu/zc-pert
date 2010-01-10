@@ -1,3 +1,5 @@
+require 'rubygems'
+require "logger"
 require "wx"
 require 'interface_viewer_frame'
 

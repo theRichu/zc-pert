@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'wx'
 
 class MyFrame < Wx::Frame
