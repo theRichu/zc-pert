@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  staff_id: 1
+  action: MyString
+  target: MyString
+
+two:
+  staff_id: 1
+  action: MyString
+  target: MyString
