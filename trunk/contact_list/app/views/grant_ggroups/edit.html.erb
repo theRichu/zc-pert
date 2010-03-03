@@ -1,0 +1,20 @@
+<h1>Editing grant_ggroup</h1>
+
+<% form_for(@grant_ggroup) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :grant_id %><br />
+    <%= f.text_field :grant_id %>
+  </p>
+  <p>
+    <%= f.label :ggroup_id %><br />
+    <%= f.text_field :ggroup_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @grant_ggroup %> |
+<%= link_to 'Back', grant_ggroups_path %>

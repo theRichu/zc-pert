@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  grant_id: 1
+  ggroup_id: 1
+
+two:
+  grant_id: 1
+  ggroup_id: 1

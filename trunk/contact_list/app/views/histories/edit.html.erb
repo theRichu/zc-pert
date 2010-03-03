@@ -1,0 +1,24 @@
+<h1>Editing history</h1>
+
+<% form_for(@history) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :staff_id %><br />
+    <%= f.text_field :staff_id %>
+  </p>
+  <p>
+    <%= f.label :action %><br />
+    <%= f.text_field :action %>
+  </p>
+  <p>
+    <%= f.label :target %><br />
+    <%= f.text_field :target %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @history %> |
+<%= link_to 'Back', histories_path %>

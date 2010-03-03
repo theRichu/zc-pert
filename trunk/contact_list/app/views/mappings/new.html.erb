@@ -1,0 +1,19 @@
+<h1>New mapping</h1>
+
+<% form_for(@mapping) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :xls_column %><br />
+    <%= f.text_field :xls_column %>
+  </p>
+  <p>
+    <%= f.label :staff_attr %><br />
+    <%= f.text_field :staff_attr %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', mappings_path %>

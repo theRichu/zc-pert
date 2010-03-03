@@ -1,0 +1,24 @@
+<h1>Listing clenums</h1>
+
+<table>
+  <tr>
+    <th>Enum code</th>
+    <th>Parent</th>
+    <th>Enum text</th>
+  </tr>
+
+<% @clenums.each do |clenum| %>
+  <tr>
+    <td><%=h clenum.enum_code %></td>
+    <td><%=h clenum.parent %></td>
+    <td><%=h clenum.enum_text %></td>
+    <td><%= link_to 'Show', clenum %></td>
+    <td><%= link_to 'Edit', edit_clenum_path(clenum) %></td>
+    <td><%= link_to 'Destroy', clenum, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New clenum', new_clenum_path %>
