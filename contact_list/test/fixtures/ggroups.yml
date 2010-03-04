@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  gg_name: MyString
-  gg_desc: MyString
-
-two:
-  gg_name: MyString
-  gg_desc: MyString
