@@ -70,7 +70,7 @@
 
 <p>
   <b>Photo:</b>
-  <%=h @staff.photo %>
+  <%= image_tag @staff.photo.url(:thumb) %>
 </p>
 
 <p>

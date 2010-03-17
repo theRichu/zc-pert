@@ -16,6 +16,8 @@ class Staff < ActiveRecord::Base
   belongs_to :dept, :class_name=>'Clenum', :foreign_key=>'dept_id'
   belongs_to :base, :class_name=>'Clenum', :foreign_key=>'base_id'
   belongs_to :product, :class_name=>'Clenum', :foreign_key=>'product_id'
+  # for photo of the staff
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "120x120>" }
 
   # virtual properties
   def english_name
