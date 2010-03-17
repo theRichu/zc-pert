@@ -1,0 +1,18 @@
+<h1>New group</h1>
+
+<% form_for(@group, :html=>{:id=>'new_form'}) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :project_id %><br />
+    <%=  f.select(:project_id, options_project) %>
+  </p>
+  <p>
+    <%= f.label :group_name %><br />
+    <%= f.text_field :group_name %>
+  </p>
+  <p>
+    <%= f.label :group_desc %><br />
+    <%= f.text_area :group_desc %>
+  </p>
+<% end %>
