@@ -1,1 +1,0 @@
-page.replace_html "staff_group_id", :partial=>'projects/group_option', :collection=>@groups, :as=>:group
