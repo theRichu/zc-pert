@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contact List</title>
+    <%= javascript_include_tag :defaults %>
+    <%= stylesheet_link_tag 'contact_list'  %>
+  </head>
+
+  <body>
+    <div id="header">
+      <div id="header_left">
+        <div id="logo">
+          <%= image_tag 'logo.png' %>
+          <p>1st & 7en Department</p>
+        </div>
+        <div id="main_menu">
+          <ul>
+            <li class="main_menu_current"><%= menu_item_tag 'Contact List', :url=>{:controller=>'contact_list', :action=>'index'}, :update=>'board', :complete=>'board_tabmenu_style_change_register()' %></li>
+            <li class="main_menu_item"><a href="#">My Profile</a></li>
+            <li class="main_menu_item"><%= menu_item_tag 'Administrator', :url=>{:controller=>'administrator', :action=>'index'}, :update=>'board', :complete=>'board_tabmenu_style_change_register()' %></li>
+            <li class="main_menu_item"><a href="#">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="header_right">
+        <ul>
+          <li><%= logout_tag %></li>
+          <li>|</li>
+          <li><a href="#">Help</a></li>
+          <li>|</li>
+          <li><%= login_tag %></li>
+        </ul>
+      </div>
+    </div>
+    <div id="body">
+      <div id="group">
+        <%= javascript_tag(remote_function(:url=>{:controller=>'projects', :action=>'project_list'},:method=>:get, :complete=>'group_style_change_register()')) %>
+      </div>
+      <div id="board_outer">
+        <div id="board">
+          <%= yield %>
+        </div>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+  </body>
+</html>

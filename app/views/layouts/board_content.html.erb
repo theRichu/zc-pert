@@ -1,0 +1,32 @@
+<div id="board_menu">
+  <ul>
+    <% board_menu.each do |menu_item| %>
+      <li><%= menu_item %></li>
+    <% end %>
+  </ul>
+</div>
+<% if params[:action] == 'index' %>
+  <div id="board_submenu">
+    <div id="board_submenu_left">
+      <ul>
+        <li>Select:</li>
+        <li><%= link_to_function "All", "select_all_check_box(true)" %></li>
+        <li><%= link_to_function "None", "select_all_check_box(false)" %></li>
+      </ul>
+    </div>
+    <div id="board_submenu_right">
+      <ul>
+        <% order_by_menu.reverse.each do |menu_item| %>
+          <li><%= menu_item %></li>
+        <% end %>
+        <li><b>Sort By:</b></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+<div>
+  <% if flash[:notice] -%>
+    <div id="notice"><%= flash[:notice] %></div>
+  <% end -%>
+  <%= yield %>
+</div>

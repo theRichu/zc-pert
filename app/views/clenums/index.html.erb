@@ -1,0 +1,16 @@
+<table width="100%" cellspacing="0">
+  <tr>
+    <th></th>
+    <th>Category</th>
+    <th class="th_last">Enum Text</th>
+  </tr>
+
+  <% @clenums.each do |clenum| %>
+    <tr class="<%= cycle('list-line-odd', 'list-line-even') %>" onclick="select_one(this)">
+      <td width="20"><%= check_box_tag 'id', clenum.id, false, :class=>'id' %></td>
+      <td width="50%"><%= clenum.category.enum_text %></td>
+      <td width="50%"><%= clenum.enum_text %></td>
+    </tr>
+  <% end %>
+  <%= ajax_paginate_tag @clenums, 3 %>
+</table>

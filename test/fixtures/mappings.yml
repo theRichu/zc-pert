@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  xls_column: MyString
+  staff_attr: MyString
+
+two:
+  xls_column: MyString
+  staff_attr: MyString

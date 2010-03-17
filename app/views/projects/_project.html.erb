@@ -1,0 +1,9 @@
+<div>
+  <h3><%= project.project_name %></h3>
+  <ul>
+    <li class="group_item"><%= image_tag 'users.png' %>&nbsp;<%= menu_item_tag 'All', :url=>{:controller=>'staffs', :action=>'index', :project_id=>project}, :method=>:get, :update=>'board_content' %></li>
+    <% project.groups.each do |group| %>
+    <li class="group_item"><%= image_tag 'users.png' %>&nbsp;<%= menu_item_tag group.group_name, :url=>{:controller=>'staffs', :action=>'index', :project_id=>project, :group_id=>group}, :method=>:get, :update=>'board_content' %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,19 @@
+<h1>New ggroup</h1>
+
+<% form_for(@ggroup) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :gg_name %><br />
+    <%= f.text_field :gg_name %>
+  </p>
+  <p>
+    <%= f.label :gg_desc %><br />
+    <%= f.text_field :gg_desc %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', ggroups_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  grant_name: MyString
+  grant_contrl: MyString
+  grant_action: MyString
+  grant_target: MyString
+  grant_desc: MyText
+
+two:
+  grant_name: MyString
+  grant_contrl: MyString
+  grant_action: MyString
+  grant_target: MyString
+  grant_desc: MyText
