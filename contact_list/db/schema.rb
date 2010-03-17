@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310102448) do
+ActiveRecord::Schema.define(:version => 20100317021957) do
 
   create_table "clenums", :force => true do |t|
     t.integer  "category_id"
@@ -98,12 +98,13 @@ ActiveRecord::Schema.define(:version => 20100310102448) do
     t.integer  "site_id"
     t.integer  "dept_id"
     t.integer  "base_id"
-    t.string   "photo"
+    t.string   "photo_file_name"
     t.integer  "product_id"
     t.string   "base_mobile"
     t.string   "current_mobile"
     t.string   "onsite_mobile"
     t.string   "office_phone"
+    t.string   "longtop_email"
     t.string   "s1_eamil"
     t.string   "svn_account"
     t.string   "msn"
@@ -114,6 +115,9 @@ ActiveRecord::Schema.define(:version => 20100310102448) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end
