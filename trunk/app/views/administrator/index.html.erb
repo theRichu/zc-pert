@@ -1,0 +1,14 @@
+<div id="board_title">Administrator</div>
+<div id="board_tabmenu">
+  <ul>
+    <li class="board_tabmenu_item"><a href="#">Send Mail</a></li>
+    <li class="board_tabmenu_item"><a href="#">Import</a></li>
+    <li class="board_tabmenu_item"><%= menu_item_tag 'Enumeration', :url=>{:controller=>'clenums', :action=>'index'}, :update=>'board_content', :method=>:get %></li>
+    <li class="board_tabmenu_item"><%= menu_item_tag 'Group', :url=>{:controller=>'groups', :action=>'index'}, :update=>'board_content', :method=>:get %></li>
+    <li class="board_tabmenu_current"><%= menu_item_tag 'Project', :url=>{:controller=>'projects', :action=>'index'}, :update=>'board_content', :method=>:get %></li>
+  </ul>
+</div>
+<div id="board_tabmenu_bottom"></div>
+<div id="board_content">
+  <%= javascript_tag(remote_function(:url=>{:controller=>'projects', :action=>'index'}, :update=>'board_content', :method=>:get)) %>
+</div>

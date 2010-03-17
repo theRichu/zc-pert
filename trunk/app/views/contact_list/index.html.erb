@@ -1,0 +1,12 @@
+<div id="board_title">Contact List</div>
+<div id="board_tabmenu">
+  <ul>
+    <li class="board_tabmenu_item"><a href="#">Customer Fileds</a></li>
+    <li class="board_tabmenu_item"><a href="#">Export All</a></li>
+    <li class="board_tabmenu_current"><%= menu_item_tag 'Contact List', :url=>{:controller=>'staffs', :action=>'index'}, :update=>'board_content', :method=>:get %></li>
+  </ul>
+</div>
+<div id="board_tabmenu_bottom"></div>
+<div id="board_content">
+  <%= javascript_tag(remote_function(:url=>{:controller=>'staffs', :action=>'index'}, :update=>'board_content', :method=>:get)) %>
+</div>
