@@ -1,0 +1,63 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  group_id: 1
+  ggroup_id: 1
+  en_firstname: MyString
+  en_lastname: MyString
+  cn_firstname: MyString
+  cn_lastname: MyString
+  report_to: 1
+  wave: MyString
+  team: MyString
+  role1: MyString
+  role2: MyString
+  site: MyString
+  dept: MyString
+  base: MyString
+  photo: MyString
+  product: MyString
+  base_mobile: MyString
+  current_mobile: MyString
+  onsite_mobile: MyString
+  office_phone: MyString
+  longtop_email: 
+  s1_eamil: MyString
+  svn_account: MyString
+  msn: MyString
+  skype: MyString
+  passport: MyString
+  dob: 2010-03-03
+  username: MyString
+  password: MyString
+
+two:
+  group_id: 1
+  ggroup_id: 1
+  en_firstname: MyString
+  en_lastname: MyString
+  cn_firstname: MyString
+  cn_lastname: MyString
+  report_to: 1
+  wave: MyString
+  team: MyString
+  role1: MyString
+  role2: MyString
+  site: MyString
+  dept: MyString
+  base: MyString
+  photo: MyString
+  product: MyString
+  base_mobile: MyString
+  current_mobile: MyString
+  onsite_mobile: MyString
+  office_phone: MyString
+  longtop_email: 
+  s1_eamil: MyString
+  svn_account: MyString
+  msn: MyString
+  skype: MyString
+  passport: MyString
+  dob: 2010-03-03
+  username: MyString
+  password: MyString

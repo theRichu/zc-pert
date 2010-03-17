@@ -1,0 +1,16 @@
+<table width="100%" cellspacing="0">
+  <tr>
+    <th></th>
+    <th>Project Name</th>
+    <th class="th_last">Project Description</th>
+  </tr>
+  <% @projects.each do |project| %>
+    <tr class="<%= cycle('list-line-odd', 'list-line-even') %>" onclick="select_one(this)">
+      <td width="20"><%= check_box_tag 'id', project.id, false, :class=>'id' %></td>
+      <td width="50%"><%=h project.project_name %></td>
+      <td width="50%"><%=h project.project_desc %></td>
+    </tr>
+  <% end %>
+  <%= ajax_paginate_tag @projects, 3 %>
+</table>
+
