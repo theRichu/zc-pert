@@ -10,7 +10,11 @@ class StaffsController < ApplicationController
       unless params[:project_id] && project = Project.find(params[:project_id])
         project = Project.find :first, :conditions=>"project_name != '#{Project::DEFAULT}'"
       end
-      @group ='IN(' + project.groups.map {|g| g.id}.join(',') + ')'
+      if project && groups = project.groups
+        @group = 'IN(' + groups.map {|g| g.id}.join(',') + ')'
+      else
+        @group = 'is null'
+      end
     end
     
     @order_by = params[:order_by] || 'en_firstname'
