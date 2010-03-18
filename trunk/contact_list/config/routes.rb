@@ -27,6 +27,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'administrator', :controller=>"administrator", :action=>"index"
 
+  map.connect 'projects/groups', :controller=>'projects', :action=>'groups'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

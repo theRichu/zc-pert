@@ -269,6 +269,8 @@ th {
 
 td {
     padding: 2px 4px;
+    /*border-bottom: 1px solid #EEEEEE;*/
+    height: 22px;
 }
 
 .pagination {
@@ -296,11 +298,6 @@ label {
     font-weight: bold;
 }
 
-td {
-    border-bottom: 1px solid #EEEEEE;
-    height: 22px;
-}
-
 .chevron, .chevron_expand {
     padding-right: 20px;
     cursor: pointer;
@@ -314,4 +311,16 @@ td {
 
 .chevron_expand{
     background: url('/images/chevron-expand.png') no-repeat right center;
+}
+
+.fieldset {
+    margin: 10px 0px;
+    background-color: #FFFEEF;
+}
+
+.legend {
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #F4F3E3;
+    padding: 2px;
 }
