@@ -1,124 +1,122 @@
 <% form_for(@staff, :html=>{:id=>'edit_form',:multipart => true}) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= hidden_field_tag :ids, @staff.id %>
-    <%= label_tag 'project' %>
-    <%= select_tag('project', options_for_select(options_project))%>
-    <%= f.label :group_id %>
-    <%= f.select :group_id, options_groups_for_first_project %>
-    <%= observe_field 'project', :url=>{:controller=>'projects', :action=>'groups'}, :with => "'id=' + $('project').value" %>
-  </p>
-  <p>
-    <%= f.label :ggroup_id %>
-    <%= f.select :ggroup_id, options_ggroup %>
-  </p>
-  <p>
-    <%= f.label :en_firstname %>
-    <%= f.text_field :en_firstname %>
-  </p>
-  <p>
-    <%= f.label :en_lastname %>
-    <%= f.text_field :en_lastname %>
-  </p>
-  <p>
-    <%= f.label :cn_firstname %>
-    <%= f.text_field :cn_firstname %>
-  </p>
-  <p>
-    <%= f.label :cn_lastname %>
-    <%= f.text_field :cn_lastname %>
-  </p>
-  <p>
-    <%= f.label :report_to %>
-    <%= f.select :report_to, options_staff %>
-  </p>
-  <p>
-    <%= f.label :wave_id %>
-    <%= f.select :wave_id, options_enum(Clenum::WAVE) %>
-  </p>
-  <p>
-    <%= f.label :team_id %>
-    <%= f.select :team_id, options_enum(Clenum::TEAM) %>
-  </p>
-  <p>
-    <%= f.label :role1_id %>
-    <%= f.select :role1_id, options_enum(Clenum::ROLE1) %>
-  </p>
-  <p>
-    <%= f.label :role2_id %>
-    <%= f.select :role2_id, options_enum(Clenum::ROLE2) %>
-  </p>
-  <p>
-    <%= f.label :site_id %>
-    <%= f.select :site_id, options_enum(Clenum::SITE) %>
-  </p>
-  <p>
-    <%= f.label :dept_id %>
-    <%= f.select :dept_id, options_enum(Clenum::DEPARTMENT) %>
-  </p>
-  <p>
-    <%= f.label :base_id %>
-    <%= f.select :base_id, options_enum(Clenum::BASE) %>
-  </p>
-  <p>
-    <%= f.label :photo %>
-    <%= f.file_field :photo %>
-  </p>
-  <p>
-    <%= f.label :product_id %>
-    <%= f.select :product_id, options_enum(Clenum::PRODUCT) %>
-  </p>
-  <p>
-    <%= f.label :base_mobile %>
-    <%= f.text_field :base_mobile %>
-  </p>
-  <p>
-    <%= f.label :current_mobile %>
-    <%= f.text_field :current_mobile %>
-  </p>
-  <p>
-    <%= f.label :onsite_mobile %>
-    <%= f.text_field :onsite_mobile %>
-  </p>
-  <p>
-    <%= f.label :office_phone %>
-    <%= f.text_field :office_phone %>
-  </p>
-  <p>
-    <%= f.label :longtop_email %>
-    <%= f.text_field :longtop_email %>
-  </p>
-  <p>
-    <%= f.label :s1_eamil %>
-    <%= f.text_field :s1_eamil %>
-  </p>
-  <p>
-    <%= f.label :svn_account %>
-    <%= f.text_field :svn_account %>
-  </p>
-  <p>
-    <%= f.label :msn %>
-    <%= f.text_field :msn %>
-  </p>
-  <p>
-    <%= f.label :skype %>
-    <%= f.text_field :skype %>
-  </p>
-  <p>
-    <%= f.label :passport %>
-    <%= f.text_field :passport %>
-  </p>
-  <p>
-    <%= f.label :dob %>
-    <%= f.date_select :dob, :start_year=>1960, :end_year=>Time.now.year, :use_month_numbers=>true, :date_separator=>'-' %>
-  </p>
-  <p>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.label :password %>
-    <%= f.text_field :password %>
-  </p>
+  <fieldset class="fieldset">
+    <legend class="legend">General Information</legend>
+    <table width="100%">
+      <tr>
+        <td width="15%">
+          <%= hidden_field_tag :ids, @staff.id %>
+          <%= f.label :en_firstname, 'English Given Name' %>
+        </td>
+        <td width="25%"><%= f.text_field :en_firstname %></td>
+        <td width="10">&nbsp;</td>
+        <td width="15%"> <%= f.label :en_lastname, 'English Family Name' %></td>
+        <td width="35%"><%= f.text_field :en_lastname %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :cn_firstname, 'Chinese Given Name' %></td>
+        <td><%= f.text_field :cn_firstname %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :cn_lastname, 'Chinese Family Name' %></td>
+        <td><%= f.text_field :cn_lastname %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :dob, 'Date Of Birth' %></td>
+        <td><%= f.date_select :dob, :start_year=>1960, :end_year=>Time.now.year, :use_month_numbers=>true, :date_separator=>'-' %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :base_id, 'Base' %></td>
+        <td><%= f.select :base_id, options_enum(Clenum::BASE) %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :dept_id, 'Department' %></td>
+        <td><%= f.select :dept_id, options_enum(Clenum::DEPARTMENT) %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :passport, 'Passport' %></td>
+        <td><%= f.text_field :passport %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :ggroup_id, 'Grant' %></td>
+        <td><%= f.select :ggroup_id, options_ggroup %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :svn_account, 'SVN Account' %></td>
+        <td><%= f.text_field :svn_account %></td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="legend">Project Information</legend>
+    <table width="100%">
+      <tr>
+        <td><%= label_tag 'project' %></td>
+        <td>
+          <%= select_tag('project', options_for_select(options_project))%>
+          <%= observe_field 'project', :url=>{:controller=>'projects', :action=>'groups'}, :with => "'id=' + $('project').value" %>
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="15%"><%= f.label :group_id, 'Work At' %></td>
+        <td width="25%"><%= f.select :group_id, options_groups_for_first_project %></td>
+        <td width="10%">&nbsp;</td>
+        <td width="15%"><%= f.label :site_id %></td>
+        <td width="35%"><%= f.select :site_id, options_enum(Clenum::SITE) %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :wave_id %></td>
+        <td><%= f.select :wave_id, options_enum(Clenum::WAVE), :include_blank => true %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :product_id, 'Product Line' %></td>
+        <td><%= f.select :product_id, options_enum(Clenum::PRODUCT), :include_blank => true %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :team_id %></td>
+        <td><%= f.select :team_id, options_enum(Clenum::TEAM), :include_blank => true %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :report_to, 'Report To' %></td>
+        <td><%= f.select :report_to, options_staff, :include_blank => true %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :role1_id, 'Main Role' %></td>
+        <td><%= f.select :role1_id, options_enum(Clenum::ROLE1) %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :role2_id, 'Supplementary Role' %></td>
+        <td><%= f.select :role2_id, options_enum(Clenum::ROLE2), :include_blank => true %></td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="legend">Contact Information</legend>
+    <table width="100%">
+      <tr>
+        <td width="15%"><%= f.label :office_phone, 'Office Phone' %></td>
+        <td width="25%"><%= f.text_field :office_phone %></td>
+        <td width="10%">&nbsp;</td>
+        <td width="15%"><%= f.label :base_mobile, 'Base Mobile' %></td>
+        <td width="35%"><%= f.text_field :base_mobile %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :current_mobile, 'Current Mobile' %></td>
+        <td><%= f.text_field :current_mobile %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :onsite_mobile, 'Onsite Mobile' %></td>
+        <td><%= f.text_field :onsite_mobile %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :longtop_email, 'Longtop Email' %></td>
+        <td><%= f.text_field :longtop_email %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :s1_eamil, 'S1 Email' %></td>
+        <td><%= f.text_field :s1_eamil %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :msn, 'MSN' %></td>
+        <td><%= f.text_field :msn %></td>
+        <td>&nbsp;</td>
+        <td><%= f.label :skype %></td>
+        <td><%= f.text_field :skype %></td>
+      </tr>
+    </table>
+  </fieldset>
 <% end %>

@@ -1,144 +1,117 @@
-<p>
-  <b>Project:</b>
-  <%=h @staff.group.project.project_name %>
-</p>
-<p>
-  <b>Group:</b>
-  <%=h @staff.group.group_name %>
-</p>
-
-<p>
-  <b>En firstname:</b>
-  <%=h @staff.en_firstname %>
-</p>
-
-<p>
-  <b>En lastname:</b>
-  <%=h @staff.en_lastname %>
-</p>
-
-<p>
-  <b>Cn firstname:</b>
-  <%=h @staff.cn_firstname %>
-</p>
-
-<p>
-  <b>Cn lastname:</b>
-  <%=h @staff.cn_lastname %>
-</p>
-
-<p>
-  <b>Report to:</b>
-  <%= @staff.superior.chinese_name if @staff.superior %>
-  (<%= @staff.superior.english_name if @staff.superior %>)
-</p>
-
-<p>
-  <b>Wave:</b>
-  <%=h @staff.wave.enum_text %>
-</p>
-
-<p>
-  <b>Team:</b>
-  <%=h @staff.team.enum_text %>
-</p>
-
-<p>
-  <b>Role1:</b>
-  <%=h @staff.role1.enum_text %>
-</p>
-
-<p>
-  <b>Role2:</b>
-  <%=h @staff.role2.enum_text %>
-</p>
-
-<p>
-  <b>Site:</b>
-  <%=h @staff.site.enum_text %>
-</p>
-
-<p>
-  <b>Dept:</b>
-  <%=h @staff.dept.enum_text %>
-</p>
-
-<p>
-  <b>Base:</b>
-  <%=h @staff.base.enum_text %>
-</p>
-
-<p>
-  <b>Photo:</b>
-  <%= image_tag @staff.photo.url(:thumb) %>
-</p>
-
-<p>
-  <b>Product:</b>
-  <%=h @staff.product.enum_text %>
-</p>
-
-<p>
-  <b>Base mobile:</b>
-  <%=h @staff.base_mobile %>
-</p>
-
-<p>
-  <b>Current mobile:</b>
-  <%=h @staff.current_mobile %>
-</p>
-
-<p>
-  <b>Onsite mobile:</b>
-  <%=h @staff.onsite_mobile %>
-</p>
-
-<p>
-  <b>Office phone:</b>
-  <%=h @staff.office_phone %>
-</p>
-
-<p>
-  <b>Longtop email:</b>
-  <%=h @staff.longtop_email %>
-</p>
-
-<p>
-  <b>S1 eamil:</b>
-  <%=h @staff.s1_eamil %>
-</p>
-
-<p>
-  <b>Svn account:</b>
-  <%=h @staff.svn_account %>
-</p>
-
-<p>
-  <b>Msn:</b>
-  <%=h @staff.msn %>
-</p>
-
-<p>
-  <b>Skype:</b>
-  <%=h @staff.skype %>
-</p>
-
-<p>
-  <b>Passport:</b>
-  <%=h @staff.passport %>
-</p>
-
-<p>
-  <b>Dob:</b>
-  <%=h @staff.dob %>
-</p>
-
-<p>
-  <b>Username:</b>
-  <%=h @staff.username %>
-</p>
-
-<p>
-  <b>Password:</b>
-  <%=h @staff.password %>
-</p>
+<fieldset class="fieldset">
+  <legend class="legend">General Information</legend>
+  <table width="100%">
+    <tr>
+      <td width="15%">
+        <%= label_tag :en_firstname, 'English Given Name' %>
+      </td>
+      <td width="25%"><%= @staff.en_firstname %></td>
+      <td width="10">&nbsp;</td>
+      <td width="15%"> <%= label_tag :en_lastname, 'English Family Name' %></td>
+      <td width="35%"><%= @staff.en_lastname %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :cn_firstname, 'Chinese Given Name' %></td>
+      <td><%= @staff.cn_firstname %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :cn_lastname, 'Chinese Family Name' %></td>
+      <td><%= @staff.cn_lastname %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :dob, 'Date Of Birth' %></td>
+      <td><%= @staff.dob %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :base_id, 'Base' %></td>
+      <td><%= @staff.base.enum_text %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :dept_id, 'Department' %></td>
+      <td><%= @staff.dept.enum_text %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :passport, 'Passport' %></td>
+      <td><%= @staff.passport %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :ggroup_id, 'Grant' %></td>
+      <td><%= @staff.ggroup.gg_name %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :svn_account, 'SVN Account' %></td>
+      <td><%= @staff.svn_account %></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset class="fieldset">
+  <legend class="legend">Project Information</legend>
+  <table width="100%">
+    <tr>
+      <td><%= label_tag 'project' %></td>
+      <td>
+        <%= @staff.group.project.project_name%>
+      </td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="15%"><%= label_tag :group_id, 'Work At' %></td>
+      <td width="25%"><%= @staff.group.group_name %></td>
+      <td width="10%">&nbsp;</td>
+      <td width="15%"><%= label_tag :site_id %></td>
+      <td width="35%"><%= @staff.site.enum_text %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :wave_id %></td>
+      <td><%= @staff.wave.enum_text %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :product_id, 'Product Line' %></td>
+      <td><%= @staff.product.enum_text %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :team_id %></td>
+      <td><%= @staff.team.enum_text %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :report_to, 'Report To' %></td>
+      <td><%= @staff.superior.english_name %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :role1_id, 'Main Role' %></td>
+      <td><%= @staff.role1.enum_text %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :role2_id, 'Supplementary Role' %></td>
+      <td><%= @staff.role2.enum_text %></td>
+    </tr>
+  </table>
+</fieldset>
+<fieldset class="fieldset">
+  <legend class="legend">Contact Information</legend>
+  <table width="100%">
+    <tr>
+      <td width="15%"><%= label_tag :office_phone, 'Office Phone' %></td>
+      <td width="25%"><%= @staff.office_phone %></td>
+      <td width="10%">&nbsp;</td>
+      <td width="15%"><%= label_tag :base_mobile, 'Base Mobile' %></td>
+      <td width="35%"><%= @staff.base_mobile %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :current_mobile, 'Current Mobile' %></td>
+      <td><%= @staff.current_mobile %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :onsite_mobile, 'Onsite Mobile' %></td>
+      <td><%= @staff.onsite_mobile %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :longtop_email, 'Longtop Email' %></td>
+      <td><%= @staff.longtop_email %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :s1_eamil, 'S1 Email' %></td>
+      <td><%= @staff.s1_eamil %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :msn, 'MSN' %></td>
+      <td><%= @staff.msn %></td>
+      <td>&nbsp;</td>
+      <td><%= label_tag :skype %></td>
+      <td><%= @staff.skype %></td>
+    </tr>
+  </table>
+</fieldset>
