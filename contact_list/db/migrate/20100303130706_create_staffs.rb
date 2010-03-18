@@ -21,7 +21,7 @@ class CreateStaffs < ActiveRecord::Migration
       t.string :current_mobile
       t.string :onsite_mobile
       t.string :office_phone
-      t.sting :longtop_email
+      t.string :longtop_email
       t.string :s1_eamil
       t.string :svn_account
       t.string :msn
