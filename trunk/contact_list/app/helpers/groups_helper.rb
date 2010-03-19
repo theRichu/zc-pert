@@ -2,7 +2,7 @@ module GroupsHelper
 
   def order_by_menu
     menu_items = Array.new
-    items = {:'projects.project_name'=>'Project', :group_name=>'Group Name', :group_desc=>'Group Description'}
+    items = {:'projects.project_name'=>'Project', :group_name=>'Company Name', :group_desc=>'Company Description'}
 
     items.each do |key,value|
       if @order_by == key.to_s then
