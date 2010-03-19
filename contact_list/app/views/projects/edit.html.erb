@@ -1,15 +1,25 @@
-<h1>Editing project</h1>
+<h1>Editing Project</h1>
 
 <% form_for(@project, :html=>{:id=>'edit_form'}) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= hidden_field_tag :ids, @project.id %>
-    <%= f.label :project_name %><br />
-    <%= f.text_field :project_name %>
-  </p>
-  <p>
-    <%= f.label :project_desc %><br />
-    <%= f.text_area :project_desc %>
-  </p>
+  <table>
+    <tr>
+      <td>
+        <%= hidden_field_tag :ids, @project.id %>
+        <%= f.label :project_name, 'Project Name' %>
+      </td>
+      <td>
+        <%= f.text_field :project_name, :class=>'width_400' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :project_desc, 'Project Description' %>
+      </td>
+      <td>
+        <%= f.text_area :project_desc, :cols=>'40', :rows=>'10', :class=>'width_400' %>
+      </td>
+    </tr>
+  </table>
 <% end %>

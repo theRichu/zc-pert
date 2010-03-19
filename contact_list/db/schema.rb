@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(:version => 20100318124514) do
   add_index "ggroups_grants", ["ggroup_id", "grant_id"], :name => "index_ggroups_grants_on_ggroup_id_and_grant_id"
   add_index "ggroups_grants", ["grant_id"], :name => "index_ggroups_grants_on_grant_id"
 
+  create_table "grant_ggroups", :force => true do |t|
+    t.integer  "grant_id"
+    t.integer  "ggroup_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "grants", :force => true do |t|
     t.string   "grant_name"
     t.string   "grant_contrl"
@@ -62,6 +69,14 @@ ActiveRecord::Schema.define(:version => 20100318124514) do
   create_table "mappings", :force => true do |t|
     t.string   "xls_column"
     t.string   "staff_attr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

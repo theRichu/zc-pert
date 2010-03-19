@@ -1,18 +1,19 @@
-<h1>New group</h1>
+<h1>Create a new company</h1>
 
 <% form_for(@group, :html=>{:id=>'new_form'}) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :project_id %><br />
-    <%=  f.select(:project_id, options_project) %>
-  </p>
-  <p>
-    <%= f.label :group_name %><br />
-    <%= f.text_field :group_name %>
-  </p>
-  <p>
-    <%= f.label :group_desc %><br />
-    <%= f.text_area :group_desc %>
-  </p>
+  <table>
+    <tr>
+      <td><%= f.label :project_id %></td>
+      <td><%=  f.select(:project_id, options_project) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :group_name, 'Company Name' %></td>
+      <td><%= f.text_field :group_name, :class=>'width_400' %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :group_desc, 'Company Description' %></td>
+      <td><%= f.text_area :group_desc, :class=>'width_400 height_200' %></td>
+    </tr>
+  </table>
 <% end %>

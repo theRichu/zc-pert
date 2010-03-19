@@ -1,9 +1,19 @@
-<p>
-  <b>Project name:</b>
-  <%=h @project.project_name %>
-</p>
-
-<p>
-  <b>Project desc:</b>
-  <%=h @project.project_desc %>
-</p>
+<h1>View details of project</h1>
+<table>
+  <tr>
+    <td>
+      <%= label_tag :project_name, 'Project Name' %>
+    </td>
+    <td>
+      <%= @project.project_name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= label_tag :project_desc, 'Project Description' %>
+    </td>
+    <td>
+      <%= @project.project_desc %>
+    </td>
+  </tr>
+</table>
