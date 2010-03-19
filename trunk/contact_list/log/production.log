@@ -1,0 +1,133 @@
+
+
+Processing ContactListController#index (for 172.16.124.18 at 2010-03-19 13:13:28) [GET]
+Rendering template within layouts/contact_list
+Rendering contact_list/index
+Completed in 1500ms (View: 1484, DB: 16) | 200 OK [http://172.16.124.18/contact_list]
+
+
+Processing ProjectsController#project_list (for 172.16.124.18 at 2010-03-19 13:13:30) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering projects/project_list
+Completed in 0ms (View: 0, DB: 94) | 200 OK [http://172.16.124.18/projects/new/project_list?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing StaffsController#index (for 172.16.124.18 at 2010-03-19 13:13:30) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/index
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://172.16.124.18/staffs?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing AdministratorController#index (for 172.16.124.18 at 2010-03-19 13:13:33) [POST]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw=", "_"=>""}
+Rendering administrator/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/administrator]
+
+
+Processing ProjectsController#index (for 172.16.124.18 at 2010-03-19 13:13:33) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/index
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://172.16.124.18/projects?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ContactListController#index (for 172.16.124.18 at 2010-03-19 13:13:36) [POST]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw=", "_"=>""}
+Rendering contact_list/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://172.16.124.18/contact_list]
+
+
+Processing StaffsController#index (for 172.16.124.18 at 2010-03-19 13:13:36) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/staffs?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing AdministratorController#index (for 172.16.124.18 at 2010-03-19 13:13:37) [POST]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw=", "_"=>""}
+Rendering administrator/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://172.16.124.18/administrator]
+
+
+Processing ProjectsController#index (for 172.16.124.18 at 2010-03-19 13:13:37) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/index
+Completed in 15ms (View: 0, DB: 15) | 200 OK [http://172.16.124.18/projects?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ProjectsController#new (for 172.16.124.18 at 2010-03-19 13:13:39) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/new
+Completed in 15ms (View: 0, DB: 15) | 200 OK [http://172.16.124.18/projects/new?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ProjectsController#index (for 172.16.124.18 at 2010-03-19 13:13:40) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/projects?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ContactListController#index (for 172.16.124.18 at 2010-03-19 13:13:42) [POST]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw=", "_"=>""}
+Rendering contact_list/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://172.16.124.18/contact_list]
+
+
+Processing StaffsController#index (for 172.16.124.18 at 2010-03-19 13:13:42) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/staffs?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing StaffsController#new (for 172.16.124.18 at 2010-03-19 13:13:42) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/new
+Completed in 375ms (View: 343, DB: 16) | 200 OK [http://172.16.124.18/staffs/new?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing StaffsController#index (for 172.16.124.18 at 2010-03-19 13:13:45) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/index
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/staffs?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing StaffsController#index (for 172.16.124.18 at 2010-03-19 13:14:07) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering staffs/index
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/staffs?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing AdministratorController#index (for 172.16.124.18 at 2010-03-19 13:14:09) [POST]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw=", "_"=>""}
+Rendering administrator/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/administrator]
+
+
+Processing ProjectsController#index (for 172.16.124.18 at 2010-03-19 13:14:10) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/index
+Completed in 110ms (View: 110, DB: 0) | 200 OK [http://172.16.124.18/projects?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ProjectsController#new (for 172.16.124.18 at 2010-03-19 13:14:12) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://172.16.124.18/projects/new?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]
+
+
+Processing ProjectsController#index (for 172.16.124.18 at 2010-03-19 13:14:13) [GET]
+  Parameters: {"authenticity_token"=>"r+K1lHoFKwoW+sxPanKFX3qzhZmqcTNPohPyu4Qgzaw="}
+Rendering template within layouts/board_content
+Rendering projects/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://172.16.124.18/projects?authenticity_token=r%2BK1lHoFKwoW%2BsxPanKFX3qzhZmqcTNPohPyu4Qgzaw%3D]

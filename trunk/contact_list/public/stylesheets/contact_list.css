@@ -298,6 +298,14 @@ label {
     font-weight: bold;
 }
 
+.width_400 {
+    width: 400px;
+}
+
+.height_200 {
+    height: 200px;
+}
+
 .chevron, .chevron_expand {
     padding-right: 20px;
     cursor: pointer;

@@ -1,11 +1,17 @@
+<h1>Create a new enumeration</h1>
 <% form_for(@clenum,:html=>{:id=>'new_form'}) do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :category_id %>
-    <%= f.select(:category_id, options_category) %>
-  </p>
-  <p>
-    <%= f.label :enum_text %>
-    <%= f.text_field :enum_text %>
-  </p>
+
+  <table>
+    <tr>
+      <td>
+        <%= f.label :category_id %>
+      </td>
+      <td><%= f.select(:category_id, options_category) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :enum_text %></td>
+      <td><%= f.text_field :enum_text %></td>
+    </tr>
+  </table>
 <% end %>

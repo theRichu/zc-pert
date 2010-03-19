@@ -1,4 +1,13 @@
-<p>
-  <b>Enum text:</b>
-  <%=h @clenum.enum_text %>
-</p>
+<h1>View details of enumeration</h1>
+<table>
+  <tr>
+    <td>
+      <%= label_tag :category_id %>
+    </td>
+    <td><%= @clenum.category.enum_text %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag :enum_text %></td>
+    <td><%= @clenum.enum_text %></td>
+  </tr>
+</table>

@@ -11,7 +11,9 @@ class StaffsController < ApplicationController
         project = Project.find :first, :conditions=>"project_name != '#{Project::DEFAULT}'"
       end
       if project && groups = project.groups
-        @group = 'IN(' + groups.map {|g| g.id}.join(',') + ')'
+        unless groups.empty?
+          @group = 'IN(' + groups.map {|g| g.id}.join(',') + ')'
+        end
       else
         @group = 'is null'
       end
