@@ -47,13 +47,13 @@ module ApplicationHelper
 
   def login_tag
     unless session[:staff_id] 
-      link_to_remote 'Login', :controller=>'staff', :action=>'login'
+      link_to_remote 'Login', :url=>{:controller=>'staffs', :action=>'login'}, :update=>'board'
     end
   end
 
   def logout_tag
     if session[:staff_id] 
-      link_to_remote 'Logout', :controller=>'staff', :action=>'logout'
+      link_to_remote 'Logout', :url=>{:controller=>'staffs', :action=>'logout'}, :update=>'board'
     end
   end
 

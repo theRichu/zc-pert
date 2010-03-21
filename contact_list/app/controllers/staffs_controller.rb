@@ -124,14 +124,27 @@ class StaffsController < ApplicationController
     end
   end
 
-  # POST /staffs/login
-  # POST /staffs/login.xml
+  # GET /staffs/login
+  # GET /staffs/login.xml
   def login
-
+    render(:layout => false)
   end
 
-  # POST /staffs/logout
-  # POST /staffs/logout.xml
+  # POST /staffs/check_login
+  # POST /staffs/check_login.xml
+  def check_login
+    # if invalid
+    #    render :update do |page|
+    #      page.replace_html 'msg' , "Error"
+    #    end
+    # if valid
+    render :update do |page|
+      page.redirect_to :controller=>'contact_list', :action=>'index'
+    end
+  end
+
+  # GET /staffs/logout
+  # GET /staffs/logout.xml
   def logout
     
   end

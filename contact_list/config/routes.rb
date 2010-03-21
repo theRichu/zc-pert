@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :staffs, :member=>{ :edit_grant=> :get, :update_grant=> :put}
 
-  map.resource :staffs, :member=>{ :login=>:post, :logout=>:post}
+  map.resource :staffs, :member=>{ :login=>:get, :logout=>:get, :check_login=>:post }
 
   map.resource :projects, :new=>{ :project_list => :get}
 

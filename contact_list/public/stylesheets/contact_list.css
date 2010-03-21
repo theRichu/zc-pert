@@ -92,18 +92,21 @@ html, body{
     margin:0px 0px 0px 20px;
     background-color:#F3F3F3;
     padding:6px 0px 0px 0px;
+    height: 100%;
 }
 
 #group{
     width:182px;
     float:left;
     padding: 0px 18px;
-    margin: 0px
+    margin: 0px;
+    height: 100%;
 }
 
 #board_outer{
     margin:0px 0px 0px 220px;
     padding:0px;
+    height: 100%;
 }
 
 #board{
@@ -111,8 +114,9 @@ html, body{
     border-bottom: 0px;
     border-right:0px;
     background:#FFFFFF;
-    padding: 0px 18px 80px 18px;
+    padding: 0px 18px;
     margin: 0px;
+    height: 100%;
 }
 
 #board_title{
@@ -331,4 +335,29 @@ label {
     font-size: 15px;
     background-color: #F4F3E3;
     padding: 2px;
+}
+
+.grey{color:#666666}
+
+.orange {font-size:10px;color:#FF6600}
+.orange A:link {font-size:10px;color:#FF6600;text-decoration:underline}
+.orange A:visited {font-size:10px;color:#FF6600;text-decoration:underline}
+.orange A:hover {font-size:10px;color:#FF6600;text-decoration:underline}
+.orange A:active {font-size:10px;color:#FF6600;text-decoration:underline}
+
+.username{
+    background-image:url(/images/username.gif);
+    background-position: 1px 1px;
+    background-repeat:no-repeat;
+    padding-left:20px;
+    height:20px;
+    width: 260px;
+}
+.password{
+    background-image:url(/images/password.gif);
+    background-position: 1px 1px;
+    background-repeat:no-repeat;
+    padding-left:20px;
+    height:20px;
+    width: 260px;
 }
