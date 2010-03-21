@@ -1,0 +1,33 @@
+<p>
+  <% form_remote_tag :url=>{:controller => "staffs", :action => "check_login"} do %>
+  <table width="300" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td bgcolor="#F4F4F4"><%= label_tag 'login', '+ LOGIN' %></td>
+    </tr>
+    <tr>
+      <td class="grey"><img src="images/warning.gif" align="absmiddle" style="float: left;"/><div id="msg" style="float: left;">Please entry your username and password</div></td>
+    </tr>
+    <tr>
+      <td><%= label_tag 'username'%></td>
+    </tr>
+    <tr>
+      <td><%= text_field_tag :username, params[:username], :class=>'username' %></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+    <tr>
+      <td><%= label_tag 'password' %></td>
+    </tr>
+    <tr>
+      <td><%= password_field_tag :password, params[:password], :class=>'password' %></td>
+    </tr>
+    <tr>
+      <td class="orange"><a href="#">Get your Password ? </a></td>
+    </tr>
+    <tr>
+      <td align="right"><%= submit_tag 'Login' %></td>
+    </tr>
+  </table>
+<% end %>
+</p>
