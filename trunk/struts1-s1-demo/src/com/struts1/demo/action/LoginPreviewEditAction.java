@@ -8,6 +8,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.struts1.demo.formbean.LoginForm;
+import com.struts1.demo.valueobject.LoginValue;
+
 public class LoginPreviewEditAction extends Action {
 
 	@Override
@@ -18,6 +21,12 @@ public class LoginPreviewEditAction extends Action {
 		if (null != forward) {
 			return forward;
 		}
+
+		LoginValue value = (LoginValue) request.getSession().getAttribute(
+				"login_value");
+
+		((LoginForm) form).fromValueObject(value);
+
 		return mapping.findForward("success");
 	}
 

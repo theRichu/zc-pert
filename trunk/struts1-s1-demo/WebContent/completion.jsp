@@ -16,15 +16,25 @@
 --%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="l"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="h"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="b"%>
 <h1>Congratulations, you successful login using following information:</h1>
+
+<b:define id="loginValue" name="login_value" scope="request" type="com.struts1.demo.valueobject.LoginValue" />
+
 <h:form action="/login.do">
 	<p>
 		username:<br />
+		<%-- 
 		<h:text property="username"></h:text>
+		--%>
+		<b:write name="loginValue" property="username"/>
 	</p>
 	<p>
 		password:<br />
+		<%-- 
 		<h:password property="password"></h:password>
+		--%>
+		<b:write name="loginValue" property="password"/>
 	</p>
 	<p>
 		<h:submit>ok</h:submit>
