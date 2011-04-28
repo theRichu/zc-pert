@@ -8,6 +8,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.struts1.demo.valueobject.LoginValue;
+
 public class LoginSubmitAction extends Action {
 
 	@Override
@@ -18,6 +20,14 @@ public class LoginSubmitAction extends Action {
 		if (null != forward) {
 			return forward;
 		}
+
+		LoginValue value = (LoginValue) request.getSession().getAttribute(
+				"login_value");
+
+		request.getSession().removeAttribute("login_value");
+
+		request.setAttribute("login_value", value);
+
 		return mapping.findForward("success");
 	}
 

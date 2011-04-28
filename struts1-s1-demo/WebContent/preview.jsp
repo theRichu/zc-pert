@@ -16,6 +16,7 @@
 --%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="l"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="h"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="b"%>
 <script type="text/javascript">
 function submitCancel() {
 	var action = document.forms[0].action;
@@ -32,14 +33,27 @@ function submitEdit() {
 }
 </script>
 <h1>Preview Screen</h1>
+<b:define id="loginValue" name="login_value" scope="session" type="com.struts1.demo.valueobject.LoginValue" />
 <h:form action="/submit.do">
 	<p>
 		username:<br />
+		<%--
 		<h:text property="username"></h:text>
+		 --%>
+		 <b:write name="loginValue" property="username"/>
+		 <%-- 
+		 <h:hidden property="username"/>
+		 --%>
 	</p>
 	<p>
 		password:<br />
+		<%-- 
 		<h:password property="password"></h:password>
+		--%>
+		<b:write name="loginValue" property="password"/>
+		<%-- 
+		<h:hidden property="password"/>
+		--%>
 	</p>
 	<p>
 		<h:button property="cancelBtn" onclick="submitCancel()">cancel</h:button><h:button property="editBtn" onclick="submitEdit()">edit</h:button><h:submit>submit</h:submit>
