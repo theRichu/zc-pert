@@ -1,0 +1,16 @@
+{
+  "name": "Bookmark This Link",
+  "version": "1.0",
+  "description": "Bookmark This Link",
+  "permissions": [
+    "tabs","contextMenus", "bookmarks", "http://*/*", "https://*/*"
+  ],
+  "background_page": "background.html",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery-1.7.1.min.js", "bookmarkthislink.js"],
+	  "run_at": "document_end"
+    }
+  ]
+}

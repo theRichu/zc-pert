@@ -1,0 +1,86 @@
+<html>
+<head>
+<link rel="stylesheet" href="jquery.treeview.css" />
+
+<script src="jquery-1.7.1.min.js"></script>
+<script src="jquery.treeview.js"></script>
+<style type="text/css">
+.selected_folder{
+	background-color:#09F;
+}
+</style>
+</head>
+
+<body>
+Name:<input id="link_name" name="link_name" type="text"/><br/>
+URL:<input id="link_url" name="link_url" type="text"/></br>
+<input id="selected_folder" name="selected_folder" type="hidden"/>
+<div id="link_folder" style="overflow:auto;width:330px;height:300px">
+</div>
+<input id="new_folder_btn" name="new_folder_btn" type="button" value="New Folder" />
+<input id="done_btn" name="done_btn" type="button" value="Done" /> 
+</body>
+</html>
+<script>
+	var bg = chrome.extension.getBackgroundPage();
+
+	$("#link_name").val(bg["link_text"]);
+	$("#link_url").val(bg["link_url"]);
+	$("#selected_folder").val(bg["recent_folder_id"]);
+	
+	$("#done_btn").live("click", function(){
+		chrome.bookmarks.create({"parentId":$("#selected_folder").val(),"title":$("#link_name").val(),"url":$("#link_url").val()});
+		chrome.windows.remove(bg["window_id"]);
+	});
+	
+	$("#new_folder_btn").live("click", function(){
+		//obtain the current selected folder
+		var selected_folder = $("#selected_folder").val();
+		//create the new node in the bookmark tree view
+		
+		//create the new folder in the bookmark
+	
+	});
+	
+	chrome.bookmarks.getTree(function(results){
+		console.log(results);
+		console.log(results[0].children);
+		var treeView = generateTreeView(results[0].children);
+		$("#link_folder").append(treeView);
+		
+		$("#link_folder").treeview({
+			toggle: function() {
+				console.log("%s was toggled.", $(this).find(">span").text());
+			}
+		});
+		
+		if(bg["recent_folder_id"]){
+			$('#id' + bg["recent_folder_id"]).addClass("selected_folder");
+		}
+		
+		$("#link_folder span").live("click", function(event){
+			$("#selected_folder").val(event.srcElement.id.substr(2));
+			$("#link_folder span").removeClass("selected_folder");
+			$(event.srcElement).addClass("selected_folder");
+			return false;
+		});
+
+	});
+	
+	function generateTreeView(treeData) {
+		var item = "";
+		if(treeData) {			
+			for(var i =0; i < treeData.length; i++) {
+				if( !treeData[i].url) {	
+					item += '<li><span id="id'+treeData[i].id+'">' + treeData[i].title + '</span>';
+					item += generateTreeView(treeData[i].children);	
+					item += '</li>';
+				}
+			}			
+		}
+		if(item.length > 0) {
+			item = '<ul>' + item + '</ul>';
+		}
+		return item;
+	}
+</script>
