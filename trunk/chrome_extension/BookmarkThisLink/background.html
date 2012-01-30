@@ -1,0 +1,29 @@
+<html>
+   <script>
+    chrome.contextMenus.create(
+		{"title":"Bookmark This Link","contexts":["link"], "onclick":function (info, tab){
+			var bg = chrome.extension.getBackgroundPage();
+			
+			chrome.bookmarks.getRecent(1, function(recent){
+				bg["recent_folder_id"] = recent[0].parentId;
+			});
+		   
+		   
+		   bg["link_url"] = info.linkUrl;
+		   
+		   chrome.windows.create({"url":chrome.extension.getURL("popup.html"),"width":366,"height":447,"type":"panel","focused":true},function(window) {
+				bg["window_id"] = window.id;
+		   });		   
+		   
+		   }
+		}
+	);  
+	
+	chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+		var bg = chrome.extension.getBackgroundPage();
+		bg["link_text"] = request.request;
+	});
+	
+	function sendResponse(){}
+   </script>
+</html>
