@@ -1,0 +1,54 @@
+{
+  "name": "Better Source Search",
+  "version": "2.0",
+  "description": "Better Source Search",
+  "manifest_version": 2,
+  "permissions": [
+    "tabs", "management", "http://xarch.us.oracle.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://xarch.us.oracle.com/*"],
+      "js": [
+            "syntaxhighlighter_scripts/shCore.js",
+            "syntaxhighlighter_scripts/shBrushAppleScript.js",
+            "syntaxhighlighter_scripts/shBrushAS3.js",
+            "syntaxhighlighter_scripts/shBrushBash.js",
+            "syntaxhighlighter_scripts/shBrushColdFusion.js",
+            "syntaxhighlighter_scripts/shBrushCpp.js",
+            "syntaxhighlighter_scripts/shBrushCSharp.js",
+            "syntaxhighlighter_scripts/shBrushCss.js",
+            "syntaxhighlighter_scripts/shBrushDelphi.js",
+            "syntaxhighlighter_scripts/shBrushDiff.js",
+            "syntaxhighlighter_scripts/shBrushErlang.js",
+            "syntaxhighlighter_scripts/shBrushGroovy.js",
+            "syntaxhighlighter_scripts/shBrushJava.js",
+            "syntaxhighlighter_scripts/shBrushJavaFX.js",
+            "syntaxhighlighter_scripts/shBrushJScript.js",
+            "syntaxhighlighter_scripts/shBrushPerl.js",
+            "syntaxhighlighter_scripts/shBrushPhp.js",
+            "syntaxhighlighter_scripts/shBrushPlain.js",
+            "syntaxhighlighter_scripts/shBrushPython.js",
+            "syntaxhighlighter_scripts/shBrushRuby.js",
+            "syntaxhighlighter_scripts/shBrushSass.js",
+            "syntaxhighlighter_scripts/shBrushScala.js",
+            "syntaxhighlighter_scripts/shBrushSql.js",
+            "syntaxhighlighter_scripts/shBrushVb.js",
+            "syntaxhighlighter_scripts/shBrushPlSql.js",
+            "syntaxhighlighter_scripts/shBrushXml.js",
+            "jquery-1.7.2.min.js",
+            "jquery-ui-1.8.22.custom.min.js",
+            "jquery-ui-combobox-autocomplete.js",
+            "ExpandSelect_1.00.js",
+            "better_source_search.js"
+            ],
+      "css":[
+             "syntaxhighlighter_styles/shCore.css",
+             "syntaxhighlighter_styles/shThemeDefault.css",
+             "jquery_ui/jquery-ui-1.8.22.custom.css"
+             ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}
