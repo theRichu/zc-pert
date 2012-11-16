@@ -1,7 +1,8 @@
 $(document).ready(function(){
-   SyntaxHighlighter.defaults['gutter'] = false;
-   SyntaxHighlighter.defaults['smart-tabs'] = false;toolbar
+   //SyntaxHighlighter.defaults['gutter'] = false;
+   SyntaxHighlighter.defaults['smart-tabs'] = false;
    SyntaxHighlighter.defaults['toolbar'] = false;
+   SyntaxHighlighter.defaults['quick-code'] = false;
    
    var url = window.location.href;
    var matches = url.match(/\.[a-zA-Z]{1,4}&content=1$/gi);
@@ -13,28 +14,24 @@ $(document).ready(function(){
    }
 
    if(ext != null) {
+      $("pre").html($("pre").html().replace(/^\s*\d*/gm, ""));
       $("pre").addClass("brush: " + ext);
-      SyntaxHighlighter.all();
+      SyntaxHighlighter.highlight();      
    }
    
    var selects = $("select");
    
-   
-   
-   
    for(var i=0; i< selects.length; i++) {
       var select = $(selects[i]);
-      ExpandSelect(select.innerHTML);
-      /*
+
       select.combobox();
-      $( "#toggle" ).click(function() {
+      $("#toggle").click(function() {
               select.toggle();
       });
-      */
    }
    
    
-   /*
+   
    var cmdArg = $("input[name='cmdArg']");
    
    if(cmdArg) {
@@ -64,5 +61,5 @@ $(document).ready(function(){
    if(Search) {
       Search.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
    }
-   */
+  
 });
