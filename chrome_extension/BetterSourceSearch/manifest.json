@@ -1,16 +1,26 @@
 {
   "name": "Better Source Search",
-  "version": "2.0",
+  "version": "2.0.2",
   "description": "Better Source Search",
   "manifest_version": 2,
   "permissions": [
     "tabs", "management", "http://xarch.us.oracle.com/*"
   ],
+  "web_accessible_resources": [
+    "jquery_ui/images/ui-bg_glass_100_fdf5ce_1x400.png",
+    "jquery_ui/images/ui-icons_ef8c08_256x240.png",
+    "jquery_ui/images/ui-bg_highlight-soft_100_eeeeee_1x100.png",
+    "jquery_ui/images/ui-bg_glass_100_f6f6f6_1x400.png"
+  ],
+  "icons": {"16": "icon_16x16.png",
+            "48": "icon_48x48.png",
+            "128": "icon_128x128.png"
+  },
   "content_scripts": [
     {
       "matches": ["http://xarch.us.oracle.com/*"],
       "js": [
-            "syntaxhighlighter_scripts/shCore.js",
+            "syntaxhighlighter_scripts/shCore.min.js",
             "syntaxhighlighter_scripts/shBrushAppleScript.js",
             "syntaxhighlighter_scripts/shBrushAS3.js",
             "syntaxhighlighter_scripts/shBrushBash.js",
@@ -38,8 +48,8 @@
             "syntaxhighlighter_scripts/shBrushXml.js",
             "jquery-1.7.2.min.js",
             "jquery-ui-1.8.22.custom.min.js",
-            "jquery-ui-combobox-autocomplete.js",
-            "better_source_search.js"
+            "jquery-ui-combobox-autocomplete.min.js",
+            "better-source-search.min.js"
             ],
       "css":[
              "syntaxhighlighter_styles/shCore.css",

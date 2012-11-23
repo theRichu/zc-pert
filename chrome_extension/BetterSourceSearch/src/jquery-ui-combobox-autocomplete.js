@@ -8,12 +8,16 @@
 					value = selected.val() ? selected.text() : "",
 					wrapper = this.wrapper = $( "<div>" )
 						.addClass( "ui-combobox" )
-						.insertAfter( select );
+						.insertAfter( select ),
+      //ht = select.height(),
+      wt = select.width();
 
 				input = $( "<input>" )
 					.appendTo( wrapper )
 					.val( value )
 					.addClass( "ui-combobox-input" )
+     //.height(ht)
+     .width(wt)
 					.autocomplete({
 						delay: 0,
 						minLength: 0,
@@ -39,6 +43,7 @@
 							self._trigger( "selected", event, {
 								item: ui.item.option
 							});
+       select.trigger("change"); 
 						},
 						change: function( event, ui ) {
 							if ( !ui.item ) {
@@ -68,13 +73,7 @@
 						.append( "<a>" + item.label + "</a>" )
 						.appendTo( ul );
 				};
-    /*
-    input.autoGrowInput({
-         comfortZone: 50,
-         minWidth: 200,
-         maxWidth: 2000       
-    });
-    */                                                         
+                                                      
 				$( "<a>" )
 					.attr( "tabIndex", -1 )
 					.attr( "title", "Show All Items" )
