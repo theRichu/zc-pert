@@ -46,15 +46,16 @@
             "syntaxhighlighter_scripts/shBrushVb.js",
             "syntaxhighlighter_scripts/shBrushPlSql.js",
             "syntaxhighlighter_scripts/shBrushXml.js",
-            "jquery-1.7.2.min.js",
-            "jquery-ui-1.8.22.custom.min.js",
+            "jquery-1.8.2.min.js",
+            "jquery-ui-1.9.1.custom.min.js",
             "jquery-ui-combobox-autocomplete.min.js",
-            "better-source-search.min.js"
+            "jquery.layout.min.js",
+            "src/better-source-search.js"
             ],
       "css":[
              "syntaxhighlighter_styles/shCore.css",
              "syntaxhighlighter_styles/shThemeDefault.css",
-             "jquery_ui/jquery-ui-1.8.22.custom.css"
+             "jquery_ui/jquery-ui-1.9.1.custom.css"
              ],
       "run_at": "document_start",
       "all_frames": true
