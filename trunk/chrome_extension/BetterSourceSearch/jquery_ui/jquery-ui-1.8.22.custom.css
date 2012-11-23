@@ -53,10 +53,10 @@
 
 /* Component containers
 ----------------------------------*/
-body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-serif; font-size: 12px; }
-.ui-widget { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-serif; font-size: 12px; }
-.ui-widget .ui-widget { font-size: 12px; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, Trebuchet MS, Tahoma, Verdana, sans-serif; font-size: 12px; }
+body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-serif; font-size: 13px; line-height: 24px;}
+.ui-widget { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-serif; font-size: 13px; }
+.ui-widget .ui-widget { font-size: 13px; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, Trebuchet MS, Tahoma, Verdana, sans-serif; font-size: 13px; }
 .ui-widget-content { border: 1px solid #dddddd; background: #eeeeee url('chrome-extension://__MSG_@@extension_id__/jquery_ui/images/ui-bg_highlight-soft_100_eeeeee_1x100.png') 50% top repeat-x; color: #333333; }
 .ui-widget-content a { color: #333333; }
 .ui-widget-header { border: 1px solid #e78f08; background: #f6a828 url('chrome-extension://__MSG_@@extension_id__/jquery_ui/images/ui-bg_gloss-wave_35_f6a828_500x100.png') 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
@@ -95,7 +95,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-state-active .ui-icon {background-image: url('chrome-extension://__MSG_@@extension_id__/jquery_ui/images/ui-icons_ef8c08_256x240.png'); }
 .ui-state-highlight .ui-icon {background-image: url('chrome-extension://__MSG_@@extension_id__/jquery_ui/images/ui-icons_228ef1_256x240.png'); }
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url('chrome-extension://__MSG_@@extension_id__/jquery_ui/images/ui-icons_ffd27a_256x240.png'); }
-
+.ui-widget-content{height: 26px;}
 /* positioning */
 .ui-icon-carat-1-n { background-position: 0 0; }
 .ui-icon-carat-1-ne { background-position: -16px 0; }
@@ -104,7 +104,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-carat-1-s { background-position: -64px 0; }
 .ui-icon-carat-1-sw { background-position: -80px 0; }
 .ui-icon-carat-1-w { background-position: -96px 0; }
-.ui-icon-carat-1-nw { background-position: -112px 0; }
+.ui-icon-carat-1-nw { background-position: -113px 0; }
 .ui-icon-carat-2-n-s { background-position: -128px 0; }
 .ui-icon-carat-2-e-w { background-position: -144px 0; }
 .ui-icon-triangle-1-n { background-position: 0 -16px; }
@@ -114,7 +114,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-triangle-1-s { background-position: -64px -16px; }
 .ui-icon-triangle-1-sw { background-position: -80px -16px; }
 .ui-icon-triangle-1-w { background-position: -96px -16px; }
-.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-1-nw { background-position: -113px -16px; }
 .ui-icon-triangle-2-n-s { background-position: -128px -16px; }
 .ui-icon-triangle-2-e-w { background-position: -144px -16px; }
 .ui-icon-arrow-1-n { background-position: 0 -32px; }
@@ -124,7 +124,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-arrow-1-s { background-position: -64px -32px; }
 .ui-icon-arrow-1-sw { background-position: -80px -32px; }
 .ui-icon-arrow-1-w { background-position: -96px -32px; }
-.ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.ui-icon-arrow-1-nw { background-position: -113px -32px; }
 .ui-icon-arrow-2-n-s { background-position: -128px -32px; }
 .ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
 .ui-icon-arrow-2-e-w { background-position: -160px -32px; }
@@ -140,7 +140,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-arrowthick-1-s { background-position: -64px -48px; }
 .ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
 .ui-icon-arrowthick-1-w { background-position: -96px -48px; }
-.ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.ui-icon-arrowthick-1-nw { background-position: -113px -48px; }
 .ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
 .ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
 .ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
@@ -156,7 +156,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
 .ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
 .ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
-.ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.ui-icon-arrowreturn-1-s { background-position: -113px -64px; }
 .ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
 .ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
 .ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
@@ -168,7 +168,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-refresh { background-position: -64px -80px; }
 .ui-icon-shuffle { background-position: -80px -80px; }
 .ui-icon-transfer-e-w { background-position: -96px -80px; }
-.ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.ui-icon-transferthick-e-w { background-position: -113px -80px; }
 .ui-icon-folder-collapsed { background-position: 0 -96px; }
 .ui-icon-folder-open { background-position: -16px -96px; }
 .ui-icon-document { background-position: -32px -96px; }
@@ -176,7 +176,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-note { background-position: -64px -96px; }
 .ui-icon-mail-closed { background-position: -80px -96px; }
 .ui-icon-mail-open { background-position: -96px -96px; }
-.ui-icon-suitcase { background-position: -112px -96px; }
+.ui-icon-suitcase { background-position: -113px -96px; }
 .ui-icon-comment { background-position: -128px -96px; }
 .ui-icon-person { background-position: -144px -96px; }
 .ui-icon-print { background-position: -160px -96px; }
@@ -185,22 +185,22 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-unlocked { background-position: -208px -96px; }
 .ui-icon-bookmark { background-position: -224px -96px; }
 .ui-icon-tag { background-position: -240px -96px; }
-.ui-icon-home { background-position: 0 -112px; }
-.ui-icon-flag { background-position: -16px -112px; }
-.ui-icon-calendar { background-position: -32px -112px; }
-.ui-icon-cart { background-position: -48px -112px; }
-.ui-icon-pencil { background-position: -64px -112px; }
-.ui-icon-clock { background-position: -80px -112px; }
-.ui-icon-disk { background-position: -96px -112px; }
-.ui-icon-calculator { background-position: -112px -112px; }
-.ui-icon-zoomin { background-position: -128px -112px; }
-.ui-icon-zoomout { background-position: -144px -112px; }
-.ui-icon-search { background-position: -160px -112px; }
-.ui-icon-wrench { background-position: -176px -112px; }
-.ui-icon-gear { background-position: -192px -112px; }
-.ui-icon-heart { background-position: -208px -112px; }
-.ui-icon-star { background-position: -224px -112px; }
-.ui-icon-link { background-position: -240px -112px; }
+.ui-icon-home { background-position: 0 -113px; }
+.ui-icon-flag { background-position: -16px -113px; }
+.ui-icon-calendar { background-position: -32px -113px; }
+.ui-icon-cart { background-position: -48px -113px; }
+.ui-icon-pencil { background-position: -64px -113px; }
+.ui-icon-clock { background-position: -80px -113px; }
+.ui-icon-disk { background-position: -96px -113px; }
+.ui-icon-calculator { background-position: -113px -113px; }
+.ui-icon-zoomin { background-position: -128px -113px; }
+.ui-icon-zoomout { background-position: -144px -113px; }
+.ui-icon-search { background-position: -160px -113px; }
+.ui-icon-wrench { background-position: -176px -113px; }
+.ui-icon-gear { background-position: -192px -113px; }
+.ui-icon-heart { background-position: -208px -113px; }
+.ui-icon-star { background-position: -224px -113px; }
+.ui-icon-link { background-position: -240px -113px; }
 .ui-icon-cancel { background-position: 0 -128px; }
 .ui-icon-plus { background-position: -16px -128px; }
 .ui-icon-plusthick { background-position: -32px -128px; }
@@ -208,7 +208,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-minusthick { background-position: -64px -128px; }
 .ui-icon-close { background-position: -80px -128px; }
 .ui-icon-closethick { background-position: -96px -128px; }
-.ui-icon-key { background-position: -112px -128px; }
+.ui-icon-key { background-position: -113px -128px; }
 .ui-icon-lightbulb { background-position: -128px -128px; }
 .ui-icon-scissors { background-position: -144px -128px; }
 .ui-icon-clipboard { background-position: -160px -128px; }
@@ -224,7 +224,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-check { background-position: -64px -144px; }
 .ui-icon-bullet { background-position: -80px -144px; }
 .ui-icon-radio-off { background-position: -96px -144px; }
-.ui-icon-radio-on { background-position: -112px -144px; }
+.ui-icon-radio-on { background-position: -113px -144px; }
 .ui-icon-pin-w { background-position: -128px -144px; }
 .ui-icon-pin-s { background-position: -144px -144px; }
 .ui-icon-play { background-position: 0 -160px; }
@@ -236,7 +236,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 /* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
 .ui-icon-seek-first { background-position: -80px -160px; }
 .ui-icon-stop { background-position: -96px -160px; }
-.ui-icon-eject { background-position: -112px -160px; }
+.ui-icon-eject { background-position: -113px -160px; }
 .ui-icon-volume-off { background-position: -128px -160px; }
 .ui-icon-volume-on { background-position: -144px -160px; }
 .ui-icon-power { background-position: 0 -176px; }
@@ -253,7 +253,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
 .ui-icon-circle-triangle-s { background-position: -64px -192px; }
 .ui-icon-circle-triangle-w { background-position: -80px -192px; }
 .ui-icon-circle-triangle-n { background-position: -96px -192px; }
-.ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.ui-icon-circle-arrow-e { background-position: -113px -192px; }
 .ui-icon-circle-arrow-s { background-position: -128px -192px; }
 .ui-icon-circle-arrow-w { background-position: -144px -192px; }
 .ui-icon-circle-arrow-n { background-position: -160px -192px; }
@@ -294,7 +294,7 @@ body, td, a, span { font-family: Arial, Trebuchet MS, Tahoma, Verdana,  sans-ser
  *
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
-.ui-autocomplete { position: absolute; cursor: default; }
+.ui-autocomplete { position: absolute; cursor: default; max-height: 200px; overflow-x: hidden; overflow-x: auto;}
 
 /* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
