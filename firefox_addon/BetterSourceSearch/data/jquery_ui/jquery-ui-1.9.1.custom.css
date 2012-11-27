@@ -581,11 +581,9 @@ td {
 	.ui-layout-pane { /* all 'panes' */ 
 		background: #FFF; 
 		border: 1px solid #BBB; 
-		padding: 0px; 
+		padding: 10px; 
 		overflow: auto;
 	}
- 
- 	
 
 	.ui-layout-resizer { /* all 'resizer-bars' */ 
 		background: #DDD; 
@@ -593,4 +591,10 @@ td {
 
 	.ui-layout-toggler { /* all 'toggler-buttons' */ 
 		background: #AAA; 
-	} 
+	}
+	
+a img{
+				width: 16px;
+				height: 16px;
+				vertical-align: baseline;
+	}
