@@ -12,23 +12,15 @@ $(document).ready(function(){
       for(var i=0; i < frames.length; i++){
          $.ajax({url:frames[i].src, async:false}).done(function(data) {
             var wrapper = $( "<div class='wrapper_div'>" );
-            //alert(data);
             var n=data.indexOf("<body>");
             var m=data.indexOf("</body>");
             wrapper.html(data.substring(n+6,m));
             wrapper.appendTo( $("body") )
          });
       }
-      
-      
-      
+
       $($('div.wrapper_div')[0]).addClass("ui-layout-north");
-      
-      
-      
       $($('div.wrapper_div')[1]).addClass("ui-layout-center");
-      
-      var layouter = $('body').layout();         
 
       var url = window.location.href;
       var matches = url.match(/\.[a-zA-Z]+$/gi);
@@ -40,40 +32,17 @@ $(document).ready(function(){
       }
 
       if(ext != null) {
-         //$("pre").html($("pre").html().replace(/^\s*\d*/gm, ""));
          $("pre").addClass("brush: " + ext);
          SyntaxHighlighter.highlight();
       }
 
    } else {
-      var nav = $($('table')[0]);
-      var navHomeY = nav.offset().top;
-      var isFixed = false;
-      var $w = $(window);
-      $w.scroll(function() {
-         var scrollTop = $w.scrollTop();
-         var shouldBeFixed = scrollTop > navHomeY;
-         if (shouldBeFixed && !isFixed) {
-            nav.css({
-               position: 'fixed',
-               top: 0,
-               left: nav.offset().left,
-               width: nav.width(),
-               'z-index': 1000,
-               background: '#FFFFFF',
-               'padding-top': navHomeY,
-               'padding-bottom': navHomeY
-            });
-            isFixed = true;
-         } else if (!shouldBeFixed && isFixed) {
-            nav.css({
-               position: 'static',
-               'padding-top': 0,
-               'padding-bottom': 0
-            });
-            isFixed = false;
-         }
-      });
+      var centerDiv = $('<div id="center_div" class="ui-layout-center">').prependTo($('form'));
+      var topDiv = $('<div id="top_div" class="ui-layout-north">').prependTo($('form'));
+      $($('table')[0]).appendTo(topDiv);
+      $($('table')[1]).appendTo(centerDiv);
+
+      $('a > img').attr('src','http://icons.iconarchive.com/icons/rade8/minium-2/16/Sidebar-Downloads-icon.png');
    }
 
    var selects = $("select");
@@ -111,5 +80,5 @@ $(document).ready(function(){
       Search.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
    }
 
-
+   var layouter = $('body').layout();  
 });
