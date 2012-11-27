@@ -33,7 +33,7 @@ pageMod.PageMod({
 		data.url("jquery-1.8.2.min.js"),
 		data.url("jquery-ui-1.9.1.custom.min.js"),
 		data.url("jquery-ui-combobox-autocomplete.min.js"),
-		data.url("jquery.layout.min.js"),
+		data.url("src/jquery.layout.js"),
 		data.url("src/better-source-search.js")
 	],
 	contentStyleFile: [
