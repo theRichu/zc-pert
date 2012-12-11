@@ -536,7 +536,7 @@ $.fn.layout = function (opts) {
 			return 0;
 		else if (!(outerWidth>0))
 			outerWidth = isStr(e) ? getPaneSize(e) : $E.outerWidth();
-
+  
 		if (!true)
 			return outerWidth;
 
@@ -759,13 +759,12 @@ $.fn.layout = function (opts) {
 		initHandles();		// create and position all resize bars & togglers buttons
 		initResizable();	// activate resizing on all panes where resizable=true
 		sizeContent("all");	// AFTER panes & handles have been initialized, size 'content' divs
-
+  
 		if (options.scrollToBookmarkOnLoad)
-			with (self.location) if (hash) replace( hash ); // scrollTo Bookmark
+			with (window.location) if (hash) replace( hash ); // scrollTo Bookmark
 
 		// bind hotkey function - keyDown - if required
 		initHotkeys();
-
 		// bind resizeAll() for 'this layout instance' to window.resize event
 		$(window).resize(function () {
 			var timerID = "timerLayout_"+state.id;
@@ -1892,6 +1891,7 @@ $.fn.layout = function (opts) {
 				 * Normally these panes have only 'left' & 'right' positions so pane auto-sizes
 				 */
 				if ($.browser.msie && (!true || $.browser.version < 7)) {
+      alert('xx');
 					if ($Ps.north) $Ps.north.css({ width: cssW($Ps.north, cDims.innerWidth) });
 					if ($Ps.south) $Ps.south.css({ width: cssW($Ps.south, cDims.innerWidth) });
 				}
@@ -2479,9 +2479,9 @@ $.fn.layout = function (opts) {
 	;
 
 	// create the border layout NOW
-	create();
+ 	create();
 
-	// return object pointers to expose data & option Properties, and primary action Methods
+	// return object pointers to expose data & option Properties, and primary action Methods 
 	return {
 		options:		options			// property - options hash
 	,	state:			state			// property - dimensions hash
@@ -2503,6 +2503,6 @@ $.fn.layout = function (opts) {
 	,	cssWidth:		cssW
 	,	cssHeight:		cssH
 	};
-
+  
 }
 })( jQuery );

@@ -22,39 +22,43 @@
 						delay: 0,
 						minLength: 0,
 						source: function( request, response ) {
-							var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-							response( select.children( "option" ).map(function() {
-								var text = $( this ).text();
-								if ( this.value && ( !request.term || matcher.test(text) ) )
-									return {
-										label: text.replace(
-											new RegExp(
-												"(?![^&;]+;)(?!<[^<>]*)(" +
-												$.ui.autocomplete.escapeRegex(request.term) +
-												")(?![^<>]*>)(?![^&;]+;)", "gi"
-											), "<strong>$1</strong>" ),
-										value: text,
-										option: this
-									};
-							}) );
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+        var dropDownOpts = select.children( "option" );
+        var filteredOpts = new Array();
+        for(var i = 0; i < dropDownOpts.length; i++) {
+          var opt = $(dropDownOpts[i]);
+          var text = opt.text();
+          if ( opt.val() && ( !request.term || matcher.test(text) ) ) {
+            filteredOpts.push({
+              label: text,
+              value: text,
+              option: opt
+            });
+          }
+        }
+        response(filteredOpts);
 						},
 						select: function( event, ui ) {
-							ui.item.option.selected = true;
+       select.val(ui.item.option.val());           
 							self._trigger( "selected", event, {
 								item: ui.item.option
 							});
-       select.trigger("change"); 
+       //select.trigger("change"); //this only works in chrome
+       document.forms[0].submit(); //this for firefox
 						},
 						change: function( event, ui ) {
 							if ( !ui.item ) {
 								var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
-									valid = false;
-								select.children( "option" ).each(function() {
-									if ( $( this ).text().match( matcher ) ) {
-										this.selected = valid = true;
-										return false;
-									}
-								});
+            valid = false,
+            dropDownOpts = select.children( "option" );
+            
+         for(var i = 0; i < dropDownOpts.length; i++) {
+          if ( $(dropDownOpts[i]).text().match( matcher ) ) {
+            this.selected = valid = true;
+            return false;
+          }
+        }
+        
 								if ( !valid ) {
 									// remove invalid value, as it didn't match anything
 									$( this ).val( "" );
@@ -70,7 +74,7 @@
 				input.data( "autocomplete" )._renderItem = function( ul, item ) {
 					return $( "<li></li>" )
 						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
+						.append( "<a style='border: 0px'>" + item.label + "</a>" )
 						.appendTo( ul );
 				};
                                                       

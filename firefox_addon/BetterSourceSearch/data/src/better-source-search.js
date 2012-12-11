@@ -43,6 +43,7 @@ $(document).ready(function(){
       $($('table')[1]).appendTo(centerDiv);
 
       $('a > img').attr('src','http://icons.iconarchive.com/icons/rade8/minium-2/16/Sidebar-Downloads-icon.png');
+      $('a > img').attr('height', '16px');
    }
 
    var selects = $("select");
@@ -79,6 +80,8 @@ $(document).ready(function(){
    if(Search) {
       Search.addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
    }
-
-   var layouter = $('body').layout();  
+   
+   $("input").css("border", "1px solid #dddddd");
+   
+   $('body').layout();
 });
