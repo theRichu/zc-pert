@@ -1,6 +1,7 @@
 var data = require("self").data;
 var pageMod = require("page-mod");
-pageMod.PageMod({   
+
+pageMod.PageMod({
 	include: "http://xarch.us.oracle.com/*",
 	contentScriptWhen: 'start',
 	contentScriptFile: [
@@ -33,8 +34,8 @@ pageMod.PageMod({
 		data.url("jquery-1.8.2.min.js"),
 		data.url("jquery-ui-1.9.1.custom.min.js"),
 		data.url("jquery-ui-combobox-autocomplete.min.js"),
-		data.url("src/jquery.layout.js"),
-		data.url("src/better-source-search.js")
+		data.url("jquery.layout.min.js"),
+		data.url("better-source-search.min.js")
 	],
 	contentStyleFile: [
 		data.url("syntaxhighlighter_styles/shCore.css"),
@@ -60,4 +61,4 @@ pageMod.PageMod({
 		".ui-widget-overlay { background: #666666 url('"+data.url("jquery_ui/images/ui-bg_diagonals-thick_20_666666_40x40.png")+"') 50% 50% repeat; }",
 		".ui-widget-shadow { background: #000000 url('"+data.url("jquery_ui/images/ui-bg_flat_10_000000_40x100.png")+"') 50% 50% repeat-x; }"
 	]
-}); 
+});
