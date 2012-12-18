@@ -92,7 +92,7 @@
 			{ regex: /--(.*)$/gm, 							css: 'comments' },			// one line comments
 			{ regex: SyntaxHighlighter.regexLib.multiLineCComments,			css: 'comments' },			// multiple lines comments
 			{ regex: SyntaxHighlighter.regexLib.multiLineDoubleQuotedString,	css: 'string' },			// double quoted strings
-			{ regex: SyntaxHighlighter.regexLib.multiLineSingleQuotedString,	css: 'string' },			// single quoted strings
+			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,	css: 'string' },			// single quoted strings
 			{ regex: new RegExp(this.getKeywords(funcs), 'gmi'),			css: 'color2' },			// functions
 			{ regex: new RegExp(this.getKeywords(operators), 'gmi'),		css: 'color1' },			// operators and such
 			{ regex: new RegExp(this.getKeywords(keywords), 'gmi'),			css: 'keyword' }			// keyword
